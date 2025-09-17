@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://04e17710ulqm"]
+
+[ext_resource type="Texture2D" uid="uid://cw7pylw84ucja" path="res://Free Assets/64x64/fc820.png" id="1_l8rmd"]
+[ext_resource type="Script" uid="uid://edmkgms3a47f" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Debuffs/Frostbite.cs" id="2_v26cb"]
+
+[resource]
+script = ExtResource("2_v26cb")
+InflictedDebuff = 0
+DebuffDamage = 7.0
+Sprite = ExtResource("1_l8rmd")
+Name = "Frostbitten"
+Description = "The target's movement is reduced, and will take continous Ice damage every time it tries to move or attack, be it physical or magical in nature, until the duration ends."
+Duration = 2.0
+IsStackable = false

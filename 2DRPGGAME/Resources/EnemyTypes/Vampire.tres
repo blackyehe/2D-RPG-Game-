@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://byjs2r0kmu7ed"]
+
+[ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_bvah2"]
+
+[resource]
+script = ExtResource("1_bvah2")
+BaseHP = 10.0
+BaseMP = 10.0
+BaseAttack = 15.0
+BaseDefense = 7.0
+BaseStrength = 10.0
+BaseAgility = 18.0
+BaseCharisma = 10.0
+BaseMagicPower = 10.0
+BaseLuck = 2.0
+BaseSpeed = 8.0
+remainingCost = Dictionary[int, int]({
+0: 0,
+1: 0,
+2: 0
+})
+ActionCount = 1
+BonusActionCount = 1
+XP = 0.0
+Level = 3
+RewardXP = 200.0
+TileMovementCount = 0
+LightAttackAnimDuration = 1.8
+HeavyAttackAnimDuration = 0.0
+RangedShotAnimDuration = 0.0
+XPThresholds = Array[float]([])

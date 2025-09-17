@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dtjcfcdm6o8ga"]
+
+[ext_resource type="Texture2D" uid="uid://1lfglabsogy7" path="res://Resources/WeaponTextures/Sword2.tres" id="1_t5af2"]
+[ext_resource type="Script" uid="uid://cj3rh2uiqaupb" path="res://Scripts/Items/Item.cs" id="2_etfy3"]
+
+[resource]
+script = ExtResource("2_etfy3")
+ItemType = 0
+ItemRarity = 5
+ItemName = "Red Sword"
+Texture = ExtResource("1_t5af2")
+ItemDescription = "Red"
+IsItemStackable = false
+ItemQuantity = 1

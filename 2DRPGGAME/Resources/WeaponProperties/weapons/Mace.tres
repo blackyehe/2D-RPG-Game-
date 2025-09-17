@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://3jva2oc7p7ei"]
+
+[ext_resource type="Texture2D" uid="uid://cegic3di4cnla" path="res://Free Assets/64x64/fc1484.png" id="1_irftd"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_eap6g"]
+
+[resource]
+script = ExtResource("2_eap6g")
+Sprite = ExtResource("1_irftd")
+Text = "Longbow"

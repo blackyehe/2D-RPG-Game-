@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://di6pkbmm08je2"]
+
+[ext_resource type="Texture2D" uid="uid://bh26getowuppv" path="res://Free Assets/64x64/fc1089.png" id="1_qnq25"]
+[ext_resource type="Script" uid="uid://dm7mgvydmvoe0" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Debuffs/Frozen.cs" id="2_vrrmp"]
+
+[resource]
+script = ExtResource("2_vrrmp")
+InflictedDebuff = 3
+DebuffDamage = 20.0
+Sprite = ExtResource("1_qnq25")
+Name = "Frozen"
+Description = "The target is encased in ice and is rendered incapable of executing his turn. If the target is dealt damage to, the ice shatters, and the target takes extra Ice damage and ends the condition before the duration's end."
+Duration = 1.0
+IsStackable = false

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dvrw7lq0dkswq"]
+
+[ext_resource type="Texture2D" uid="uid://bi2e41ms5ir22" path="res://Free Assets/64x64/fc1063.png" id="1_o52xp"]
+[ext_resource type="Script" uid="uid://calt23b5jyx81" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Debuffs/Bleed.cs" id="2_mp5p3"]
+
+[resource]
+script = ExtResource("2_mp5p3")
+InflictedDebuff = 4
+DebuffDamage = 5.0
+Sprite = ExtResource("1_o52xp")
+Name = "Bleed"
+Description = "The target bleeds profusely, taking damage each turn until the wounds clot."
+Duration = 2.0
+IsStackable = true

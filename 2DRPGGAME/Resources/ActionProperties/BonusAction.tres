@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dj0fpp621vg08"]
+
+[ext_resource type="Texture2D" uid="uid://cbar5bvabqnnt" path="res://Free Assets/64x64/ActionSprite.png" id="1_afb5v"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_b541l"]
+
+[resource]
+script = ExtResource("2_b541l")
+Sprite = ExtResource("1_afb5v")
+Text = "Action"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cf3g1cqp25hc3"]
+
+[ext_resource type="Texture2D" uid="uid://bk5bw0u3re7bf" path="res://Free Assets/64x64/fc809.png" id="1_svfoq"]
+[ext_resource type="Script" uid="uid://chinrpwbe1ej7" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Debuffs/Poison.cs" id="2_v28gg"]
+
+[resource]
+script = ExtResource("2_v28gg")
+InflictedDebuff = 1
+DebuffDamage = 5.0
+Sprite = ExtResource("1_svfoq")
+Name = "Posion"
+Description = "The target suffers as poison corrodes them from within, draining vitality over time."
+Duration = 2.0
+IsStackable = true

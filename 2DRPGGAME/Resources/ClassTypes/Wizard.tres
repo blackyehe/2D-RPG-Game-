@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dnqgh0e75xpdt"]
+
+[ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_ua2ey"]
+
+[resource]
+script = ExtResource("1_ua2ey")
+CharacterName = "HugoBoss"
+Class = 1
+BaseHP = 8.0
+BaseMP = 10.0
+BaseAttack = 3.0
+BaseDefense = 8.0
+BaseStrength = 10.0
+BaseAgility = 14.0
+BaseCharisma = 12.0
+BaseMagicPower = 10.0
+BaseLuck = 10.0
+BaseSpeed = 10.0
+remainingCost = null
+ActionCount = 0
+BonusActionCount = 0
+XP = 0.0
+Level = 0
+RewardXP = 0.0
+TileMovementCount = 0
+LightAttackAnimDuration = 0.0
+HeavyAttackAnimDuration = 0.0
+RangedShotAnimDuration = 0.0
+XPThresholds = null

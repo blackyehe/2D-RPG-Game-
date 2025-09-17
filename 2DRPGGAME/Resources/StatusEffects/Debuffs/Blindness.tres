@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b26rnm66lgpm3"]
+
+[ext_resource type="Texture2D" uid="uid://brucrx3tdfnb0" path="res://Free Assets/Blindness.png" id="1_53qa1"]
+[ext_resource type="Script" uid="uid://chinrpwbe1ej7" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Debuffs/Poison.cs" id="2_bms4o"]
+
+[resource]
+script = ExtResource("2_bms4o")
+InflictedDebuff = 5
+DebuffDamage = 0.0
+Sprite = ExtResource("1_53qa1")
+Name = "Blindness"
+Description = "The target's eyes begins to cloud, reducing the target capabilities of acting from farther away for as long as the duration lasts."
+Duration = 1.0
+IsStackable = false

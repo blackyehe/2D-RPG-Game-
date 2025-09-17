@@ -1,0 +1,452 @@
+[gd_scene load_steps=18 format=3 uid="uid://bhkh2l6eqgumh"]
+
+[ext_resource type="Texture2D" uid="uid://cmmp0fuk2b51h" path="res://Free Assets/64x64/fc1201.png" id="1_2mqvy"]
+[ext_resource type="Script" uid="uid://b0p87yxrp8euj" path="res://Scripts/UI/DescriptionPanelUI.cs" id="1_jmwyt"]
+[ext_resource type="Texture2D" uid="uid://dfm60airlot5j" path="res://Free Assets/64x64/fc1064.png" id="2_jmwyt"]
+[ext_resource type="Texture2D" uid="uid://bcfhiqvbwrcwf" path="res://Free Assets/64x64/fc1088.png" id="3_25rox"]
+[ext_resource type="Texture2D" uid="uid://bbhna8usc8bm" path="res://Free Assets/Button_Disable.png" id="5_4pxei"]
+[ext_resource type="Texture2D" uid="uid://bh26getowuppv" path="res://Free Assets/64x64/fc1089.png" id="5_lsjd1"]
+[ext_resource type="Texture2D" uid="uid://bq1pii8ay7t2f" path="res://Free Assets/64x64/fc1098.png" id="6_4pxei"]
+[ext_resource type="Texture2D" uid="uid://dk67hrqudwbli" path="res://Free Assets/64x64/fc1077.png" id="7_jfoaa"]
+[ext_resource type="Texture2D" uid="uid://be70yo0gman1x" path="res://Free Assets/64x64/fc1153.png" id="8_wekbc"]
+[ext_resource type="Texture2D" uid="uid://4e5i0lnbguur" path="res://Free Assets/64x64/fc1789.png" id="9_i6o4a"]
+[ext_resource type="Texture2D" uid="uid://b1aqasvu2l74r" path="res://Free Assets/64x64/fc721.png" id="10_s3ikp"]
+[ext_resource type="Texture2D" uid="uid://cw8tbne3htosa" path="res://Free Assets/64x64/fc839.png" id="11_fw1y2"]
+[ext_resource type="Texture2D" uid="uid://dq4shthhg8hct" path="res://Free Assets/64x64/fc671.png" id="11_sfdvu"]
+[ext_resource type="Texture2D" uid="uid://csn2n1iukqv61" path="res://Free Assets/64x64/fc669.png" id="12_gkpii"]
+[ext_resource type="Texture2D" uid="uid://b7txyaxhxdooi" path="res://Free Assets/64x64/fc804.png" id="12_lsjd1"]
+[ext_resource type="Texture2D" uid="uid://0o5kwpxp1pyf" path="res://Free Assets/64x64/fc2118.png" id="16_lsjd1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_js5w8"]
+bg_color = Color(0.717457, 0.415556, 0.34973, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.455578, 0.192229, 0.0508752, 0.937255)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="DescriptionPanel" type="VBoxContainer" node_paths=PackedStringArray("DescriptionPanel")]
+custom_minimum_size = Vector2(333, 0)
+offset_left = 1140.0
+offset_top = 228.0
+offset_right = 1483.0
+offset_bottom = 713.0
+script = ExtResource("1_jmwyt")
+DescriptionPanel = {
+0: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/Sprite"),
+1: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/Name"),
+2: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/TypeAndRarity"),
+3: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/Damage"),
+4: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/DamageDistribution"),
+5: NodePath("DescriptionPanel/MarginContainer/BoxContainer/SkillDescription/SkillDescription"),
+6: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/EffectSprite"),
+7: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/ItemEffect"),
+8: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/EffectSprite2"),
+9: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/ItemEffect2"),
+10: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillSprite"),
+11: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillDescription"),
+12: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffSprite"),
+13: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffDuration"),
+14: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeSprite"),
+15: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeLabel"),
+16: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeSprite"),
+17: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeLabel"),
+18: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOESprite"),
+19: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOELabel"),
+20: NodePath("DescriptionPanel/MarginContainer/BoxContainer/FlavourDescription/FlavourText"),
+21: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemSilhouetteSprite"),
+22: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemType"),
+23: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/property2Sprite"),
+24: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
+25: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
+26: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
+27: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/CostActionSprite"),
+28: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/ActionLabel"),
+29: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionSprite"),
+30: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
+31: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaSprite"),
+32: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaLabel"),
+33: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/Pricesprite"),
+34: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
+}
+
+[node name="DescriptionPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_js5w8")
+
+[node name="MarginContainer" type="MarginContainer" parent="DescriptionPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BoxContainer" type="BoxContainer" parent="DescriptionPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+vertical = true
+
+[node name="NameTypeDamage" type="VBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage"]
+layout_mode = 2
+
+[node name="NameAndTypeVBOXContaner" type="VBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Name" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "God's Godly GodKiller Godshot, god.."
+fit_content = true
+
+[node name="TypeAndRarity" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Exclusive weapon attack"
+fit_content = true
+
+[node name="DamageVBOX" type="VBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="Damage" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "22 Damage"
+fit_content = true
+autowrap_mode = 2
+
+[node name="DamageDistribution" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "	/t14 Slashing
+	/t8 Fire"
+fit_content = true
+tab_size = 16
+
+[node name="Sprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer"]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_2mqvy")
+
+[node name="SkillDescription" type="VBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="SkillDescription" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/SkillDescription"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Make a ranged attack with your equipped weapon, or don't i'm not gonna force you to do that, why would i do such a thing? You think I'm a monster aren't you? Well guess what I'm not >:( Touch some grass, eat some milk and drink my piss and die, thanks, also KURVA ANYÁD KEVIN."
+fit_content = true
+autowrap_mode = 2
+
+[node name="ItemEffectsConatiner" type="VBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ItemEffect" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner"]
+layout_mode = 2
+
+[node name="EffectSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_jmwyt")
+expand_mode = 1
+
+[node name="ItemEffect" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "This is the item's effect description, this is a very good item yes very oood item, loot goblin japanese goblin very goblin."
+fit_content = true
+
+[node name="ItemEffect2" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner"]
+layout_mode = 2
+
+[node name="EffectSprite2" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("3_25rox")
+expand_mode = 1
+
+[node name="ItemEffect2" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "This is another item effect in the item effect's description, very cool use it maybe? >:("
+fit_content = true
+
+[node name="ItemSkill" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ItemSkillSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("5_4pxei")
+expand_mode = 2
+
+[node name="ItemSkillDescription" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 6
+text = "Skill name if the item gives a skill
+TypeAndRarity (Lvl 1 Fire Spell FOREG)"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Debuff" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_stretch_ratio = 0.99
+
+[node name="DebuffSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/Debuff"]
+layout_mode = 2
+texture = ExtResource("5_lsjd1")
+expand_mode = 2
+
+[node name="DebuffDuration" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/Debuff"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "2  Turns
+Frozen: No clue why frozen tho."
+fit_content = true
+autowrap_mode = 0
+
+[node name="AttackRangeAndType" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 17
+
+[node name="ActionType" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ActionTypeSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("6_4pxei")
+expand_mode = 2
+
+[node name="ActionTypeLabel" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Ranged Attack"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Range" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ActionRangeSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("7_jfoaa")
+expand_mode = 2
+
+[node name="ActionRangeLabel" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Skill range : 8"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="STorAOE" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="STorAOESprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE"]
+layout_mode = 2
+texture = ExtResource("8_wekbc")
+expand_mode = 2
+
+[node name="STorAOELabel" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Single Target"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="FlavourDescription" type="VBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="FlavourText" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/FlavourDescription"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "\"Idk szinező szöveg képzelj ide valami szépet valami profound-ot, valami.. jót idk nem vagyok író nem értek én ilyesfajta dolgokhoz bro\""
+fit_content = true
+
+[node name="ItemProperty" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="ItemProperty" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ItemSilhouetteSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("9_i6o4a")
+expand_mode = 2
+
+[node name="ItemType" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Longbow"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ItemProperty2" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty"]
+layout_mode = 2
+
+[node name="property2Sprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("11_fw1y2")
+expand_mode = 2
+
+[node name="Property2Label" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Finesse"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ItemProperty3" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty"]
+layout_mode = 2
+
+[node name="Property3Sprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("12_lsjd1")
+expand_mode = 2
+
+[node name="Property3Label" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Versatile"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ActionCosts" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="Action" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CostActionSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("10_s3ikp")
+expand_mode = 2
+
+[node name="ActionLabel" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Action
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="BonusAction" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BonusActionSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("11_sfdvu")
+expand_mode = 2
+flip_h = true
+flip_v = true
+
+[node name="BonusActionLabel" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "Bonus action
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Mana" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ManaSprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana"]
+layout_mode = 2
+texture = ExtResource("12_gkpii")
+expand_mode = 2
+
+[node name="ManaLabel" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "20 Mana
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ItemPrice" type="HBoxContainer" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Pricesprite" type="TextureRect" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice"]
+layout_mode = 2
+texture = ExtResource("16_lsjd1")
+expand_mode = 2
+
+[node name="PriceLabel" type="RichTextLabel" parent="DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 9
+text = "300G
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1

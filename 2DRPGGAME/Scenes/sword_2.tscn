@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1bvbyb2yvpdj"]
+
+[ext_resource type="Texture2D" uid="uid://1tacsj80c7i4" path="res://Resources/WeaponTextures/Sword.tres" id="1_a1l6b"]
+[ext_resource type="Script" uid="uid://blscqaf4f6hwg" path="res://Scripts/Items/Weapons/Sword1.cs" id="1_xpymt"]
+[ext_resource type="Resource" uid="uid://c1r2wd53xe2p4" path="res://Resources/Weaponresources/Melee/kae2.tres" id="2_xpymt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2epmd"]
+radius = 26.0
+
+[node name="Sword2" type="Node2D" node_paths=PackedStringArray("area2D", "collisionShape2D")]
+script = ExtResource("1_xpymt")
+area2D = NodePath("Area2D")
+collisionShape2D = NodePath("Area2D/CollisionShape2D")
+ItemResource = ExtResource("2_xpymt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_a1l6b")
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(22, 22)
+shape = SubResource("CircleShape2D_2epmd")

@@ -1,0 +1,161 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcvbhrn15qmeu"]
+
+[ext_resource type="Script" uid="uid://btp8p2ctlytm7" path="res://Scripts/UI/LevelUpUI.cs" id="1_5fr50"]
+[ext_resource type="Texture2D" uid="uid://bgpfcuuuinnc2" path="res://Free Assets/7.png" id="1_cy7y2"]
+[ext_resource type="PackedScene" uid="uid://desvf6csg601u" path="res://Scenes/Slot.tscn" id="2_3tkv0"]
+[ext_resource type="Texture2D" uid="uid://dektfftb8u0to" path="res://Free Assets/craftőox-net/4 GUI/3 Icons/Icon_23.png" id="3_5fr50"]
+[ext_resource type="Texture2D" uid="uid://dp8nrdwrmq14y" path="res://Free Assets/craftőox-net/4 GUI/3 Icons/Icon_48.png" id="5_rnqn3"]
+
+[node name="LevelUpUI" type="Control" node_paths=PackedStringArray("levelUpPanel", "GainedStatsLabel", "SelectedSkillSlot", "SelectableSkillsContainer", "SelectableSkillPanel", "SelectOKButton", "LevelUPConfirmButton", "canvasLayer", "LevelUpButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -25.0
+offset_right = 5.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5fr50")
+levelUpPanel = NodePath("CanvasLayer/Panel")
+GainedStatsLabel = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/GainTexture/GainedStats")
+SelectedSkillSlot = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/SelectableSKills/SelectedSkillSlot")
+SelectableSkillsContainer = NodePath("CanvasLayer/Panel/SelectableSkillsPanel/SkillContainer")
+SelectableSkillPanel = NodePath("CanvasLayer/Panel/SelectableSkillsPanel")
+SelectOKButton = NodePath("CanvasLayer/Panel/SelectableSkillsPanel/OkBUTTOn")
+LevelUPConfirmButton = NodePath("CanvasLayer/Panel/LVLUPconfirm")
+canvasLayer = NodePath("CanvasLayer")
+LevelUpButton = NodePath("CanvasLayer/LVLUP")
+slotScene = ExtResource("2_3tkv0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LVLUP" type="Button" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_top = -164.0
+offset_right = 107.0
+offset_bottom = -133.0
+grow_vertical = 0
+scale = Vector2(4, 4)
+text = "LEVEL UP"
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -361.0
+offset_right = 320.0
+offset_bottom = 361.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_right = 641.0
+offset_bottom = 948.0
+
+[node name="BoxContainer" type="BoxContainer" parent="CanvasLayer/Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+vertical = true
+
+[node name="LevelUp" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_cy7y2")
+
+[node name="LevelUpLabel" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/LevelUp"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 42.0
+offset_right = 389.0
+offset_bottom = 139.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "LEVEL UP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GainTexture" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_cy7y2")
+expand_mode = 1
+
+[node name="Explaintext" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/GainTexture"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 42.0
+offset_right = 389.0
+offset_bottom = 72.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Gained the following:"
+horizontal_alignment = 1
+
+[node name="GainedStats" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/GainTexture"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 69.0
+offset_right = 383.0
+offset_bottom = 142.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="SelectableSKills" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_cy7y2")
+expand_mode = 1
+
+[node name="SelectedSkillSlot" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/SelectableSKills" instance=ExtResource("2_3tkv0")]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 58.0
+offset_right = 234.0
+offset_bottom = 122.0
+
+[node name="LVLUPconfirm" type="Button" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 286.0
+offset_top = 635.0
+offset_right = 375.0
+offset_bottom = 699.0
+icon = ExtResource("5_rnqn3")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SelectableSkillsPanel" type="Panel" parent="CanvasLayer/Panel"]
+layout_mode = 0
+offset_left = 668.0
+offset_top = 449.0
+offset_right = 1099.0
+offset_bottom = 569.0
+
+[node name="SkillContainer" type="GridContainer" parent="CanvasLayer/Panel/SelectableSkillsPanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 431.0
+offset_bottom = 119.0
+columns = 8
+
+[node name="OkBUTTOn" type="Button" parent="CanvasLayer/Panel/SelectableSkillsPanel"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 119.0
+offset_right = 247.0
+offset_bottom = 205.0
+icon = ExtResource("3_5fr50")
+icon_alignment = 1
+expand_icon = true

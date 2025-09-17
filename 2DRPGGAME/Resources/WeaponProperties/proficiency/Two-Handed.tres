@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://g0vt7ha2vsoy"]
+
+[ext_resource type="Texture2D" uid="uid://bxf3t0totenkf" path="res://Free Assets/64x64/VerstaileAndTwoHanded-export.png" id="1_eyhs7"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_rmdsk"]
+
+[resource]
+script = ExtResource("2_rmdsk")
+Sprite = ExtResource("1_eyhs7")
+Text = "Two-Handed"

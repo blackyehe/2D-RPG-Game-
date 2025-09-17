@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://hsl8gne3qv73"]
+
+[ext_resource type="Texture2D" uid="uid://1lfglabsogy7" path="res://Resources/WeaponTextures/Sword2.tres" id="1_pbe7s"]
+[ext_resource type="Script" uid="uid://blscqaf4f6hwg" path="res://Scripts/Items/Weapons/Sword1.cs" id="1_wysj4"]
+[ext_resource type="Resource" uid="uid://b3fu3uanyww36" path="res://Resources/Weaponresources/Melee/WeaponResource.tres" id="2_mbmi4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbe7s"]
+size = Vector2(63, 57)
+
+[node name="Sword1" type="Node2D" node_paths=PackedStringArray("area2D", "collisionShape2D")]
+script = ExtResource("1_wysj4")
+area2D = NodePath("Area2D")
+collisionShape2D = NodePath("Area2D/CollisionShape2D")
+ItemResource = ExtResource("2_mbmi4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_pbe7s")
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(22.5, 23.5)
+shape = SubResource("RectangleShape2D_pbe7s")

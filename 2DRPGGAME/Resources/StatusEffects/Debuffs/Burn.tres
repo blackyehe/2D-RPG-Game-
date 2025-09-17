@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://35vgb24gexqb"]
+
+[ext_resource type="Texture2D" uid="uid://gugeeiilh6vs" path="res://Free Assets/64x64/fc1080.png" id="1_mvpav"]
+[ext_resource type="Script" uid="uid://m4d60p7h8lsa" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Debuffs/Burn.cs" id="2_x1iq7"]
+
+[resource]
+script = ExtResource("2_x1iq7")
+InflictedDebuff = 2
+DebuffDamage = 0.0
+Sprite = ExtResource("1_mvpav")
+Name = "Burning"
+Description = "The target suffers as fire consumes them, reducing the target's defense and taking continous Fire damage until the duration ends."
+Duration = 0.0

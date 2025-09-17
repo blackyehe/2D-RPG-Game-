@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bac2180o0iglp"]
+
+[ext_resource type="Texture2D" uid="uid://csn2n1iukqv61" path="res://Free Assets/64x64/fc669.png" id="1_46x7q"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_8802u"]
+
+[resource]
+script = ExtResource("2_8802u")
+Sprite = ExtResource("1_46x7q")
+Text = "Mana"

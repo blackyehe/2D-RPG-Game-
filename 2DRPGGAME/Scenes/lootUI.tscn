@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dabe03qajurql"]
+
+[ext_resource type="Texture2D" uid="uid://dis2oh83bhyhy" path="res://Free Assets/Banner_Horizontal.png" id="2_oeer5"]
+
+[node name="LootInventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 552.0
+offset_top = 173.0
+offset_right = 1256.0
+offset_bottom = 691.0
+texture = ExtResource("2_oeer5")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/TextureRect"]
+layout_mode = 0
+offset_left = 202.0
+offset_top = 154.0
+offset_right = 508.0
+offset_bottom = 373.0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/TextureRect/ScrollContainer"]
+layout_mode = 2

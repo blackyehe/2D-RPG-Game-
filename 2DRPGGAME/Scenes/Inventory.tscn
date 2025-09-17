@@ -1,0 +1,657 @@
+[gd_scene load_steps=10 format=3 uid="uid://c5paaccna1v5"]
+
+[ext_resource type="Script" uid="uid://dgx1423s73ds" path="res://Scripts/Inventory/InventoryUI.cs" id="1_4v8qb"]
+[ext_resource type="PackedScene" uid="uid://desvf6csg601u" path="res://Scenes/Slot.tscn" id="2_1pi3o"]
+[ext_resource type="PackedScene" uid="uid://bhkh2l6eqgumh" path="res://Scenes/description_panel.tscn" id="3_fih0l"]
+[ext_resource type="Texture2D" uid="uid://d1i8wkxk37rtc" path="res://Free Assets/sajat assetek/MergedWholeInventoryNoInventoryt.png" id="4_yeyjc"]
+[ext_resource type="Texture2D" uid="uid://cjruouc2hbmgj" path="res://Free Assets/Banner_Connection_Up.png" id="5_4ne0y"]
+[ext_resource type="Texture2D" uid="uid://fc0o4xu1fvv7" path="res://Free Assets/Button_Disable_9Slides.png" id="6_yeyjc"]
+[ext_resource type="Texture2D" uid="uid://dis2oh83bhyhy" path="res://Free Assets/Banner_Horizontal.png" id="7_4ne0y"]
+[ext_resource type="Texture2D" uid="uid://do1e4qsv2qj4y" path="res://Free Assets/Button_Disable_3Slides.png" id="7_fih0l"]
+[ext_resource type="Script" uid="uid://bauxo05ae6g3l" path="res://Scripts/UI/LootUI.cs" id="8_yeyjc"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("canvasLayer", "gridContainer", "descriptionPanel", "detailsPanel", "detailsLabel", "usagePanel", "useButton", "dropButton", "inventoryPanel", "wholeInventory", "equipSlots", "equippedItemPanel", "unequipButton", "compareButton", "InventoryStats", "PlayerNameText", "LevelClassText")]
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 238.0
+offset_top = 105.0
+offset_right = 1729.0
+offset_bottom = 978.0
+size_flags_horizontal = 8
+script = ExtResource("1_4v8qb")
+canvasLayer = NodePath("CanvasLayer")
+gridContainer = NodePath("CanvasLayer/PlayerInventory/GridContainer")
+SlotScene = ExtResource("2_1pi3o")
+descriptionPanel = NodePath("CanvasLayer/DescriptionPanel")
+detailsPanel = NodePath("CanvasLayer/DetailsPanel")
+detailsLabel = NodePath("CanvasLayer/DetailsPanel/MarginContainer/DetailsLabel")
+usagePanel = NodePath("CanvasLayer/UsagePanel")
+useButton = NodePath("CanvasLayer/UsagePanel/TextureRect/HBoxContainer/UseButton")
+dropButton = NodePath("CanvasLayer/UsagePanel/Drop/HBoxContainer/DropButton")
+inventoryPanel = NodePath("CanvasLayer/PlayerInventory")
+wholeInventory = NodePath("CanvasLayer/WholeInventory")
+equipSlots = [NodePath("CanvasLayer/WholeInventory/MainHand"), NodePath("CanvasLayer/WholeInventory/Boots"), NodePath("CanvasLayer/WholeInventory/Trinket 1"), NodePath("CanvasLayer/WholeInventory/Ring2"), NodePath("CanvasLayer/WholeInventory/Cloak"), NodePath("CanvasLayer/WholeInventory/Gloves"), NodePath("CanvasLayer/WholeInventory/Helmet"), NodePath("CanvasLayer/WholeInventory/Ring1"), NodePath("CanvasLayer/WholeInventory/Breastplate"), NodePath("CanvasLayer/WholeInventory/Ranged2"), NodePath("CanvasLayer/WholeInventory/Ranged1"), NodePath("CanvasLayer/WholeInventory/Trinket2"), NodePath("CanvasLayer/WholeInventory/OffHand")]
+equippedItemPanel = NodePath("CanvasLayer/EquippedItempanel")
+unequipButton = NodePath("CanvasLayer/EquippedItempanel/TextureRect/HBoxContainer/UnequipButton")
+compareButton = NodePath("CanvasLayer/EquippedItempanel/Compare/HBoxContainer/CompareButton")
+InventoryStats = {
+0: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Vitality"),
+1: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Defense"),
+2: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Mana"),
+3: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/MagicPower"),
+4: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Agility"),
+5: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/MovementCount"),
+6: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Strength"),
+7: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/CurrentAttackPower"),
+8: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Luck"),
+9: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Charisma"),
+10: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/CurrentXP")
+}
+PlayerNameText = NodePath("CanvasLayer/WholeInventory/Character name")
+LevelClassText = NodePath("CanvasLayer/WholeInventory/LevelClass")
+
+[node name="LootUI" type="Node" parent="." node_paths=PackedStringArray("enemyLootPanel", "playerInventory", "canvasLayer", "gridContainer", "usagePanel", "detailsPanel", "timer", "detailsLabel", "lootAllButton")]
+script = ExtResource("8_yeyjc")
+enemyLootPanel = NodePath("../CanvasLayer/EnemyLootPanel")
+playerInventory = NodePath("../CanvasLayer/PlayerInventory")
+canvasLayer = NodePath("../CanvasLayer")
+gridContainer = NodePath("../CanvasLayer/EnemyLootPanel/ScrollContainer/GridContainer")
+usagePanel = NodePath("../CanvasLayer/UsagePanel")
+detailsPanel = NodePath("../CanvasLayer/DetailsPanel")
+slotScene = ExtResource("2_1pi3o")
+timer = NodePath("../Timer")
+detailsLabel = NodePath("../CanvasLayer/DetailsPanel/MarginContainer/DetailsLabel")
+lootAllButton = NodePath("../CanvasLayer/EnemyLootPanel/TextureRect/LootAllButton")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(1.4, 1.4)
+transform = Transform2D(1.4, 0, 0, 1.4, 0, 0)
+
+[node name="WholeInventory" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -881.429
+offset_top = -709.286
+offset_right = -305.429
+offset_bottom = -133.286
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+texture = ExtResource("4_yeyjc")
+
+[node name="MainHand" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 327.857
+offset_top = 292.143
+offset_right = 391.857
+offset_bottom = 356.143
+scale = Vector2(0.5, 0.5)
+
+[node name="Boots" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 286.786
+offset_top = 340.357
+offset_right = 350.786
+offset_bottom = 404.357
+scale = Vector2(0.5, 0.5)
+equipSlot = 4
+
+[node name="Trinket 1" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 221.071
+offset_top = 323.571
+offset_right = 285.071
+offset_bottom = 387.571
+scale = Vector2(0.5, 0.5)
+equipSlot = 11
+
+[node name="Ring2" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 217.857
+offset_top = 292.143
+offset_right = 281.857
+offset_bottom = 356.143
+scale = Vector2(0.5, 0.5)
+equipSlot = 10
+
+[node name="Cloak" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 216.071
+offset_top = 228.214
+offset_right = 280.071
+offset_bottom = 292.214
+scale = Vector2(0.5, 0.5)
+equipSlot = 6
+
+[node name="Gloves" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 248.214
+offset_top = 228.214
+offset_right = 312.214
+offset_bottom = 292.214
+scale = Vector2(0.5, 0.5)
+equipSlot = 5
+
+[node name="Helmet" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 287.143
+offset_top = 228.214
+offset_right = 351.143
+offset_bottom = 292.214
+scale = Vector2(0.5, 0.5)
+equipSlot = 2
+
+[node name="Ring1" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 216.071
+offset_top = 260.0
+offset_right = 280.071
+offset_bottom = 324.0
+scale = Vector2(0.5, 0.5)
+equipSlot = 9
+
+[node name="Breastplate" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 287.143
+offset_top = 269.643
+offset_right = 351.143
+offset_bottom = 333.643
+scale = Vector2(0.5, 0.5)
+equipSlot = 3
+
+[node name="Ranged2" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 360.0
+offset_top = 228.214
+offset_right = 424.0
+offset_bottom = 292.214
+scale = Vector2(0.5, 0.5)
+equipSlot = 8
+
+[node name="Ranged1" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 327.857
+offset_top = 228.214
+offset_right = 391.857
+offset_bottom = 292.214
+scale = Vector2(0.5, 0.5)
+equipSlot = 7
+
+[node name="Trinket2" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 236.071
+offset_top = 355.357
+offset_right = 300.071
+offset_bottom = 419.357
+scale = Vector2(0.5, 0.5)
+equipSlot = 12
+
+[node name="OffHand" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
+visible = false
+layout_mode = 0
+offset_left = 360.0
+offset_top = 292.143
+offset_right = 424.0
+offset_bottom = 356.143
+scale = Vector2(0.5, 0.5)
+equipSlot = 1
+
+[node name="InventoryHeaderStats" type="CanvasGroup" parent="CanvasLayer/WholeInventory"]
+position = Vector2(-67.5, 77.8571)
+scale = Vector2(0.5, 0.5)
+
+[node name="Vitality" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 425.0
+offset_top = 151.429
+offset_right = 474.0
+offset_bottom = 169.429
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Defense" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 424.286
+offset_top = 182.143
+offset_right = 473.286
+offset_bottom = 200.143
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mana" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 548.571
+offset_top = 149.286
+offset_right = 597.571
+offset_bottom = 167.286
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MagicPower" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 547.857
+offset_top = 184.286
+offset_right = 596.857
+offset_bottom = 202.286
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Agility" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 690.0
+offset_top = 147.857
+offset_right = 739.0
+offset_bottom = 165.857
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MovementCount" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 690.0
+offset_top = 184.286
+offset_right = 739.0
+offset_bottom = 202.286
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Strength" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 832.143
+offset_top = 147.857
+offset_right = 881.143
+offset_bottom = 165.857
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentAttackPower" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 834.286
+offset_top = 184.286
+offset_right = 883.286
+offset_bottom = 202.286
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Luck" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 974.286
+offset_top = 150.0
+offset_right = 1023.29
+offset_bottom = 168.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Charisma" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 976.429
+offset_top = 184.286
+offset_right = 1025.43
+offset_bottom = 202.286
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentXP" type="RichTextLabel" parent="CanvasLayer/WholeInventory/InventoryHeaderStats"]
+offset_left = 1090.0
+offset_top = 150.0
+offset_right = 1139.0
+offset_bottom = 168.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "40000"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Character name" type="RichTextLabel" parent="CanvasLayer/WholeInventory"]
+layout_mode = 0
+offset_left = 188.929
+offset_top = 133.571
+offset_right = 350.929
+offset_bottom = 154.571
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 8
+text = "McIstván"
+
+[node name="LevelClass" type="RichTextLabel" parent="CanvasLayer/WholeInventory"]
+layout_mode = 0
+offset_left = 289.286
+offset_top = 135.357
+offset_right = 430.286
+offset_bottom = 156.357
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 8
+text = "Lvl 4 Arcane Fighter"
+
+[node name="PlayerInventory" type="TextureRect" parent="CanvasLayer"]
+z_as_relative = false
+anchors_preset = -1
+anchor_left = 0.472
+anchor_top = 0.256
+anchor_right = 0.566
+anchor_bottom = 0.552
+offset_left = 0.759949
+offset_top = -0.480011
+offset_right = 77.2799
+offset_bottom = 136.84
+scale = Vector2(0.7, 0.7)
+expand_mode = 3
+stretch_mode = 4
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+z_as_relative = false
+custom_minimum_size = Vector2(80.5, 86)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.998
+offset_bottom = -0.0840149
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PlayerInventory/GridContainer"]
+custom_minimum_size = Vector2(257, 457)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="DescriptionPanel" parent="CanvasLayer" node_paths=PackedStringArray("DescriptionPanel") instance=ExtResource("3_fih0l")]
+offset_left = 927.143
+offset_top = 135.0
+offset_right = 1270.14
+offset_bottom = 650.0
+DescriptionPanel = {
+0: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/Sprite"),
+1: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/Name"),
+2: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/TypeAndRarity"),
+3: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/Damage"),
+4: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/DamageDistribution"),
+5: NodePath("DescriptionPanel/MarginContainer/BoxContainer/SkillDescription/SkillDescription"),
+6: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/EffectSprite"),
+7: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/ItemEffect"),
+8: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/EffectSprite2"),
+9: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/ItemEffect2"),
+10: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillSprite"),
+11: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillDescription"),
+12: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffSprite"),
+13: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffDuration"),
+14: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeSprite"),
+15: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeLabel"),
+16: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeSprite"),
+17: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeLabel"),
+18: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOESprite"),
+19: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOELabel"),
+20: NodePath("DescriptionPanel/MarginContainer/BoxContainer/FlavourDescription/FlavourText"),
+21: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemSilhouetteSprite"),
+22: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemType"),
+23: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/property2Sprite"),
+24: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
+25: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
+26: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
+27: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/CostActionSprite"),
+28: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/ActionLabel"),
+29: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionSprite"),
+30: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
+31: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaSprite"),
+32: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaLabel"),
+33: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/Pricesprite"),
+34: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
+}
+
+[node name="DetailsPanel" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+z_index = 3
+z_as_relative = false
+offset_left = -67.0
+offset_top = 60.0
+offset_right = 133.0
+offset_bottom = 295.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/DetailsPanel"]
+layout_mode = 2
+texture = ExtResource("5_4ne0y")
+region_rect = Rect2(37, 2, 118, 151)
+patch_margin_left = 81
+patch_margin_top = 124
+patch_margin_right = 79
+patch_margin_bottom = 102
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/DetailsPanel"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 37
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="DetailsLabel" type="RichTextLabel" parent="CanvasLayer/DetailsPanel/MarginContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="UsagePanel" type="TextureRect" parent="CanvasLayer"]
+visible = false
+z_index = 2
+z_as_relative = false
+offset_left = 142.0
+offset_top = 60.0
+offset_right = 334.0
+offset_bottom = 192.0
+texture = ExtResource("6_yeyjc")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/UsagePanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 15.0
+offset_right = 210.0
+offset_bottom = 79.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_fih0l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UsagePanel/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -18.0
+offset_right = 78.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UseButton" type="Button" parent="CanvasLayer/UsagePanel/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Use"
+flat = true
+
+[node name="Drop" type="TextureRect" parent="CanvasLayer/UsagePanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 66.0
+offset_right = 210.0
+offset_bottom = 130.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_fih0l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/UsagePanel/Drop"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 13.0
+offset_right = 174.0
+offset_bottom = 45.0
+
+[node name="DropButton" type="Button" parent="CanvasLayer/UsagePanel/Drop/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Drop"
+flat = true
+
+[node name="EnemyLootPanel" type="TextureRect" parent="CanvasLayer"]
+visible = false
+offset_left = 379.0
+offset_top = 174.0
+offset_right = 891.0
+offset_bottom = 457.0
+texture = ExtResource("7_4ne0y")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/EnemyLootPanel"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+offset_left = 145.0
+offset_top = 80.0
+offset_right = 366.0
+offset_bottom = 205.0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/EnemyLootPanel/ScrollContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EnemyLootPanel"]
+layout_mode = 0
+offset_left = 159.571
+offset_top = 209.571
+offset_right = 351.571
+offset_bottom = 273.571
+texture = ExtResource("7_fih0l")
+
+[node name="LootAllButton" type="Button" parent="CanvasLayer/EnemyLootPanel/TextureRect"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 11.0
+offset_right = 176.0
+offset_bottom = 47.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Loot All"
+flat = true
+
+[node name="EquippedItempanel" type="TextureRect" parent="CanvasLayer"]
+visible = false
+z_index = 2
+z_as_relative = false
+offset_left = -52.1428
+offset_top = 58.5714
+offset_right = 139.857
+offset_bottom = 190.571
+texture = ExtResource("6_yeyjc")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EquippedItempanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 15.0
+offset_right = 210.0
+offset_bottom = 79.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_fih0l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/EquippedItempanel/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -18.0
+offset_right = 78.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnequipButton" type="Button" parent="CanvasLayer/EquippedItempanel/TextureRect/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Unequip"
+flat = true
+
+[node name="Compare" type="TextureRect" parent="CanvasLayer/EquippedItempanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 66.0
+offset_right = 210.0
+offset_bottom = 130.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_fih0l")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/EquippedItempanel/Compare"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 13.0
+offset_right = 174.0
+offset_bottom = 45.0
+
+[node name="CompareButton" type="Button" parent="CanvasLayer/EquippedItempanel/Compare/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Compare
+"
+flat = true
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.8

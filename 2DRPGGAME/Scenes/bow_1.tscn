@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2a4ud635lek0"]
+
+[ext_resource type="Script" uid="uid://p785r7pnc61e" path="res://Scripts/Items/Weapons/Bow1.cs" id="1_6ji6p"]
+[ext_resource type="Resource" uid="uid://dnmfmbujyqva6" path="res://Resources/Weaponresources/Ranged/Bow1.tres" id="2_jtud8"]
+[ext_resource type="Texture2D" uid="uid://6wdy61kxevf6" path="res://Free Assets/Fullsheet.png" id="3_fej4i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irdam"]
+atlas = ExtResource("3_fej4i")
+region = Rect2(35, 112, 17, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgy52"]
+size = Vector2(33, 43)
+
+[node name="Bow1" type="Node2D" node_paths=PackedStringArray("area2D", "collisionShape2D")]
+script = ExtResource("1_6ji6p")
+area2D = NodePath("Area2D")
+collisionShape2D = NodePath("Area2D/CollisionShape2D")
+ItemResource = ExtResource("2_jtud8")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_irdam")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(19.5, 19.5)
+shape = SubResource("RectangleShape2D_fgy52")

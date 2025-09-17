@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://be3u7ktqfitee"]
+
+[ext_resource type="Texture2D" uid="uid://xny6crndg2vj" path="res://Free Assets/64x64/ActionRange.png" id="1_okolj"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_d4i1c"]
+
+[resource]
+script = ExtResource("2_d4i1c")
+Sprite = ExtResource("1_okolj")
+Text = "Action Range"

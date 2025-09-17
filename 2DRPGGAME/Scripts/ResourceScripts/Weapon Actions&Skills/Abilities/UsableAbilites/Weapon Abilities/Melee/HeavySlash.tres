@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bb8cbdccxlb3j"]
+
+[ext_resource type="Texture2D" uid="uid://ra76nlxjlxsp" path="res://Free Assets/64x64/fc1148.png" id="1_x8bw1"]
+[ext_resource type="Resource" uid="uid://dvrw7lq0dkswq" path="res://Resources/StatusEffects/Debuffs/Bleed.tres" id="2_5lpml"]
+[ext_resource type="Script" uid="uid://dyywnxt8b466f" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/MeleeScript/HeavySlash.cs" id="2_i7ydw"]
+
+[resource]
+script = ExtResource("2_i7ydw")
+Sprite = ExtResource("1_x8bw1")
+IsWeaponAction = false
+Name = "Heavy Slash"
+Description = "Performs a heavy slashing attack"
+SkillDamage = 0.0
+SkillLevel = 0
+SkillDamageType = 0
+ActionType = 0
+DamageDistribution = null
+ActionCosts = Dictionary[int, int]({
+0: 1,
+1: 1
+})
+StatusEffect = ExtResource("2_5lpml")
+ActionRange = 1.0
+CoolDown = 0.0

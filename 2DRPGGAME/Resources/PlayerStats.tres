@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d2c0i618hsttu"]
+
+[ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_c26vb"]
+
+[resource]
+script = ExtResource("1_c26vb")
+BaseHP = 0.0
+BaseMP = 0.0
+BaseAttack = 0.0
+BaseDefense = 0.0
+BaseStrength = 0.0
+BaseAgility = 0.0
+BaseCharisma = 0.0
+BaseMagicPower = 0.0
+BaseLuck = 0.0
+BaseSpeed = 0.0

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://t4ymjo7uq5xd"]
+
+[ext_resource type="Texture2D" uid="uid://ryum032h3v2n" path="res://Free Assets/64x64/fc1257.png" id="1_u1tdo"]
+[ext_resource type="Script" uid="uid://brc5vyter2x64" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/RangedScript/RangedShot.cs" id="2_fafak"]
+
+[resource]
+script = ExtResource("2_fafak")
+Sprite = ExtResource("1_u1tdo")
+Name = "Ranged Shot"
+Description = "Performs a basic shot with a ranged weapon"
+skillDamage = 0.0
+ActionCosts = Dictionary[int, int]({
+0: 1
+})
+DebuffInflicted = 0
+ActionRange = 4.0

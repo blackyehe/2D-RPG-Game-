@@ -1,0 +1,41 @@
+[gd_resource type="Resource" load_steps=9 format=3 uid="uid://b3fu3uanyww36"]
+
+[ext_resource type="Resource" uid="uid://c8lerd5y23j6v" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/Melee/Slash.tres" id="1_0bjrv"]
+[ext_resource type="Texture2D" uid="uid://1lfglabsogy7" path="res://Resources/WeaponTextures/Sword2.tres" id="1_vkegg"]
+[ext_resource type="Script" uid="uid://dm2fvpoveg8kp" path="res://Scripts/ResourceScripts/WeaponResource.cs" id="2_c1dup"]
+[ext_resource type="Texture2D" uid="uid://dltb23llvl6ut" path="res://Free Assets/64x64/fc1085.png" id="2_ttyev"]
+[ext_resource type="Texture2D" uid="uid://bffl0j6dtqu1u" path="res://Free Assets/64x64/fc131.png" id="3_xrwtn"]
+[ext_resource type="Texture2D" uid="uid://d0234d7rs13f7" path="res://Free Assets/64x64/fc724.png" id="4_a7eun"]
+[ext_resource type="Texture2D" uid="uid://ci3xrhuaq8j3f" path="res://Free Assets/64x64/fc727.png" id="5_nd0di"]
+[ext_resource type="Resource" uid="uid://be54u3m14etvx" path="res://Resources/WeaponProperties/proficiency/Versatile.tres" id="7_a7eun"]
+
+[resource]
+script = ExtResource("2_c1dup")
+WeaponProperties = Array[int]([0])
+WeaponProperty = ExtResource("7_a7eun")
+WhatKindOfWeapon = 3
+WeaponDamage = 10.0
+DamageDistribution = Dictionary[int, int]({
+0: 7,
+3: 3
+})
+IsMagical = true
+WeaponType = 0
+attackRange = 1
+Actions = Array[Resource]([ExtResource("1_0bjrv")])
+ItemName = "Baszógép"
+Texture = ExtResource("1_vkegg")
+ItemRarity = 0
+ItemType = 0
+EffectTexture1 = ExtResource("2_ttyev")
+EffectDescription1 = "Rettentően erős leszel ha felveszed ezt a kardot, like nagyon erős, oneshotolni fogod az enemyket erős, have fun."
+EffectDescription2 = ""
+GainSkillNameAndType = ""
+ItemFlavourDescription = "\"Mélyen vagyunk a hegyekbe\" Népszínház angle"
+ItemTypeTexture1 = ExtResource("5_nd0di")
+ItemPropertyTexture1 = ExtResource("4_a7eun")
+ItemPriceTexture = ExtResource("3_xrwtn")
+ItemPriceText = 300.0
+IsItemStackable = false
+ItemQuantity = 1
+equipSlot = 0

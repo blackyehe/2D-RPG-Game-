@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://de1m76pyke7d2"]
+
+[ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_jr3el"]
+
+[resource]
+script = ExtResource("1_jr3el")
+BaseHP = 10.0
+BaseMP = 10.0
+BaseAttack = 10.0
+BaseDefense = 10.0
+BaseStrength = 10.0
+BaseAgility = 10.0
+BaseCharisma = 10.0
+BaseMagicPower = 10.0
+BaseLuck = 10.0
+BaseSpeed = 7.0
+remainingCost = Dictionary[int, int]({
+0: 0,
+1: 0,
+2: 0
+})
+ActionCount = 1
+BonusActionCount = 1
+XP = 0.0
+Level = 1
+RewardXP = 50.0
+TileMovementCount = 0
+LightAttackAnimDuration = 1.0
+HeavyAttackAnimDuration = 0.0
+RangedShotAnimDuration = 0.0
+XPThresholds = null
