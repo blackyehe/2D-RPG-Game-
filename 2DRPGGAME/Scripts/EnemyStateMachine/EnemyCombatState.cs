@@ -8,6 +8,7 @@ public partial class EnemyCombatState : EnemyState
     private double actionTimer;
     private double actionDuration;
     private int actionCounter = 0;
+    private bool isStatusAlreadyChecked = false;
 
     public override void PhysicsProcess(double delta)
     {
@@ -18,7 +19,22 @@ public partial class EnemyCombatState : EnemyState
 
         switch (currentSubState)
         {
+            case CombatSubState.CheckStatusEffect:
+                if (!isStatusAlreadyChecked)
+                {
+                    Enemy.CheckForStatusEffects();
+                    
+                    isStatusAlreadyChecked = true;
+                }
+
+                if (!Enemy.animationPlayer.IsPlaying() || Enemy.animationPlayer.CurrentAnimation != AnimTags.Hurt)
+                {
+                    currentSubState = CombatSubState.DecideAction;
+                }
+                break;
+
             case CombatSubState.DecideAction:
+
                 Enemy.behaviour.DecideAction();
                 currentSubState = CombatSubState.PerformAction;
                 break;
@@ -30,6 +46,7 @@ public partial class EnemyCombatState : EnemyState
                     {
                         actionCounter++;
                     }
+
                     return;
                 }
 
@@ -50,6 +67,7 @@ public partial class EnemyCombatState : EnemyState
 
                 Enemy.animationPlayer.Play(AnimTags.Idle);
                 Enemy.IsTurnActive = false;
+                isStatusAlreadyChecked = false;
                 Enemy.EndTurn();
                 break;
         }
@@ -57,8 +75,9 @@ public partial class EnemyCombatState : EnemyState
 
     public override void EnterState()
     {
-        currentSubState = CombatSubState.DecideAction;
+        currentSubState = CombatSubState.CheckStatusEffect;
     }
+
 
     public override void ExitState()
     {

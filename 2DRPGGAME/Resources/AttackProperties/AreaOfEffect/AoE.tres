@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://bhhtw3186atl2"]
 
-[ext_resource type="Texture2D" uid="uid://dgwhyh466y3ln" path="res://Free Assets/64x64/SingleTarget.png" id="1_bwkmt"]
+[ext_resource type="Texture2D" uid="uid://y8e46eb1r4y5" path="res://FreeAssets/64x64/AoE.png" id="1_bwkmt"]
 [ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_mbw4g"]
 
 [resource]
 script = ExtResource("2_mbw4g")
 Sprite = ExtResource("1_bwkmt")
-Text = "Single Target"
+SpellText = "AOE"

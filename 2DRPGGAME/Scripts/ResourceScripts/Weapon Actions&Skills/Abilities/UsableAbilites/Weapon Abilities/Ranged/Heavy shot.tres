@@ -1,17 +1,26 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://d315dqr1nq0qg"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://d315dqr1nq0qg"]
 
-[ext_resource type="Texture2D" uid="uid://b3ukspbndpm48" path="res://Free Assets/64x64/fc1267.png" id="1_vow6q"]
+[ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_mena4"]
+[ext_resource type="Texture2D" uid="uid://b3ukspbndpm48" path="res://FreeAssets/64x64/fc1267.png" id="1_vow6q"]
 [ext_resource type="Script" uid="uid://b5qypik8odmly" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/RangedScript/HeavyShot.cs" id="2_51he6"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_cujpj"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_q62p7"]
 
 [resource]
 script = ExtResource("2_51he6")
 Sprite = ExtResource("1_vow6q")
+IsWeaponAction = true
 Name = "Heavy Shot"
 Description = "Performs a heavy ranged attack"
-skillDamage = 0.0
+SkillDamage = 10.0
+Action = ExtResource("1_mena4")
+Range = ExtResource("3_q62p7")
+ActionArea = ExtResource("2_cujpj")
+DamageDistribution = Dictionary[int, int]({
+2: 0
+})
 ActionCosts = Dictionary[int, int]({
 0: 1,
 1: 1
 })
-DebuffInflicted = 0
 ActionRange = 4.0

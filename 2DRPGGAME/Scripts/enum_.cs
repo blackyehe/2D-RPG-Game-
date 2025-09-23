@@ -61,8 +61,8 @@ public enum State
     Idle,
     Walk,
     Attack,
-    Death,
     Combat,
+    Death,
 }
 public enum StateEnemy
 {
@@ -70,6 +70,7 @@ public enum StateEnemy
     Alert,
     EnemyAttack,
     EnemyCombat,
+    EnemyDead,
 }
 public enum CombatSubState
 {
@@ -78,6 +79,7 @@ public enum CombatSubState
     ActionResult,
     TurnEnd,
     DecideAction,
+    CheckStatusEffect,
 }
 public enum EquipSlot
 {

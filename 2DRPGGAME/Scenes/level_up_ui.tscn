@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcvbhrn15qmeu"]
+[gd_scene load_steps=7 format=3 uid="uid://bcvbhrn15qmeu"]
 
 [ext_resource type="Script" uid="uid://btp8p2ctlytm7" path="res://Scripts/UI/LevelUpUI.cs" id="1_5fr50"]
-[ext_resource type="Texture2D" uid="uid://bgpfcuuuinnc2" path="res://Free Assets/7.png" id="1_cy7y2"]
+[ext_resource type="Texture2D" uid="uid://bgpfcuuuinnc2" path="res://FreeAssets/7.png" id="1_cy7y2"]
 [ext_resource type="PackedScene" uid="uid://desvf6csg601u" path="res://Scenes/Slot.tscn" id="2_3tkv0"]
-[ext_resource type="Texture2D" uid="uid://dektfftb8u0to" path="res://Free Assets/craftőox-net/4 GUI/3 Icons/Icon_23.png" id="3_5fr50"]
-[ext_resource type="Texture2D" uid="uid://dp8nrdwrmq14y" path="res://Free Assets/craftőox-net/4 GUI/3 Icons/Icon_48.png" id="5_rnqn3"]
+[ext_resource type="Texture2D" uid="uid://dektfftb8u0to" path="res://FreeAssets/craftőox-net/4 GUI/3 Icons/Icon_23.png" id="3_5fr50"]
+[ext_resource type="Texture2D" uid="uid://dp8nrdwrmq14y" path="res://FreeAssets/craftőox-net/4 GUI/3 Icons/Icon_48.png" id="5_rnqn3"]
+[ext_resource type="PackedScene" uid="uid://bhkh2l6eqgumh" path="res://Scenes/description_panel.tscn" id="6_rnqn3"]
 
-[node name="LevelUpUI" type="Control" node_paths=PackedStringArray("levelUpPanel", "GainedStatsLabel", "SelectedSkillSlot", "SelectableSkillsContainer", "SelectableSkillPanel", "SelectOKButton", "LevelUPConfirmButton", "canvasLayer", "LevelUpButton")]
+[node name="LevelUpUI" type="Control" node_paths=PackedStringArray("levelUpPanel", "GainedStatsLabel", "SelectedSkillSlot", "SelectableSkillsContainer", "SelectableSkillPanel", "SelectOKButton", "LevelUPConfirmButton", "canvasLayer", "LevelUpButton", "descriptionPanel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,6 +29,7 @@ LevelUPConfirmButton = NodePath("CanvasLayer/Panel/LVLUPconfirm")
 canvasLayer = NodePath("CanvasLayer")
 LevelUpButton = NodePath("CanvasLayer/LVLUP")
 slotScene = ExtResource("2_3tkv0")
+descriptionPanel = NodePath("CanvasLayer/DescriptionPanel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -159,3 +161,46 @@ offset_bottom = 205.0
 icon = ExtResource("3_5fr50")
 icon_alignment = 1
 expand_icon = true
+
+[node name="DescriptionPanel" parent="CanvasLayer" node_paths=PackedStringArray("DescriptionPanel") instance=ExtResource("6_rnqn3")]
+offset_left = 1362.0
+offset_top = 80.0
+offset_right = 1705.0
+offset_bottom = 565.0
+DescriptionPanel = {
+0: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/Sprite"),
+1: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/Name"),
+2: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/TypeAndRarity"),
+3: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/Damage"),
+4: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/DamageDistribution"),
+5: NodePath("DescriptionPanel/MarginContainer/BoxContainer/SkillDescription/SkillDescription"),
+6: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/EffectSprite"),
+7: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/ItemEffect"),
+8: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/EffectSprite2"),
+9: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/ItemEffect2"),
+10: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillSprite"),
+11: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillDescription"),
+12: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffSprite"),
+13: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffDuration"),
+14: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeSprite"),
+15: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeLabel"),
+16: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeSprite"),
+17: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeLabel"),
+18: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOESprite"),
+19: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOELabel"),
+20: NodePath("DescriptionPanel/MarginContainer/BoxContainer/FlavourDescription/FlavourText"),
+21: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemSilhouetteSprite"),
+22: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemType"),
+23: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/property2Sprite"),
+24: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
+25: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
+26: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
+27: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/CostActionSprite"),
+28: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/ActionLabel"),
+29: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionSprite"),
+30: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
+31: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaSprite"),
+32: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaLabel"),
+33: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/Pricesprite"),
+34: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
+}

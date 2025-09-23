@@ -51,6 +51,7 @@ public partial class Enemy : CombatActor, IInteractable
             {StateEnemy.Alert, new AlertState() {Enemy = this }},
             {StateEnemy.EnemyAttack,new  EnemyAttackState(){Enemy = this}},
             {StateEnemy.EnemyCombat,new EnemyCombatState(){Enemy = this}},
+            {StateEnemy.EnemyDead,new EnemyDeadState(){Enemy = this}},
         };
         SetEnemyState(StateEnemy.EnemyIdle);
     }
@@ -150,7 +151,7 @@ public partial class Enemy : CombatActor, IInteractable
     public override void StartTurn()
     {
         IsTurnActive = true;
-        ((EnemyCombatState)ActiveState).currentSubState = CombatSubState.DecideAction;
+        ((EnemyCombatState)ActiveState).currentSubState = CombatSubState.CheckStatusEffect;
         Pathfinding.Instance.SetTileSolid(GlobalPosition,false,this);
     }
     public void AddAction(CombatAction action)

@@ -18,10 +18,10 @@ public partial class ArmorResources : ItemResource
         description[DescriptionPanel.ItemEffectSprite] = new(EffectTexture1);
         description[DescriptionPanel.ItemEffect2] = new(EffectDescription2);
         description[DescriptionPanel.ItemEffectSprite2] = new(EffectTexture2);
-        description[DescriptionPanel.GainableSkillDescription] = new(GainSkillNameAndType);
-        description[DescriptionPanel.GainableSkillSprite] = new(GainSkillSprite);
+        description[DescriptionPanel.GainableSkillDescription] = 
+            new($"Level {GainSkill.SkillLevel} {GainSkill.SkillDamageType} {GainSkill.ActionType}");
+        description[DescriptionPanel.GainableSkillSprite] = new(GainSkill.Sprite);
         description[DescriptionPanel.FlavourText] = new(ItemFlavourDescription);
-        description[DescriptionPanel.ItemPriceSprite] = new(ItemPriceTexture);
         description[DescriptionPanel.ItemPriceText] = new(ItemPriceText.ToString());
 
         return description;

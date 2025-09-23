@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://p785r7pnc61e" path="res://Scripts/Items/Weapons/Bow1.cs" id="1_6ji6p"]
 [ext_resource type="Resource" uid="uid://dnmfmbujyqva6" path="res://Resources/Weaponresources/Ranged/Bow1.tres" id="2_jtud8"]
-[ext_resource type="Texture2D" uid="uid://6wdy61kxevf6" path="res://Free Assets/Fullsheet.png" id="3_fej4i"]
+[ext_resource type="Texture2D" uid="uid://6wdy61kxevf6" path="res://FreeAssets/Fullsheet.png" id="3_fej4i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_irdam"]
 atlas = ExtResource("3_fej4i")

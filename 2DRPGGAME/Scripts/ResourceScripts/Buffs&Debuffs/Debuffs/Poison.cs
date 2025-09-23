@@ -8,12 +8,16 @@ public partial class Poison : Debuff
 		target.statusEffectList.Add(this);
 	}
 
-	public override void DebuffEffect(CombatActor target)
+	public override bool StatusEffect(CombatActor target)
 	{
-        
-		if (Duration <= 0) target.statusEffectList.Remove(this);
-        
-		else target.TakeDamage(DebuffDamage);
+		if (Duration <= 0)
+		{
+			target.statusEffectList.Remove(this);
+			return true;
+		}
+
+		target.TakeDamage(DebuffDamage);
 		Duration--;
+		return true;
 	}
 }

@@ -5,7 +5,7 @@ using Godot.Collections;
 public partial class DescriptionPanelUI : VBoxContainer
 {
 	[Export] public Dictionary<DescriptionPanel, Control> DescriptionPanel = new();
-
+	private bool descriptionBool;
 	public void HideAllControlsInDescriptionPanel()
 	{
 		foreach (var control in DescriptionPanel.Values)

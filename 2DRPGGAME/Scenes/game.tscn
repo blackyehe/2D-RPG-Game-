@@ -1,22 +1,21 @@
-[gd_scene load_steps=45 format=3 uid="uid://8mkqjavlwapl"]
+[gd_scene load_steps=42 format=3 uid="uid://8mkqjavlwapl"]
 
 [ext_resource type="Script" uid="uid://c37ur8v4g34aq" path="res://Scripts/GlobalEvents.cs" id="1_7t8sx"]
 [ext_resource type="Script" uid="uid://brb1lxll3kq15" path="res://Scripts/Turn Manager/TurnManager.cs" id="1_85qyi"]
 [ext_resource type="PackedScene" uid="uid://dknh1cinsquet" path="res://Scenes/player.tscn" id="1_ebmjs"]
-[ext_resource type="Texture2D" uid="uid://yqxa2k0c5587" path="res://Free Assets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_qxrlw"]
-[ext_resource type="Texture2D" uid="uid://bsirrr5ean4om" path="res://Free Assets/pixel art top down/Texture/TX Plant.png" id="2_o5yvi"]
-[ext_resource type="Texture2D" uid="uid://xneb7df4e3jj" path="res://Free Assets/pixel art top down/Texture/Extra/TX Plant with Shadow.png" id="3_rku1e"]
-[ext_resource type="Texture2D" uid="uid://oawtg7jg2man" path="res://Free Assets/pixel art top down/Texture/TX Tileset Stone Ground.png" id="4_rfjv2"]
-[ext_resource type="Texture2D" uid="uid://bsoy42yickfoy" path="res://Free Assets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/DungeonTilesetnoBG.png" id="4_rku1e"]
-[ext_resource type="Texture2D" uid="uid://ue6skwa6glr4" path="res://Free Assets/pixel art top down/Texture/TX Tileset Wall.png" id="5_1phco"]
-[ext_resource type="Texture2D" uid="uid://fblwy266k7jt" path="res://Free Assets/pixel art top down/Scene Overview.png" id="6_nb51f"]
-[ext_resource type="Texture2D" uid="uid://iibx254sxs8f" path="res://Free Assets/pixel art top down/Texture/TX Tileset Grass.png" id="7_nnt18"]
-[ext_resource type="Texture2D" uid="uid://ch5f7m7laonw8" path="res://Free Assets/pixel art top down/Texture/TX Props.png" id="8_ewbju"]
-[ext_resource type="Texture2D" uid="uid://dvsfbhklo03ye" path="res://Free Assets/pixel art top down/Texture/TX Player.png" id="9_85qyi"]
-[ext_resource type="Texture2D" uid="uid://pcpoiylukhft" path="res://Free Assets/pixel art top down/Texture/Extra/TX Props with Shadow.png" id="10_iivbl"]
+[ext_resource type="Texture2D" uid="uid://yqxa2k0c5587" path="res://FreeAssets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_qxrlw"]
+[ext_resource type="Texture2D" uid="uid://bsirrr5ean4om" path="res://FreeAssets/pixel art top down/Texture/TX Plant.png" id="2_o5yvi"]
+[ext_resource type="Texture2D" uid="uid://xneb7df4e3jj" path="res://FreeAssets/pixel art top down/Texture/Extra/TX Plant with Shadow.png" id="3_rku1e"]
+[ext_resource type="Texture2D" uid="uid://oawtg7jg2man" path="res://FreeAssets/pixel art top down/Texture/TX Tileset Stone Ground.png" id="4_rfjv2"]
+[ext_resource type="Texture2D" uid="uid://bsoy42yickfoy" path="res://FreeAssets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/DungeonTilesetnoBG.png" id="4_rku1e"]
+[ext_resource type="Texture2D" uid="uid://ue6skwa6glr4" path="res://FreeAssets/pixel art top down/Texture/TX Tileset Wall.png" id="5_1phco"]
+[ext_resource type="Texture2D" uid="uid://fblwy266k7jt" path="res://FreeAssets/pixel art top down/Scene Overview.png" id="6_nb51f"]
+[ext_resource type="Texture2D" uid="uid://iibx254sxs8f" path="res://FreeAssets/pixel art top down/Texture/TX Tileset Grass.png" id="7_nnt18"]
+[ext_resource type="Texture2D" uid="uid://ch5f7m7laonw8" path="res://FreeAssets/pixel art top down/Texture/TX Props.png" id="8_ewbju"]
+[ext_resource type="Texture2D" uid="uid://dvsfbhklo03ye" path="res://FreeAssets/pixel art top down/Texture/TX Player.png" id="9_85qyi"]
+[ext_resource type="Texture2D" uid="uid://pcpoiylukhft" path="res://FreeAssets/pixel art top down/Texture/Extra/TX Props with Shadow.png" id="10_iivbl"]
 [ext_resource type="PackedScene" uid="uid://pvwinkhh8rli" path="res://Scenes/sideway_door.tscn" id="13_rfjv2"]
 [ext_resource type="PackedScene" uid="uid://c5paaccna1v5" path="res://Scenes/Inventory.tscn" id="15_nb51f"]
-[ext_resource type="PackedScene" uid="uid://dbjmmmlrgbacb" path="res://Scenes/skeleton.tscn" id="17_ewbju"]
 [ext_resource type="Script" uid="uid://c7aidugrpnxw6" path="res://Scripts/Behaviour/MeleeBehaviour.cs" id="18_7t8sx"]
 [ext_resource type="Script" uid="uid://dmlvwhpnv8jtl" path="res://Scripts/Pathfinding/Pathfinding.cs" id="19_7nbq1"]
 [ext_resource type="PackedScene" uid="uid://bgf1qxakie1og" path="res://Scenes/combat_ui.tscn" id="19_7t8sx"]
@@ -8122,14 +8121,6 @@ size = Vector2(5, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfjv2"]
 size = Vector2(5, 32)
 
-[sub_resource type="Resource" id="Resource_mg4q0"]
-resource_local_to_scene = true
-script = ExtResource("18_7t8sx")
-
-[sub_resource type="Resource" id="Resource_vm72l"]
-resource_local_to_scene = true
-script = ExtResource("18_7t8sx")
-
 [sub_resource type="Resource" id="Resource_22asu"]
 resource_local_to_scene = true
 script = ExtResource("18_7t8sx")
@@ -8241,16 +8232,6 @@ position = Vector2(1, 1)
 zoom = Vector2(6, 6)
 
 [node name="EnemyGroup1" type="Node" parent="."]
-
-[node name="Skeleton" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("17_ewbju")]
-position = Vector2(57, -24)
-behaviour = SubResource("Resource_mg4q0")
-inventoryUI = NodePath("../../Inventory UI")
-
-[node name="Skeleton2" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("17_ewbju")]
-position = Vector2(57, -43)
-behaviour = SubResource("Resource_vm72l")
-inventoryUI = NodePath("../../Inventory UI")
 
 [node name="Vampire" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("19_mg4q0")]
 position = Vector2(54, -8)

@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://bqgekfuq4gfn2"]
 
-[ext_resource type="Texture2D" uid="uid://cegic3di4cnla" path="res://Free Assets/64x64/fc1484.png" id="1_dnard"]
+[ext_resource type="Texture2D" uid="uid://i2rsv0u1exq6" path="res://FreeAssets/sajat assetek/WeaponProperty/Dagger-export.png" id="1_rtqs3"]
 [ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_43x83"]
 
 [resource]
 script = ExtResource("2_43x83")
-Sprite = ExtResource("1_dnard")
-Text = "Longbow"
+Sprite = ExtResource("1_rtqs3")
+Text = 5

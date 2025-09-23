@@ -1,3 +1,9 @@
-[gd_resource type="Resource" format=3 uid="uid://2vqfh335my3q"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://2vqfh335my3q"]
+
+[ext_resource type="Texture2D" uid="uid://dgwhyh466y3ln" path="res://FreeAssets/64x64/SingleTarget.png" id="1_adhs0"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_12jj2"]
 
 [resource]
+script = ExtResource("2_12jj2")
+Sprite = ExtResource("1_adhs0")
+SpellText = "Single Target"

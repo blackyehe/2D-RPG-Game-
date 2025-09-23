@@ -134,25 +134,7 @@ public partial class Player : CombatActor
         ActiveState = States[newState];
         ActiveState.EnterState();
     }
-
-    public void CheckForStatusEffects()
-    {
-        if (statusEffectList.Count == 0) return;
-        foreach (StatusEffectBase statusEffect in statusEffectList)
-        {
-            switch (statusEffect)
-            {
-                case Buff effect:
-                    effect.BuffEffect(this);
-                    break;
-                
-                case Debuff effect:
-                    effect.DebuffEffect(this);
-                    break;
-            } 
-        }
-    }
-
+    
     public override void EnterCombat()
     {
         SetPlayerState(State.Combat);
@@ -164,7 +146,7 @@ public partial class Player : CombatActor
     public override void StartTurn()
     {
         IsTurnActive = true;
-        ((CombatState)ActiveState).currentSubState = CombatSubState.WaitForInput;
+        ((CombatState)ActiveState).currentSubState = CombatSubState.CheckStatusEffect;
         Pathfinding.Instance.SetTileSolid(GlobalPosition, false, this);
     }
 

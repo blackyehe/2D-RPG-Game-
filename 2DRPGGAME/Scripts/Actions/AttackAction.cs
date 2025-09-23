@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using NewGameProject.Scripts;
 
 public class AttackAction : CombatAction
 {
@@ -46,6 +47,7 @@ public class AttackAction : CombatAction
                 if (_actionTimer >= _actionDuration)
                 {
                     actor.currentAbility.DoAction(actor,_target);
+                    (actor.currentAbility.StatusEffect as IApplicable)?.Apply(_target);
                     isActionFinished = true;
                     return true;
                 }

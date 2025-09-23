@@ -1,3 +1,9 @@
-[gd_resource type="Resource" format=3 uid="uid://pl74bgfyvdum"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://pl74bgfyvdum"]
+
+[ext_resource type="Texture2D" uid="uid://d0234d7rs13f7" path="res://FreeAssets/64x64/fc724.png" id="1_yk5ax"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_du55p"]
 
 [resource]
+script = ExtResource("2_du55p")
+Sprite = ExtResource("1_yk5ax")
+SpellText = "Finesse"

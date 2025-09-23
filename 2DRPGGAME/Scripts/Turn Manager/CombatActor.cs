@@ -61,11 +61,6 @@ public abstract partial class CombatActor : CharacterBody2D
 
         return activeWeapon.weaponResource.attackRange;
     }
-
-    public BaseWeapon GetWeapon()
-    {
-        return activeWeapon;
-    }
     public BaseWeapon GetItemBySlotType(EquipSlot slotType)
     {
         return EquippedItems[slotType] as BaseWeapon;
@@ -127,15 +122,45 @@ public abstract partial class CombatActor : CharacterBody2D
         Stats.remainingCost[actionCostType.BonusAction] = Stats.MaxBonusActionCount;
     }
 
+    public bool CheckForStatusEffects()
+    {
+        for (int i = 0; i < statusEffectList.Count; i++)
+        {
+            if (statusEffectList[i].Duration <= 0)
+            {
+                statusEffectList.Remove(statusEffectList[i]);
+                i--;
+            }
+        }
+        
+        if (statusEffectList.Count == 0) return true;
+        
+        for (int i = 0; i < statusEffectList.Count; i++)
+        {
+            (statusEffectList[i] as IStatusEffect)?.StatusEffect(this);
+        }
+
+        return true;
+    }
+
     public void ActorDie()
     {
-        animationPlayer.Play(AnimTags.Death);
-        GetTree().CreateTimer(2).Timeout += () =>
+        switch (this)
         {
-            SetPhysicsProcess(false);
-            Pathfinding.Instance.SetTileSolid(GlobalPosition, false, this);
-            CollisionLayer = 0;
-        };
+            case Player actor:
+                actor.SetPlayerState(State.Death);
+                break;
+            case Enemy actor:
+                actor.SetEnemyState(StateEnemy.EnemyDead);
+                break;
+        }
+    }
+
+    public void AfterDeath()
+    {
+        SetPhysicsProcess(false);
+        Pathfinding.Instance.SetTileSolid(GlobalPosition, false, this);
+        CollisionLayer = 0;
     }
 }
 

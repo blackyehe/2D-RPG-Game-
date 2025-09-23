@@ -235,7 +235,7 @@ public partial class InventoryUI : Control
             var currentDescription = slot.currentItem.ItemResource.GetDescription();
             descriptionPanel.HideAllControlsInDescriptionPanel();
             descriptionPanel.SetDescriptionPanel(currentDescription);
-            descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, 60);
+            descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-450, -100);
             descriptionBool = true;
             GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
         }

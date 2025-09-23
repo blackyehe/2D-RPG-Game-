@@ -9,6 +9,7 @@ public partial class CombatState : PlayerState
     public CombatActor enemyActor;
     public CombatSubState currentSubState;
     private int moveCost;
+    private bool isStatusAlreadyChecked = false;
 
     public override void PhysicsProcess(double delta)
     {
@@ -19,11 +20,26 @@ public partial class CombatState : PlayerState
 
         switch (currentSubState)
         {
+            case CombatSubState.CheckStatusEffect:
+                if (!isStatusAlreadyChecked)
+                {
+                    Player.CheckForStatusEffects();
+
+                    isStatusAlreadyChecked = true;
+                }
+
+                if (!Player.animationPlayer.IsPlaying() || Player.animationPlayer.CurrentAnimation != AnimTags.Hurt)
+                {
+                    currentSubState = CombatSubState.DecideAction;
+                    Player.isControllable = true;
+                }
+                break;
+
             case CombatSubState.WaitForInput:
                 break;
 
             case CombatSubState.PerformAction:
-                if (Player.currentAction.DoAction(delta) == true)
+                if (Player.currentAction.DoAction(delta))
                 {
                     currentSubState = CombatSubState.ActionResult;
                 }
@@ -52,8 +68,8 @@ public partial class CombatState : PlayerState
         GD.Print(Player.ActiveState);
         GD.Print(Player.IsTurnActive);
 
-        Player.isControllable = true;
-        currentSubState = CombatSubState.WaitForInput;
+
+        currentSubState = CombatSubState.CheckStatusEffect;
     }
 
     public override void ExitState()
@@ -108,12 +124,13 @@ public partial class CombatState : PlayerState
                 Player.currentAction = new MoveAction(tilePath, Player);
                 DoMovementAction();
             }
+
             return;
         }
-        
+
         if (Player.IsEntityInRange(enemyActor))
         {
-            Player.currentAction = new AttackAction(Player, enemyActor,Player.currentAbility);
+            Player.currentAction = new AttackAction(Player, enemyActor, Player.currentAbility);
             DoAttackAction();
             return;
         }

@@ -8,11 +8,14 @@ public partial class CombatUI : Control
     [Export] public CanvasLayer canvasLayer;
     [Export] public GridContainer spellContainer;
     [Export] public PackedScene SlotScene;
+    [Export] public DescriptionPanelUI descriptionPanel;
     public Player player;
+    private bool descriptionBool;
 
     public override void _Ready()
     {
         canvasLayer.Visible = false;
+        descriptionPanel.Visible = false;
         endTurnButton.Pressed += EndTurnButton_Pressed;
         TurnManager.Instance.OnCombatStarted += Instance_OnCombatStarted;
         GlobalEvents.Instance.OnSkillBarChanged += OnSkillBarChanged;
@@ -67,10 +70,37 @@ public partial class CombatUI : Control
 
     public void OnSkillButtonMouseEntered(Slot slot)
     {
+        if (slot.currentItem != null)
+        {
+            var currentDescription = slot.currentItem.ItemResource.GetDescription();
+            descriptionPanel.HideAllControlsInDescriptionPanel();
+            descriptionPanel.SetDescriptionPanel(currentDescription);
+            descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, 60);
+            descriptionBool = true;
+            GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+            return;
+        }
+
+        if (slot.currentItem == null && slot.currentAbilityAction != null)
+        {
+            var CurrentDescription = slot.currentAbilityAction.GetDescription();
+            descriptionPanel.HideAllControlsInDescriptionPanel();
+            descriptionPanel.SetDescriptionPanel(CurrentDescription);
+            descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, -260);
+            descriptionBool = true;
+            GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+        }
+    }
+    public void isDescriptionBoolTrue()
+    {
+        if (descriptionBool == false) return;
+        descriptionPanel.Visible = true;
     }
 
     public void OnSkillButtonMouseExited(Slot slot)
     {
+        descriptionBool = false;
+        descriptionPanel.Visible = false;
     }
 
     private void Instance_OnCombatStarted(object sender, EventArgs e)

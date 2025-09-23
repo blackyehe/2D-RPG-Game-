@@ -11,7 +11,7 @@ public partial class DeathState : PlayerState
     public override void EnterState()
     {
         GD.Print(Player.ActiveState);
-
+        Player.animationPlayer.Play(AnimTags.Death);
     }
 
     public override void ExitState()

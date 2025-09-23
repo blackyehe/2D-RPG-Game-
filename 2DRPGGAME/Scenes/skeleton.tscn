@@ -1,14 +1,14 @@
 [gd_scene load_steps=22 format=3 uid="uid://dbjmmmlrgbacb"]
 
 [ext_resource type="Script" uid="uid://pcck3as51ubs" path="res://Scripts/Enemies/Enemy.cs" id="1_v8sxu"]
-[ext_resource type="Texture2D" uid="uid://h1lt2c4rd3uj" path="res://Free Assets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_attack.png" id="2_ks230"]
+[ext_resource type="Texture2D" uid="uid://h1lt2c4rd3uj" path="res://FreeAssets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_attack.png" id="2_ks230"]
 [ext_resource type="Resource" uid="uid://de1m76pyke7d2" path="res://Resources/EnemyTypes/Skeleton.tres" id="2_shq1q"]
 [ext_resource type="Resource" uid="uid://dtjgi2d0u2d0h" path="res://Resources/Behaviours/MeleeBehav.tres" id="2_xbfmp"]
 [ext_resource type="Resource" uid="uid://b3q0n468mole7" path="res://Resources/Inventory/SkeletonInv.tres" id="3_q1wii"]
-[ext_resource type="Texture2D" uid="uid://bvc5012oe6eig" path="res://Free Assets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_death.png" id="3_shq1q"]
-[ext_resource type="Texture2D" uid="uid://cg7yysi5vsx6t" path="res://Free Assets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_idle.png" id="4_xbfmp"]
-[ext_resource type="Texture2D" uid="uid://uy337qx8myfc" path="res://Free Assets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_movement.png" id="5_q1wii"]
-[ext_resource type="Texture2D" uid="uid://bp4gqjybkeaxo" path="res://Free Assets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_take_damage.png" id="6_lw4xn"]
+[ext_resource type="Texture2D" uid="uid://bvc5012oe6eig" path="res://FreeAssets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_death.png" id="3_shq1q"]
+[ext_resource type="Texture2D" uid="uid://cg7yysi5vsx6t" path="res://FreeAssets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_idle.png" id="4_xbfmp"]
+[ext_resource type="Texture2D" uid="uid://uy337qx8myfc" path="res://FreeAssets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_movement.png" id="5_q1wii"]
+[ext_resource type="Texture2D" uid="uid://bp4gqjybkeaxo" path="res://FreeAssets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_take_damage.png" id="6_lw4xn"]
 
 [sub_resource type="Animation" id="Animation_q1wii"]
 resource_name = "AttackLight"
@@ -90,6 +90,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [17]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"AfterDeath"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_clg8n"]

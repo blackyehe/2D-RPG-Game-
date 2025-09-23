@@ -1,3 +1,9 @@
-[gd_resource type="Resource" format=3 uid="uid://b2vj45022mcqw"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b1tc8tv5t1rka"]
+
+[ext_resource type="Texture2D" uid="uid://c2x4sfh6k3lhh" path="res://FreeAssets/sajat assetek/WeaponProperty/Longbow-export.png" id="1_bwh5l"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_7ay2a"]
 
 [resource]
+script = ExtResource("2_7ay2a")
+Sprite = ExtResource("1_bwh5l")
+Text = 12

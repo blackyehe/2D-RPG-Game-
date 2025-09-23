@@ -1,13 +1,15 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dnmfmbujyqva6"]
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://dnmfmbujyqva6"]
 
 [ext_resource type="Texture2D" uid="uid://bo1ivo5su2caw" path="res://Resources/WeaponTextures/Bow1Texture.tres" id="1_phl5m"]
 [ext_resource type="Resource" uid="uid://t4ymjo7uq5xd" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/Ranged/Ranged Shot.tres" id="1_w85bm"]
 [ext_resource type="Script" uid="uid://dm2fvpoveg8kp" path="res://Scripts/ResourceScripts/WeaponResource.cs" id="2_nbt0d"]
+[ext_resource type="Resource" uid="uid://b1tc8tv5t1rka" path="res://Resources/WeaponProperties/weapons/Longbow.tres" id="3_1af16"]
+[ext_resource type="Resource" uid="uid://pl74bgfyvdum" path="res://Resources/WeaponProperties/proficiency/Finesse.tres" id="3_di8gd"]
 
 [resource]
 script = ExtResource("2_nbt0d")
-WeaponProperties = Array[int]([1])
-WhatKindOfWeapon = 12
+WeaponProperties = Array[Resource]([ExtResource("3_di8gd")])
+WhatWeapon = ExtResource("3_1af16")
 WeaponDamage = 10.0
 DamageDistribution = Dictionary[int, int]({})
 IsMagical = true
@@ -16,12 +18,5 @@ attackRange = 4
 Actions = Array[Resource]([ExtResource("1_w85bm")])
 ItemName = "Bow Bow"
 Texture = ExtResource("1_phl5m")
-ItemRarity = 0
-ItemType = 0
-EffectDescription1 = ""
-EffectDescription2 = ""
-GainSkillNameAndType = ""
-ItemFlavourDescription = ""
-IsItemStackable = false
 ItemQuantity = 1
 equipSlot = 7

@@ -14,16 +14,10 @@ public abstract partial class ItemResource : Resource
     [Export] public Texture2D EffectTexture2;
     [Export] public string EffectDescription2;
 
-    [Export] public Texture2D GainSkillSprite;
-    [Export] public string GainSkillNameAndType;
+    [Export] public WeaponBaseAction GainSkill;
     
     [Export] public string ItemFlavourDescription;
     
-    [Export] public Texture2D ItemTypeTexture1;
-    [Export] public Texture2D ItemPropertyTexture1;
-    [Export] public Texture2D ItemPropertyTexture2;
-
-    [Export] public Texture2D ItemPriceTexture;
     [Export] public double ItemPriceText;
     
     [Export] public bool IsItemStackable;

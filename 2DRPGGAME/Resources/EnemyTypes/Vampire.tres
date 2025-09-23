@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_bvah2")
-BaseHP = 10.0
+BaseHP = 20.0
 BaseMP = 10.0
 BaseAttack = 15.0
 BaseDefense = 7.0
@@ -21,11 +21,7 @@ remainingCost = Dictionary[int, int]({
 })
 ActionCount = 1
 BonusActionCount = 1
-XP = 0.0
 Level = 3
 RewardXP = 200.0
-TileMovementCount = 0
 LightAttackAnimDuration = 1.8
-HeavyAttackAnimDuration = 0.0
-RangedShotAnimDuration = 0.0
 XPThresholds = Array[float]([])

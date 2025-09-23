@@ -22,6 +22,12 @@ public abstract partial class BaseWeapon : EquipableItem
         {
             itemUser.Stats.MaxAttack += weaponResource.WeaponDamage;
         }
+
+        if (weaponResource.GainSkill != null)
+        {
+            itemUser.allAbilities.Add(weaponResource.GainSkill);
+            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.allAbilities);
+        }
     }
 
     public override void OnUnequip(CombatActor itemUser)
@@ -29,6 +35,12 @@ public abstract partial class BaseWeapon : EquipableItem
         if (weaponResource.WeaponType is WeaponType.Melee)
         {
             itemUser.Stats.MaxAttack -= weaponResource.WeaponDamage;
+        }
+
+        if (weaponResource.GainSkill != null)
+        {
+            itemUser.allAbilities.Remove(weaponResource.GainSkill);
+            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.allAbilities);
         }
     }
 

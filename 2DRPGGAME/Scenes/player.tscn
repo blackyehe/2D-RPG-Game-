@@ -1,18 +1,18 @@
 [gd_scene load_steps=31 format=3 uid="uid://dknh1cinsquet"]
 
-[ext_resource type="Texture2D" uid="uid://cb1n3jjdev51e" path="res://Free Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack03.png" id="1_3smsa"]
+[ext_resource type="Texture2D" uid="uid://cb1n3jjdev51e" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack03.png" id="1_3smsa"]
 [ext_resource type="Script" uid="uid://bqakr7oiso4ao" path="res://Scripts/Player.cs" id="1_8erm5"]
-[ext_resource type="Texture2D" uid="uid://b5mkofpcgt2h2" path="res://Free Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack02.png" id="2_8erm5"]
+[ext_resource type="Texture2D" uid="uid://b5mkofpcgt2h2" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack02.png" id="2_8erm5"]
 [ext_resource type="Resource" uid="uid://phas7pmtbjxw" path="res://Resources/ClassTypes/Warrior.tres" id="2_f1ek2"]
 [ext_resource type="Resource" uid="uid://kbywuqwch5ku" path="res://Resources/Inventory/PlayerInventory.tres" id="2_tx1dd"]
-[ext_resource type="Texture2D" uid="uid://cmaifnppi66wd" path="res://Free Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="3_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://cmaifnppi66wd" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png" id="3_f1ek2"]
 [ext_resource type="Resource" uid="uid://bb8cbdccxlb3j" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/Melee/HeavySlash.tres" id="3_pu2lt"]
-[ext_resource type="Texture2D" uid="uid://dryuyn83w38kw" path="res://Free Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="4_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://dryuyn83w38kw" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Death.png" id="4_tx1dd"]
 [ext_resource type="Resource" uid="uid://d315dqr1nq0qg" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/Ranged/Heavy shot.tres" id="4_ukyrk"]
-[ext_resource type="Texture2D" uid="uid://xmnf6q6beaq3" path="res://Free Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="5_gymyn"]
-[ext_resource type="Texture2D" uid="uid://cg6vgxcddfh67" path="res://Free Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="6_pu2lt"]
-[ext_resource type="Texture2D" uid="uid://42gwix84ysaa" path="res://Free Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="7_ukyrk"]
-[ext_resource type="Texture2D" uid="uid://lyiq0bq5xkr1" path="res://Free Assets/sajat assetek/LevelUp/LevelUpSpriteSheet.png" id="11_gymyn"]
+[ext_resource type="Texture2D" uid="uid://xmnf6q6beaq3" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png" id="5_gymyn"]
+[ext_resource type="Texture2D" uid="uid://cg6vgxcddfh67" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Idle.png" id="6_pu2lt"]
+[ext_resource type="Texture2D" uid="uid://42gwix84ysaa" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Walk.png" id="7_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://lyiq0bq5xkr1" path="res://FreeAssets/sajat assetek/LevelUp/LevelUpSpriteSheet.png" id="11_gymyn"]
 
 [sub_resource type="Animation" id="Animation_gymyn"]
 resource_name = "AttackBow"
@@ -176,6 +176,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [4]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"AfterDeath"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_tx1dd"]

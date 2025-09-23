@@ -64,6 +64,7 @@ public partial class TurnManager : Node
 
         return null;
     }
+
     public CombatActor GetAllyTile(Vector2I tile)
     {
         foreach (CombatActor ally in allyCombatants)
@@ -125,6 +126,7 @@ public partial class TurnManager : Node
         {
             actor.ExitCombat();
         }
+
         ResetCombatants();
     }
 
@@ -132,9 +134,10 @@ public partial class TurnManager : Node
     {
         double experience = 0;
         foreach (var actor in deadActors)
-        { 
-           experience += actor.Stats.RewardXP;
+        {
+            experience += actor.Stats.RewardXP;
         }
+
         return experience;
     }
 
@@ -162,6 +165,7 @@ public partial class TurnManager : Node
         {
             EndCombat();
         }
+        else NextCurrentActor();
     }
 
     public void NextCurrentActor()
