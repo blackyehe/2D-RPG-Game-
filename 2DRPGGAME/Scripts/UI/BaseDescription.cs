@@ -26,8 +26,7 @@ public partial class BaseDescription : Control
 		var dmgDist =damageDistributions.Select(x => $"\t{x.Key} {x.Value}");
 		stringData = string.Join("\n", dmgDist);
 	}
-
-
+	
 	public override void _Ready()
 	{
 	}

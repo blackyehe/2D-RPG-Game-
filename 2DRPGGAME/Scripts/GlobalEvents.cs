@@ -27,7 +27,6 @@ public partial class GlobalEvents : Node
 	public void EmitGetExperience(double experience) => GetExperience?.Invoke(experience);
 	
 	
-	
 	public event EventHandler OnLevelUp;
 	public void EmitOnLevelUp() => OnLevelUp?.Invoke(this, EventArgs.Empty);
 	

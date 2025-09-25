@@ -20,7 +20,7 @@ public partial class Enemy : CombatActor, IInteractable
     public Dictionary<StateEnemy, EnemyState> States;
     public Vector2[] MovementPath;
 
-    public List<CombatAction> combatActions = new();
+    public Queue<CombatAction> combatActions = new();
     public override void _Ready()
     {
         _player = Player.Instance;
@@ -156,7 +156,7 @@ public partial class Enemy : CombatActor, IInteractable
     }
     public void AddAction(CombatAction action)
     {
-        combatActions.Add(action);
+        combatActions.Enqueue(action);
     }
     public override void ExitCombat()
     {

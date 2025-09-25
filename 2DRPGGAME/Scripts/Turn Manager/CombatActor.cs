@@ -90,9 +90,8 @@ public abstract partial class CombatActor : CharacterBody2D
         var actorPos = TurnManager.Instance.GetTilePosition(enemy.GlobalPosition);
         if (activeWeapon == null)
             return false;
-        
-        return IsPlayer ? thisPos.DistanceTo(actorPos) <= currentAbility.ActionRange : 
-            thisPos.DistanceTo(actorPos) <= currentAbility.ActionRange + Stats.TileMovementCount;
+
+        return thisPos.DistanceTo(actorPos) <= currentAbility.ActionRange;
     }
     public void SetActiveWeapon()
     {

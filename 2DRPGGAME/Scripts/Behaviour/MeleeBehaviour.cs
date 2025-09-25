@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
 using Godot;
 using System.Linq;
 
 public partial class MeleeBehaviour : Behaviour
 {
+    public Queue<CombatAction> ActionQueue = new ();
+    
     public override void DecideAction() 
     {
         var targets = TurnManager.Instance.allyCombatants;
@@ -46,8 +50,9 @@ public partial class MeleeBehaviour : Behaviour
             if (moveC.IsLegal())
             {
                 ownerEntity.AddAction(moveC);
+                return;
             }
-
+            
             if (!attC.IsLegal())
                 return;
 

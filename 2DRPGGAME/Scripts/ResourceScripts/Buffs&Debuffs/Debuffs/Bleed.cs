@@ -14,7 +14,7 @@ public partial class Bleed : Debuff
     {
         target.TakeDamage(DebuffDamage);
         Duration--;
-        GD.Print($"-1 Duration\nCurrent duration:{Duration}");
+        
         return true;
     }
     

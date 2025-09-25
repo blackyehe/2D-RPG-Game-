@@ -30,9 +30,14 @@ public partial class CombatState : PlayerState
 
                 if (!Player.animationPlayer.IsPlaying() || Player.animationPlayer.CurrentAnimation != AnimTags.Hurt)
                 {
-                    currentSubState = CombatSubState.DecideAction;
+                    currentSubState = CombatSubState.WaitForInput;
                     Player.isControllable = true;
                 }
+                else
+                {
+                    currentSubState = CombatSubState.WaitForInput;
+                }
+                
                 break;
 
             case CombatSubState.WaitForInput:
@@ -57,6 +62,7 @@ public partial class CombatState : PlayerState
 
                 Player.animationPlayer.Play(AnimTags.Idle);
                 Player.IsTurnActive = false;
+                isStatusAlreadyChecked = false;
                 Player.EndTurn();
 
                 break;
