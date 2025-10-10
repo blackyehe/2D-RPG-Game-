@@ -25,8 +25,8 @@ public abstract partial class BaseWeapon : EquipableItem
 
         if (weaponResource.GainSkill != null)
         {
-            itemUser.allAbilities.Add(weaponResource.GainSkill);
-            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.allAbilities);
+            itemUser.runtimeAbilities.Add(weaponResource.GainSkill);
+            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities);
         }
     }
 
@@ -39,8 +39,8 @@ public abstract partial class BaseWeapon : EquipableItem
 
         if (weaponResource.GainSkill != null)
         {
-            itemUser.allAbilities.Remove(weaponResource.GainSkill);
-            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.allAbilities);
+            itemUser.runtimeAbilities.Remove(weaponResource.GainSkill);
+            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities);
         }
     }
 

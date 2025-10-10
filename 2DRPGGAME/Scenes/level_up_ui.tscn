@@ -7,28 +7,35 @@
 [ext_resource type="Texture2D" uid="uid://dp8nrdwrmq14y" path="res://FreeAssets/craftőox-net/4 GUI/3 Icons/Icon_48.png" id="5_rnqn3"]
 [ext_resource type="PackedScene" uid="uid://bhkh2l6eqgumh" path="res://Scenes/description_panel.tscn" id="6_rnqn3"]
 
-[node name="LevelUpUI" type="Control" node_paths=PackedStringArray("levelUpPanel", "GainedStatsLabel", "SelectedSkillSlot", "SelectableSkillsContainer", "SelectableSkillPanel", "SelectOKButton", "LevelUPConfirmButton", "canvasLayer", "LevelUpButton", "descriptionPanel")]
+[node name="LevelUpUI" type="Control" node_paths=PackedStringArray("levelUpPanel", "GainedStatsLabel", "SelectedSkillBackGround", "SelectedSkillSlot", "SelectableSkillsContainer", "SelectableSkillPanel", "SelectOKButton", "LevelUPConfirmButton", "canvasLayer", "LevelUpButton", "SelectedTalentSlot", "SelectableTalentPanel", "selectableTalentsContainer", "SelectablePassivesContainer", "TalentConfirmButton", "descriptionPanel")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = -25.0
-offset_right = 5.0
-offset_bottom = -25.0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 3.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5fr50")
 levelUpPanel = NodePath("CanvasLayer/Panel")
-GainedStatsLabel = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/GainTexture/GainedStats")
-SelectedSkillSlot = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/SelectableSKills/SelectedSkillSlot")
-SelectableSkillsContainer = NodePath("CanvasLayer/Panel/SelectableSkillsPanel/SkillContainer")
-SelectableSkillPanel = NodePath("CanvasLayer/Panel/SelectableSkillsPanel")
-SelectOKButton = NodePath("CanvasLayer/Panel/SelectableSkillsPanel/OkBUTTOn")
-LevelUPConfirmButton = NodePath("CanvasLayer/Panel/LVLUPconfirm")
+GainedStatsLabel = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/GainTexture/GainedStats")
+SelectedSkillBackGround = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/SelectableSKills")
+SelectedSkillSlot = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/SelectableSKills/SelectedSkillSlot")
+SelectableSkillsContainer = NodePath("CanvasLayer/SelectableSkillsPanel/SkillContainer")
+SelectableSkillPanel = NodePath("CanvasLayer/SelectableSkillsPanel")
+SelectOKButton = NodePath("CanvasLayer/SelectableSkillsPanel/OkBUTTOn")
+LevelUPConfirmButton = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/LVLUPconfirm")
 canvasLayer = NodePath("CanvasLayer")
 LevelUpButton = NodePath("CanvasLayer/LVLUP")
 slotScene = ExtResource("2_3tkv0")
+SelectedTalentSlot = NodePath("CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/SelectTalentOrPassive/SelectedTalentSlot")
+SelectableTalentPanel = NodePath("CanvasLayer/SelectableTalentPanel")
+selectableTalentsContainer = NodePath("CanvasLayer/SelectableTalentPanel/VBoxContainer/Panel/TalentGrid")
+SelectablePassivesContainer = NodePath("CanvasLayer/SelectableTalentPanel/VBoxContainer/Panel2/PassiveGrid")
+TalentConfirmButton = NodePath("CanvasLayer/SelectableTalentPanel/VBoxContainer/TalentConfirm")
 descriptionPanel = NodePath("CanvasLayer/DescriptionPanel")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -51,31 +58,39 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -361.0
-offset_right = 320.0
-offset_bottom = 361.0
+offset_left = -929.0
+offset_top = -400.0
+offset_right = -274.0
+offset_bottom = 344.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_right = 641.0
-offset_bottom = 948.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BoxContainer" type="BoxContainer" parent="CanvasLayer/Panel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 vertical = true
 
-[node name="LevelUp" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer"]
+layout_mode = 2
+
+[node name="LevelUp" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 texture = ExtResource("1_cy7y2")
 
-[node name="LevelUpLabel" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/LevelUp"]
+[node name="LevelUpLabel" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/LevelUp"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 42.0
@@ -86,7 +101,7 @@ text = "LEVEL UP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GainTexture" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer"]
+[node name="GainTexture" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -94,7 +109,7 @@ size_flags_vertical = 4
 texture = ExtResource("1_cy7y2")
 expand_mode = 1
 
-[node name="Explaintext" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/GainTexture"]
+[node name="Explaintext" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/GainTexture"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 42.0
@@ -104,7 +119,7 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "Gained the following:"
 horizontal_alignment = 1
 
-[node name="GainedStats" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/GainTexture"]
+[node name="GainedStats" type="RichTextLabel" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/GainTexture"]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 69.0
@@ -112,7 +127,7 @@ offset_right = 383.0
 offset_bottom = 142.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 
-[node name="SelectableSKills" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer"]
+[node name="SelectTalentOrPassive" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -120,45 +135,31 @@ size_flags_vertical = 4
 texture = ExtResource("1_cy7y2")
 expand_mode = 1
 
-[node name="SelectedSkillSlot" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/SelectableSKills" instance=ExtResource("2_3tkv0")]
+[node name="SelectedTalentSlot" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/SelectTalentOrPassive" instance=ExtResource("2_3tkv0")]
 layout_mode = 0
 offset_left = 170.0
 offset_top = 58.0
 offset_right = 234.0
 offset_bottom = 122.0
 
-[node name="LVLUPconfirm" type="Button" parent="CanvasLayer/Panel"]
+[node name="SelectableSKills" type="TextureRect" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("1_cy7y2")
+expand_mode = 1
+
+[node name="SelectedSkillSlot" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer/SelectableSKills" instance=ExtResource("2_3tkv0")]
 layout_mode = 0
-offset_left = 286.0
-offset_top = 635.0
-offset_right = 375.0
-offset_bottom = 699.0
+offset_left = 170.0
+offset_top = 58.0
+offset_right = 234.0
+offset_bottom = 122.0
+
+[node name="LVLUPconfirm" type="Button" parent="CanvasLayer/Panel/ScrollContainer/BoxContainer/VBoxContainer"]
+layout_mode = 2
 icon = ExtResource("5_rnqn3")
-icon_alignment = 1
-expand_icon = true
-
-[node name="SelectableSkillsPanel" type="Panel" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_left = 668.0
-offset_top = 449.0
-offset_right = 1099.0
-offset_bottom = 569.0
-
-[node name="SkillContainer" type="GridContainer" parent="CanvasLayer/Panel/SelectableSkillsPanel"]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 431.0
-offset_bottom = 119.0
-columns = 8
-
-[node name="OkBUTTOn" type="Button" parent="CanvasLayer/Panel/SelectableSkillsPanel"]
-layout_mode = 0
-offset_left = 165.0
-offset_top = 119.0
-offset_right = 247.0
-offset_bottom = 205.0
-icon = ExtResource("3_5fr50")
 icon_alignment = 1
 expand_icon = true
 
@@ -195,12 +196,90 @@ DescriptionPanel = {
 24: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
 25: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
 26: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
-27: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/CostActionSprite"),
 28: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/ActionLabel"),
-29: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionSprite"),
 30: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
-31: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaSprite"),
 32: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaLabel"),
-33: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/Pricesprite"),
 34: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
 }
+
+[node name="SelectableSkillsPanel" type="Panel" parent="CanvasLayer"]
+offset_left = 1308.0
+offset_top = 628.0
+offset_right = 1739.0
+offset_bottom = 748.0
+
+[node name="SkillContainer" type="GridContainer" parent="CanvasLayer/SelectableSkillsPanel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 431.0
+offset_bottom = 119.0
+columns = 8
+
+[node name="OkBUTTOn" type="Button" parent="CanvasLayer/SelectableSkillsPanel"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 119.0
+offset_right = 247.0
+offset_bottom = 205.0
+icon = ExtResource("3_5fr50")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SelectableTalentPanel" type="Panel" parent="CanvasLayer"]
+offset_left = 749.0
+offset_top = 489.0
+offset_right = 1116.0
+offset_bottom = 797.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SelectableTalentPanel"]
+layout_mode = 0
+offset_right = 367.0
+offset_bottom = 311.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/SelectableTalentPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TalentGrid" type="GridContainer" parent="CanvasLayer/SelectableTalentPanel/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.75
+offset_right = -0.75
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+columns = 8
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/SelectableTalentPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PassiveGrid" type="GridContainer" parent="CanvasLayer/SelectableTalentPanel/VBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -1.5
+offset_right = -0.5
+offset_bottom = -1.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+columns = 9
+
+[node name="TalentConfirm" type="Button" parent="CanvasLayer/SelectableTalentPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+icon = ExtResource("5_rnqn3")
+icon_alignment = 1
+expand_icon = true

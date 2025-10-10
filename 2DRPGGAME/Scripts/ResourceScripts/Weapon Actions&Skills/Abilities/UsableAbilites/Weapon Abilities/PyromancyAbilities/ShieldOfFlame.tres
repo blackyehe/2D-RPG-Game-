@@ -1,0 +1,28 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://cxmm08ql0wduf"]
+
+[ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_fgtyg"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_fgtyg"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_0d0sx"]
+[ext_resource type="Texture2D" uid="uid://cwymbvhvabw3h" path="res://FreeAssets/64x64/fc1321.png" id="4_0d0sx"]
+[ext_resource type="Script" uid="uid://be164x2d5m1rq" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/AshenGrasp.cs" id="5_fgtyg"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("5_fgtyg")
+Sprite = ExtResource("4_0d0sx")
+Name = "Ashen Grasp"
+Description = "An ashen claw grasps at the target, dealing minor fire damage, and reducing the target's movement speed, potentially rooting them in place for a turn."
+SkillDamage = 5.0
+SkillLevel = 1
+SkillDamageType = 3
+ActionType = 1
+Action = ExtResource("1_fgtyg")
+Range = ExtResource("3_0d0sx")
+ActionArea = ExtResource("2_fgtyg")
+DamageDistribution = Dictionary[int, int]({
+3: 5
+})
+ActionCosts = Dictionary[int, int]({
+2: 30
+})
+ActionRange = 6.0

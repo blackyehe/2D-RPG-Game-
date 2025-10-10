@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://dgx1423s73ds" path="res://Scripts/Inventory/InventoryUI.cs" id="1_4v8qb"]
 [ext_resource type="PackedScene" uid="uid://desvf6csg601u" path="res://Scenes/Slot.tscn" id="2_1pi3o"]
 [ext_resource type="PackedScene" uid="uid://bhkh2l6eqgumh" path="res://Scenes/description_panel.tscn" id="3_fih0l"]
-[ext_resource type="Texture2D" uid="uid://d1i8wkxk37rtc" path="res://Free Assets/sajat assetek/MergedWholeInventoryNoInventoryt.png" id="4_yeyjc"]
-[ext_resource type="Texture2D" uid="uid://cjruouc2hbmgj" path="res://Free Assets/Banner_Connection_Up.png" id="5_4ne0y"]
-[ext_resource type="Texture2D" uid="uid://fc0o4xu1fvv7" path="res://Free Assets/Button_Disable_9Slides.png" id="6_yeyjc"]
-[ext_resource type="Texture2D" uid="uid://dis2oh83bhyhy" path="res://Free Assets/Banner_Horizontal.png" id="7_4ne0y"]
-[ext_resource type="Texture2D" uid="uid://do1e4qsv2qj4y" path="res://Free Assets/Button_Disable_3Slides.png" id="7_fih0l"]
+[ext_resource type="Texture2D" uid="uid://d1i8wkxk37rtc" path="res://FreeAssets/sajat assetek/MergedWholeInventoryNoInventoryt.png" id="4_yeyjc"]
+[ext_resource type="Texture2D" uid="uid://cjruouc2hbmgj" path="res://FreeAssets/Banner_Connection_Up.png" id="5_4ne0y"]
+[ext_resource type="Texture2D" uid="uid://fc0o4xu1fvv7" path="res://FreeAssets/Button_Disable_9Slides.png" id="6_yeyjc"]
+[ext_resource type="Texture2D" uid="uid://dis2oh83bhyhy" path="res://FreeAssets/Banner_Horizontal.png" id="7_4ne0y"]
+[ext_resource type="Texture2D" uid="uid://do1e4qsv2qj4y" path="res://FreeAssets/Button_Disable_3Slides.png" id="7_fih0l"]
 [ext_resource type="Script" uid="uid://bauxo05ae6g3l" path="res://Scripts/UI/LootUI.cs" id="8_yeyjc"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("canvasLayer", "gridContainer", "descriptionPanel", "detailsPanel", "detailsLabel", "usagePanel", "useButton", "dropButton", "inventoryPanel", "wholeInventory", "equipSlots", "equippedItemPanel", "unequipButton", "compareButton", "InventoryStats", "PlayerNameText", "LevelClassText")]
+[node name="Control" type="Control" node_paths=PackedStringArray("canvasLayer", "gridContainer", "descriptionPanel", "detailsPanel", "detailsLabel", "usagePanel", "useButton", "dropButton", "inventoryPanel", "wholeInventory", "skillContainer", "equipSlots", "equippedItemPanel", "unequipButton", "compareButton", "InventoryStats", "PlayerNameText", "LevelClassText")]
 z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
@@ -21,7 +21,7 @@ offset_bottom = 978.0
 size_flags_horizontal = 8
 script = ExtResource("1_4v8qb")
 canvasLayer = NodePath("CanvasLayer")
-gridContainer = NodePath("CanvasLayer/PlayerInventory/GridContainer")
+gridContainer = NodePath("CanvasLayer/PlayerInventory/InventoryGrid")
 SlotScene = ExtResource("2_1pi3o")
 descriptionPanel = NodePath("CanvasLayer/DescriptionPanel")
 detailsPanel = NodePath("CanvasLayer/DetailsPanel")
@@ -31,6 +31,7 @@ useButton = NodePath("CanvasLayer/UsagePanel/TextureRect/HBoxContainer/UseButton
 dropButton = NodePath("CanvasLayer/UsagePanel/Drop/HBoxContainer/DropButton")
 inventoryPanel = NodePath("CanvasLayer/PlayerInventory")
 wholeInventory = NodePath("CanvasLayer/WholeInventory")
+skillContainer = [NodePath("CanvasLayer/PlayerInventory/SkillContainer1"), NodePath("CanvasLayer/PlayerInventory/SkillContainer2"), NodePath("CanvasLayer/PlayerInventory/SkillContainer3"), NodePath("CanvasLayer/PlayerInventory/SkillContainer4"), NodePath("CanvasLayer/PlayerInventory/SkillContainer5")]
 equipSlots = [NodePath("CanvasLayer/WholeInventory/MainHand"), NodePath("CanvasLayer/WholeInventory/Boots"), NodePath("CanvasLayer/WholeInventory/Trinket 1"), NodePath("CanvasLayer/WholeInventory/Ring2"), NodePath("CanvasLayer/WholeInventory/Cloak"), NodePath("CanvasLayer/WholeInventory/Gloves"), NodePath("CanvasLayer/WholeInventory/Helmet"), NodePath("CanvasLayer/WholeInventory/Ring1"), NodePath("CanvasLayer/WholeInventory/Breastplate"), NodePath("CanvasLayer/WholeInventory/Ranged2"), NodePath("CanvasLayer/WholeInventory/Ranged1"), NodePath("CanvasLayer/WholeInventory/Trinket2"), NodePath("CanvasLayer/WholeInventory/OffHand")]
 equippedItemPanel = NodePath("CanvasLayer/EquippedItempanel")
 unequipButton = NodePath("CanvasLayer/EquippedItempanel/TextureRect/HBoxContainer/UnequipButton")
@@ -74,10 +75,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -881.429
-offset_top = -709.286
-offset_right = -305.429
-offset_bottom = -133.286
+offset_left = -880.0
+offset_top = -709.2857
+offset_right = -303.99994
+offset_bottom = -133.2857
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -383,7 +384,7 @@ scale = Vector2(0.7, 0.7)
 expand_mode = 3
 stretch_mode = 4
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+[node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
 z_as_relative = false
 custom_minimum_size = Vector2(80.5, 86)
 layout_mode = 1
@@ -399,16 +400,58 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PlayerInventory/GridContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PlayerInventory/InventoryGrid"]
 custom_minimum_size = Vector2(257, 457)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
+[node name="SkillContainer1" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+custom_minimum_size = Vector2(339, 86)
+layout_mode = 0
+offset_left = -988.57135
+offset_top = 6.734685
+offset_right = -648.7754
+offset_bottom = 93.4694
+theme_override_constants/h_separation = 4
+columns = 4
+
+[node name="SkillContainer2" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 0
+offset_left = -988.57135
+offset_top = 97.55104
+offset_right = -648.7754
+offset_bottom = 185.30614
+columns = 4
+
+[node name="SkillContainer3" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 0
+offset_left = -988.57135
+offset_top = 189.38777
+offset_right = -648.7754
+offset_bottom = 276.1225
+columns = 4
+
+[node name="SkillContainer4" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 0
+offset_left = -988.5713
+offset_top = 281.2245
+offset_right = -648.7754
+offset_bottom = 366.93884
+columns = 4
+
+[node name="SkillContainer5" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 0
+offset_left = -988.57135
+offset_top = 373.06125
+offset_right = -648.7754
+offset_bottom = 458.77554
+columns = 4
+
 [node name="DescriptionPanel" parent="CanvasLayer" node_paths=PackedStringArray("DescriptionPanel") instance=ExtResource("3_fih0l")]
-offset_left = 927.143
-offset_top = 135.0
-offset_right = 1270.14
-offset_bottom = 650.0
+offset_left = 834.28577
+offset_top = 55.0
+offset_right = 1177.2858
+offset_bottom = 540.0
 DescriptionPanel = {
 0: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/Sprite"),
 1: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/Name"),
@@ -437,13 +480,9 @@ DescriptionPanel = {
 24: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
 25: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
 26: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
-27: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/CostActionSprite"),
 28: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/ActionLabel"),
-29: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionSprite"),
 30: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
-31: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaSprite"),
 32: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaLabel"),
-33: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/Pricesprite"),
 34: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
 }
 
@@ -554,7 +593,7 @@ texture = ExtResource("7_4ne0y")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/EnemyLootPanel"]
 custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
+layout_mode = 0
 offset_left = 145.0
 offset_top = 80.0
 offset_right = 366.0

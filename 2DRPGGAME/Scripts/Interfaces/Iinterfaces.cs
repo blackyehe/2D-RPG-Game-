@@ -13,3 +13,4 @@ public interface IStatusEffect
 {
 	public bool StatusEffect(CombatActor target);
 }
+

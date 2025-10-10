@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_mena4"]
 [ext_resource type="Texture2D" uid="uid://b3ukspbndpm48" path="res://FreeAssets/64x64/fc1267.png" id="1_vow6q"]
-[ext_resource type="Script" uid="uid://b5qypik8odmly" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/RangedScript/HeavyShot.cs" id="2_51he6"]
+[ext_resource type="Script" uid="uid://b5qypik8odmly" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Archery/Basic/HeavyShot.cs" id="2_51he6"]
 [ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_cujpj"]
 [ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_q62p7"]
 

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://wwwuo3bwkjgd"]
+
+[ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_hrnxa"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_hrnxa"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_gp33x"]
+[ext_resource type="Texture2D" uid="uid://dhvdotgd5uyf1" path="res://FreeAssets/64x64/fc1120.png" id="4_7c4qw"]
+[ext_resource type="Resource" uid="uid://cf3g1cqp25hc3" path="res://Resources/StatusEffects/Debuffs/Poison.tres" id="5_w5dvi"]
+[ext_resource type="Script" uid="uid://byttal5gifcdf" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Alchemy/Level1/PoisonBreath.cs" id="6_wvg56"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("6_wvg56")
+Sprite = ExtResource("4_7c4qw")
+Name = "Fairy Dust"
+Description = "Throws a cloud of alchemical dust at the target, granting the target a weak health and mana regeneration. while also removing poison and paralyze."
+SkillLevel = 1
+SkillDamageType = 8
+ActionType = 1
+Action = ExtResource("1_hrnxa")
+Range = ExtResource("3_gp33x")
+ActionArea = ExtResource("2_hrnxa")
+DamageDistribution = Dictionary[int, int]({
+8: 5
+})
+ActionCosts = Dictionary[int, int]({
+0: 1,
+2: 50
+})
+StatusEffect = ExtResource("5_w5dvi")
+ActionRange = 5.0
+CoolDown = 1.0

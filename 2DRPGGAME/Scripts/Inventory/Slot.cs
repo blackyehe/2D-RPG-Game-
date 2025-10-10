@@ -10,6 +10,8 @@ public partial class Slot : TextureRect
     [Export] public EquipSlot equipSlot;
     public Item currentItem = null;
     public WeaponBaseAction  currentAbilityAction = null;
+    public BaseSkill currentTalent = null;
+    public SkillSchools skillSchool;
     
     public void SetSlotsEmpty()
     {
@@ -27,6 +29,13 @@ public partial class Slot : TextureRect
     {
        itemIcon.Texture = ability.Sprite;
        currentAbilityAction = ability;
+    }
+
+    public void SetTalent(BaseSkill skill)
+    {
+        itemIcon.Texture = skill.Sprite;
+        skillSchool = skill.SkillSchool;
+        currentTalent = skill;
     }
     public override void _Ready()
     {

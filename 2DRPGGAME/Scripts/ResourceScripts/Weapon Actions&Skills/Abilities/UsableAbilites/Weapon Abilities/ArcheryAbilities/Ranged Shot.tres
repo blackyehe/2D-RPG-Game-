@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_euq3e"]
 [ext_resource type="Texture2D" uid="uid://ryum032h3v2n" path="res://FreeAssets/64x64/fc1257.png" id="1_u1tdo"]
 [ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_euq3e"]
-[ext_resource type="Script" uid="uid://brc5vyter2x64" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/RangedScript/RangedShot.cs" id="2_fafak"]
+[ext_resource type="Script" uid="uid://brc5vyter2x64" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Archery/Basic/RangedShot.cs" id="2_fafak"]
 [ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_37sny"]
 [ext_resource type="Resource" uid="uid://dvrw7lq0dkswq" path="res://Resources/StatusEffects/Debuffs/Bleed.tres" id="5_6pyk7"]
 

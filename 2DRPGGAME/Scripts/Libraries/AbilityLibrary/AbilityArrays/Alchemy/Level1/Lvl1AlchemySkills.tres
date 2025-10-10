@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://do4i6p4wbm2rq"]
+
+[ext_resource type="Script" uid="uid://cm5djrvs2qq63" path="res://Scripts/Libraries/AbilityLibrary/AbilityArray.cs" id="1_oa6ap"]
+[ext_resource type="Resource" uid="uid://jgy3dclw1sh4" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/AlchemyAbilities/CreatePotion.tres" id="2_viehm"]
+[ext_resource type="Resource" uid="uid://wwwuo3bwkjgd" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/AlchemyAbilities/FairyDust.tres" id="3_nstm4"]
+[ext_resource type="Resource" uid="uid://bxjg0rhmxpeno" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/AlchemyAbilities/PoisonBreath.tres" id="4_ca8jh"]
+[ext_resource type="Resource" uid="uid://c6wptjt2god2u" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/AlchemyAbilities/PoisonDart.tres" id="5_8beb0"]
+[ext_resource type="Resource" uid="uid://ci82lq835hf7q" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/AlchemyAbilities/ReflexEnhancement.tres" id="6_1wiif"]
+
+[resource]
+script = ExtResource("1_oa6ap")
+skillArray = Array[Resource]([ExtResource("2_viehm"), ExtResource("3_nstm4"), ExtResource("4_ca8jh"), ExtResource("5_8beb0"), ExtResource("6_1wiif")])

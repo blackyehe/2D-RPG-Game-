@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://ci82lq835hf7q"]
+
+[ext_resource type="Resource" uid="uid://dh0flf0hj2i3k" path="res://Resources/AttackProperties/ActionType/Melee.tres" id="1_d0usl"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_d0usl"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_1xv7a"]
+[ext_resource type="Texture2D" uid="uid://b83j1k4nlafvf" path="res://FreeAssets/64x64/fc961.png" id="4_6gucm"]
+[ext_resource type="Resource" uid="uid://cf3g1cqp25hc3" path="res://Resources/StatusEffects/Debuffs/Poison.tres" id="5_nlt04"]
+[ext_resource type="Script" uid="uid://byttal5gifcdf" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Alchemy/Level1/PoisonBreath.cs" id="6_2va0e"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("6_2va0e")
+Sprite = ExtResource("4_6gucm")
+Name = "Reflex Enhancement"
+Description = "Injects the target with a reflex enhancing serum, granting the target improved defense and dodge chance."
+SkillLevel = 1
+SkillDamageType = 8
+ActionType = 1
+Action = ExtResource("1_d0usl")
+Range = ExtResource("3_1xv7a")
+ActionArea = ExtResource("2_d0usl")
+DamageDistribution = Dictionary[int, int]({})
+ActionCosts = Dictionary[int, int]({
+0: 1,
+2: 20
+})
+StatusEffect = ExtResource("5_nlt04")
+ActionRange = 1.0
+CoolDown = 1.0

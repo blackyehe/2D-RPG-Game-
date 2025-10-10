@@ -1,0 +1,32 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://bxjg0rhmxpeno"]
+
+[ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_uwtn1"]
+[ext_resource type="Resource" uid="uid://bhhtw3186atl2" path="res://Resources/AttackProperties/AreaOfEffect/AoE.tres" id="2_uwtn1"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_vxkxl"]
+[ext_resource type="Texture2D" uid="uid://3xuwxxic8h0g" path="res://FreeAssets/64x64/fc780.png" id="4_uwtn1"]
+[ext_resource type="Resource" uid="uid://cf3g1cqp25hc3" path="res://Resources/StatusEffects/Debuffs/Poison.tres" id="5_2yxff"]
+[ext_resource type="Script" uid="uid://bnvxlyipt5qpr" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Alchemy/Level1/FairyDust.cs" id="6_uwtn1"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("6_uwtn1")
+Sprite = ExtResource("4_uwtn1")
+Name = "Poison Breath"
+Description = "Breathes a toxic cloud at enemies in a cone shape, dealing minor poison damage to them, with a chance to apply poison."
+SkillDamage = 5.0
+SkillLevel = 1
+SkillDamageType = 8
+ActionType = 1
+Action = ExtResource("1_uwtn1")
+Range = ExtResource("3_vxkxl")
+ActionArea = ExtResource("2_uwtn1")
+DamageDistribution = Dictionary[int, int]({
+8: 5
+})
+ActionCosts = Dictionary[int, int]({
+0: 1,
+2: 40
+})
+StatusEffect = ExtResource("5_2yxff")
+ActionRange = 5.0
+CoolDown = 1.0

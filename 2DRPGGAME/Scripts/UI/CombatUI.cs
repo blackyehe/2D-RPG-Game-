@@ -9,6 +9,7 @@ public partial class CombatUI : Control
     [Export] public GridContainer spellContainer;
     [Export] public PackedScene SlotScene;
     [Export] public DescriptionPanelUI descriptionPanel;
+    [Export] public Container fakeContainer;
     public Player player;
     private bool descriptionBool;
 
@@ -42,7 +43,7 @@ public partial class CombatUI : Control
     private void OnSkillBarChanged(List<WeaponBaseAction> abilities)
     {
         ClearGridContainer();
-        foreach (var ability in player.allAbilities)
+        foreach (var ability in player.runtimeAbilities)
         {
             var scene = SlotScene.Instantiate();
             spellContainer.AddChild(scene);
@@ -83,14 +84,15 @@ public partial class CombatUI : Control
 
         if (slot.currentItem == null && slot.currentAbilityAction != null)
         {
-            var CurrentDescription = slot.currentAbilityAction.GetDescription();
+            var CurrentDescription = slot.currentAbilityAction.GetDescription(player);
             descriptionPanel.HideAllControlsInDescriptionPanel();
             descriptionPanel.SetDescriptionPanel(CurrentDescription);
-            descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, -260);
+            fakeContainer.GlobalPosition = slot.GlobalPosition + new Vector2(360, 330);
             descriptionBool = true;
             GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
         }
     }
+
     public void isDescriptionBoolTrue()
     {
         if (descriptionBool == false) return;

@@ -14,11 +14,11 @@ public partial class TurnManager : Node
     public Player player;
     [Export] public TileMap tileMap;
 
-    public List<CombatActor> turnQueue = new List<CombatActor>();
-    public List<CombatActor> allActors = new List<CombatActor>();
-    public List<CombatActor> allyCombatants = new List<CombatActor>();
-    public List<CombatActor> enemyCombatants = new List<CombatActor>();
-    public List<CombatActor> deadActors = new List<CombatActor>();
+    public List<CombatActor> turnQueue = new();
+    public List<CombatActor> allActors = new();
+    public List<CombatActor> allyCombatants = new();
+    public List<CombatActor> enemyCombatants = new();
+    public List<CombatActor> deadActors = new();
 
     [Export] public AnimationPlayer TransitionAnimation;
 
@@ -165,7 +165,6 @@ public partial class TurnManager : Node
         {
             EndCombat();
         }
-        else NextCurrentActor();
     }
 
     public void NextCurrentActor()

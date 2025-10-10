@@ -119,6 +119,22 @@ public enum DamageTypes
     Wind,
 }
 
+public enum SkillSchools
+{
+    Pyromancer,
+    Summoner,
+    Necromancer,
+    Aeromancer,
+    Hemomancer,
+    Hydromancer,
+    Geomancer,
+    Divine,
+    Archery,
+    Fighting,
+    Thief,
+    Alchemist,
+}
+
 public enum ActionTypes
 {
     Action,
@@ -135,6 +151,7 @@ public enum debuffTypes
     Silence,
     Rot,
     Frostbite,
+    Paralyzed,
 }
 
 public enum buffTypes

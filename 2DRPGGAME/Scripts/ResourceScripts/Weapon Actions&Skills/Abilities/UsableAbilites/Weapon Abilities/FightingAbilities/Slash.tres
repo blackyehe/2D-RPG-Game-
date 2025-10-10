@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://dh0flf0hj2i3k" path="res://Resources/AttackProperties/ActionType/Melee.tres" id="1_5h7ce"]
 [ext_resource type="Texture2D" uid="uid://3y5jvan0st5j" path="res://FreeAssets/64x64/fc1255.png" id="1_h3f7r"]
-[ext_resource type="Script" uid="uid://pr0oxjpqlhv4" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/MeleeScript/Slash.cs" id="2_ghdd2"]
+[ext_resource type="Script" uid="uid://pr0oxjpqlhv4" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Fighting/Basic/Slash.cs" id="2_ghdd2"]
 [ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_qsc77"]
 [ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_sltbx"]
 

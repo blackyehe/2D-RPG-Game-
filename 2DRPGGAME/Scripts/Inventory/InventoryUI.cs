@@ -2,6 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 using Godot.Collections;
+using Microsoft.VisualBasic.CompilerServices;
 using Array = Godot.Collections.Array;
 using Range = System.Range;
 
@@ -12,30 +13,32 @@ public partial class InventoryUI : Control
     [Export] GridContainer gridContainer;
     [Export] public PackedScene SlotScene;
     [Export] public DescriptionPanelUI descriptionPanel;
-    
+
     [Export] public MarginContainer detailsPanel;
     [Export] public RichTextLabel detailsLabel;
 
     [Export] public TextureRect usagePanel;
     [Export] public Button useButton;
     [Export] public Button dropButton;
-    
+
     [Export] public TextureRect inventoryPanel;
     [Export] public TextureRect wholeInventory;
+    [Export] public Array<GridContainer> skillContainer;
     [Export] public Array<Slot> equipSlots;
 
     [Export] public TextureRect equippedItemPanel;
     [Export] public Button unequipButton;
     [Export] public Button compareButton;
 
-    [Export] public Godot.Collections.Dictionary<characterStats,RichTextLabel> InventoryStats = new();
-    
+    [Export] public Godot.Collections.Dictionary<characterStats, RichTextLabel> InventoryStats = new();
+
     [Export] public RichTextLabel PlayerNameText;
     [Export] public RichTextLabel LevelClassText;
-    
+
     private Slot selectedSlot;
     private bool descriptionBool;
     public bool isready;
+
     public override void _Ready()
     {
         canvasLayer.Visible = true;
@@ -46,10 +49,64 @@ public partial class InventoryUI : Control
         Player.Instance.inventory.InventoryChanged += Inventory_InventoryChanged;
         useButton.Pressed += UseButton_Pressed;
         unequipButton.Pressed += UnequipButtonOnPressed;
+        GlobalEvents.Instance.OnTalentLearned += OnPlayerTalentLearned;
         GlobalEvents.Instance.OnInventoryStatsUpgraded += OnInventoryStatsUpgraded;
         isready = true;
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(Player.Instance);
+        setStartingSkills();
     }
+
+    public void OnPlayerTalentLearned(BaseSkill skill)
+    {
+        if (skill == null) return;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (skillContainer[i].GetChildCount() == 0 && skill.IsMain)
+            {
+                var scene = SlotScene.Instantiate();
+                Slot skillSlot = scene as Slot;
+                skillContainer[i].AddChild(skillSlot);
+                skillSlot.SetHSizeFlags(SizeFlags.ExpandFill);
+                skillSlot.SetVSizeFlags(SizeFlags.ExpandFill);
+                skillSlot.itemButton.Visible = false;
+                skillSlot.Visible = true;
+                skillSlot.SetTalent(skill);
+                Player.Instance.LearnedTalents.Add(skill);
+                
+                return;
+            }
+
+            if (skillContainer[i].GetChildCount() >= 1 && skill.IsMain == false &&
+                skillContainer[i].GetChildCount() <= 5)
+            {
+                var container = skillContainer[i];
+                var mainSkill = container.GetChild<Slot>(0);
+
+                if (mainSkill.skillSchool == skill.SkillSchool)
+                {
+                    var scene = SlotScene.Instantiate();
+                    Slot skillSlot = scene as Slot;
+                    container.AddChild(skillSlot);
+                    skillSlot.SetHSizeFlags(SizeFlags.ExpandFill);
+                    skillSlot.SetVSizeFlags(SizeFlags.ExpandFill);
+                    skillSlot.itemButton.Visible = false;
+                    skillSlot.SetTalent(skill);
+                    Player.Instance.LearnedTalents.Add(skill);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void setStartingSkills()
+    {
+        foreach (var baseSkill in Player.Instance.Stats.StartingSkills)
+        {
+            GlobalEvents.Instance.EmitOnTalentLearned(baseSkill);
+        }
+    }
+
     private void OnEquipSlotChanged(Item item)
     {
         SwapEquipSlot(item);
@@ -75,7 +132,7 @@ public partial class InventoryUI : Control
             var scene = SlotScene.Instantiate();
             gridContainer.AddChild(scene);
             Slot slot = scene as Slot;
-            slot.SetCustomMinimumSize(new Vector2(86,91));
+            slot.SetCustomMinimumSize(new Vector2(86, 91));
             if (item != null)
             {
                 detailsPanel.Visible = false;
@@ -86,6 +143,7 @@ public partial class InventoryUI : Control
             {
                 slot.SetSlotsEmpty();
             }
+
             slot.OnSlotEntered += OnItemButtonMouseEntered;
             slot.OnSlotExited += OnItemButtonMouseExited;
             slot.OnSlotPressed += OnItemButtonPressed;
@@ -107,6 +165,7 @@ public partial class InventoryUI : Control
             GD.Print("Paused");
         }
     }
+
 
     public void ClearGridContainer()
     {
@@ -131,7 +190,7 @@ public partial class InventoryUI : Control
         if (slot.currentItem != null)
         {
             selectedSlot = slot;
-            
+
             useButton.Text = slot.currentItem is EquipableItem ? "Equip" : "Use";
             usagePanel.GlobalPosition = slot.GlobalPosition + new Vector2(-50, 60);
             usagePanel.Visible = !usagePanel.Visible;
@@ -162,7 +221,7 @@ public partial class InventoryUI : Control
 
         Player.Instance.inventory.AddItem(currentlyEquipped);
         Player.Instance.RemoveCurrentAbilities(currentlyEquipped.ItemResource.equipSlot);
-        GlobalEvents.Instance.EmitOnSkillBarChanged(Player.Instance.allAbilities);
+        GlobalEvents.Instance.EmitOnSkillBarChanged(Player.Instance.runtimeAbilities);
         var SlothSlot = equipSlots.FirstOrDefault(x => x.equipSlot == currentlyEquipped.ItemResource.equipSlot);
         Player.Instance.EquippedItems[currentlyEquipped.ItemResource.equipSlot] = null;
         currentlyEquipped.OnUnequip(Player.Instance);
@@ -212,15 +271,15 @@ public partial class InventoryUI : Control
         }
 
         SwapEquipSlot(itemToEquip);
-        
+
         Player.Instance.GetCurrentAbilityByItem(itemToEquip.ItemResource.equipSlot);
-        
-        GlobalEvents.Instance.EmitOnSkillBarChanged(Player.Instance.allAbilities);
-        
+
+        GlobalEvents.Instance.EmitOnSkillBarChanged(Player.Instance.runtimeAbilities);
+
         itemToEquip.OnEquip(Player.Instance);
-        
+
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(Player.Instance);
-        
+
         Player.Instance.inventory.RemoveItem(itemToEquip);
 
         usagePanel.Visible = false;
@@ -232,25 +291,51 @@ public partial class InventoryUI : Control
         {
             //detailsPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, 60);
             //detailsLabel.Text = slot.currentItem.ItemResource.GetDescription();
-            var currentDescription = slot.currentItem.ItemResource.GetDescription();
-            descriptionPanel.HideAllControlsInDescriptionPanel();
-            descriptionPanel.SetDescriptionPanel(currentDescription);
-            descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-450, -100);
-            descriptionBool = true;
-            GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+            //var currentDescription = slot.currentItem.ItemResource.GetDescription();
+            //descriptionPanel.HideAllControlsInDescriptionPanel();
+            //descriptionPanel.SetDescriptionPanel(currentDescription);
+            //descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-450, -100);
+            //descriptionBool = true;
+            //GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+            GetDescription(slot, slot.currentItem.ItemResource);
         }
+    }
+    public void GetDescription(Slot slot, Resource descType)
+    {
+        descriptionPanel.HideAllControlsInDescriptionPanel();
+        Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> currentDescription;
+        switch (descType)
+        {
+            case BaseSkill:
+                currentDescription = slot.currentTalent.GetDescription(Player.Instance);
+                descriptionPanel.SetDescriptionPanel(currentDescription);
+                break;
+            
+            case ItemResource:
+                currentDescription = slot.currentItem.ItemResource.GetDescription();
+                break;
+            
+            case WeaponBaseAction:
+                currentDescription = slot.currentAbilityAction.GetDescription(Player.Instance);
+                break;
+        }
+        descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, 60);
+        descriptionBool = true;
+        GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
     }
 
     public void isDescriptionBoolTrue()
     {
         if (descriptionBool == false) return;
-            descriptionPanel.Visible = true;
+        descriptionPanel.Visible = true;
     }
+
     public void OnItemButtonMouseExited(Slot slot)
     {
         descriptionBool = false;
         descriptionPanel.Visible = false;
     }
+
     void OnInventoryStatsUpgraded(Player player)
     {
         PlayerNameText.Text = player.Stats.Name;

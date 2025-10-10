@@ -28,4 +28,5 @@ public partial class PlayerStats : Resource
     [Export] public double HeavyAttackAnimDuration;
     [Export] public double RangedShotAnimDuration;
     [Export] public Array<double> XPThresholds;
+    [Export] public Array<BaseSkill> StartingSkills;
 }

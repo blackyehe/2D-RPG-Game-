@@ -24,7 +24,7 @@ public abstract partial class CombatActor : CharacterBody2D
     public RuntimeStats Stats;
 
     public System.Collections.Generic.Dictionary<EquipSlot, EquipableItem> EquippedItems = new();
-    public List<WeaponBaseAction> allAbilities = new();
+    public List<WeaponBaseAction> runtimeAbilities = new();
     public List<StatusEffectBase> statusEffectList = new();
     public event EventHandler OnActionFinished;
     public event EventHandler OnActorDeath;
@@ -90,8 +90,9 @@ public abstract partial class CombatActor : CharacterBody2D
         var actorPos = TurnManager.Instance.GetTilePosition(enemy.GlobalPosition);
         if (activeWeapon == null)
             return false;
-
-        return thisPos.DistanceTo(actorPos) <= currentAbility.ActionRange;
+        
+        return IsPlayer ? thisPos.DistanceTo(actorPos) <= currentAbility.ActionRange : 
+            thisPos.DistanceTo(actorPos) <= currentAbility.ActionRange + Stats.TileMovementCount;
     }
     public void SetActiveWeapon()
     {
@@ -205,6 +206,7 @@ public class RuntimeStats
     public double HeavyAttackAnimDuration;
     public double RangedShotAnimDuration;
     public Godot.Collections.Dictionary<actionCostType, int> remainingCost = new();
+    public Array<BaseSkill> StartingSkills;
 
     public RuntimeStats(PlayerStats actorStats)
     {
@@ -253,6 +255,8 @@ public class RuntimeStats
         remainingCost[actionCostType.BonusAction] = MaxBonusActionCount;
         remainingCost[actionCostType.Mana] = (int)MaxMP;
         
+        StartingSkills =  actorStats.StartingSkills;
+        
         TileMovementCount = MaxTileMovementCount;
     }
     public void OnLevelUp()
@@ -266,4 +270,6 @@ public class RuntimeStats
     {
         return $"Level: {CurrentLevel} => {CurrentLevel + 1}\nVitality: {MaxHP} + {MaxHP/2} => {MaxHP + MaxHP/2}";
     }
+
+    
 }

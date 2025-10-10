@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=4 format=3 uid="uid://c1r2wd53xe2p4"]
 
-[ext_resource type="Resource" uid="uid://c8lerd5y23j6v" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/Melee/Slash.tres" id="1_bftdm"]
+[ext_resource type="Resource" uid="uid://c8lerd5y23j6v" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/FightingAbilities/Slash.tres" id="1_bftdm"]
 [ext_resource type="Texture2D" uid="uid://1tacsj80c7i4" path="res://Resources/WeaponTextures/Sword.tres" id="1_f68dp"]
 [ext_resource type="Script" uid="uid://dm2fvpoveg8kp" path="res://Scripts/ResourceScripts/WeaponResource.cs" id="2_erl1a"]
 

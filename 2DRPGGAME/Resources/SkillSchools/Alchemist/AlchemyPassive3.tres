@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://6slw6phqelc5"]
+
+[ext_resource type="Texture2D" uid="uid://cc0etruhag0bf" path="res://FreeAssets/64x64/fc1117.png" id="1_clcjs"]
+[ext_resource type="Script" uid="uid://btbp2scjsigef" path="res://Scripts/SkillSchools/BaseSkill.cs" id="2_bn646"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_bn646")
+SkillSchool = 11
+SkillLevel = 1
+SkillName = "Mad Scientist"
+Sprite = ExtResource("1_clcjs")
+Description = "The hero's resistance against poision increases by [x]%. While under the effects of any form of toxin, the hero's defenese and dodge chance increases by [x]."

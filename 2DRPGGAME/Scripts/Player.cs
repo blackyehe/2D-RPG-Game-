@@ -18,12 +18,16 @@ public partial class Player : CombatActor
     [Export] public AnimationPlayer CharacterEffectPlayer;
     [Export] public Sprite2D LevelUp2D;
     [Export] public StartingInventory startingInventory;
-    [Export] public Array<WeaponBaseAction> selectableAbilities;
     public Vector2 direction;
     public bool isControllable = true;
     public PlayerState ActiveState;
     public System.Collections.Generic.Dictionary<State, PlayerState> States = new();
+    public List<BaseSkill> LearnedTalents = new();
+    public Array<WeaponBaseAction> selectableAbilities = new();
+    public List<BaseSkill> selectableTalents = new();
     public IInteractable _interactable;
+
+
     public static Player Instance { get; private set; }
 
     public void SelectInteractable(IInteractable interactable)
@@ -50,12 +54,12 @@ public partial class Player : CombatActor
 
         States = new System.Collections.Generic.Dictionary<State, PlayerState>()
         {
-            { State.Intro, new IntroState() { Player = this }},
-            { State.Idle, new IdleState() { Player = this }},
-            { State.Death, new DeathState() { Player = this }},
-            { State.Walk, new WalkState() { Player = this }},
-            { State.Attack, new AttackState() { Player = this }},
-            { State.Combat, new CombatState() { Player = this }},
+            { State.Intro, new IntroState() { Player = this } },
+            { State.Idle, new IdleState() { Player = this } },
+            { State.Death, new DeathState() { Player = this } },
+            { State.Walk, new WalkState() { Player = this } },
+            { State.Attack, new AttackState() { Player = this } },
+            { State.Combat, new CombatState() { Player = this } },
         };
         SetPlayerState(State.Idle);
 
@@ -63,11 +67,26 @@ public partial class Player : CombatActor
         {
             EquippedItems.Add(enumType, null);
         }
-
         EquipAfterGlobalEvents();
-        GlobalEvents.Instance.GetExperience += OnExperienceGained;
-        GlobalEvents.Instance.OnLevelUp += OnLevelUp;
+        GlobalEvents.Instance.OnTalentLearned += OnTalentLearned;
+        
     }
+
+    private void OnTalentLearned(BaseSkill talent)
+    {
+        LearnedTalents.Add(talent);
+        selectableTalents.Add(talent);
+        
+        if (!talent.IsMain) return;
+        
+        if (talent.PassivesAdded != true)
+        {
+            var talentPassives = talent.GetPassivesBySkillSchool(talent);
+            selectableTalents.AddRange(talentPassives);
+            talent.PassivesAdded = true;
+        }
+    }
+
     private void OnExperienceGained(double experience)
     {
         Stats.XP += experience;
@@ -77,6 +96,7 @@ public partial class Player : CombatActor
             GlobalEvents.Instance.EmitOnLevelUp();
         }
     }
+
     private void OnLevelUp(object sender, EventArgs e)
     {
         LevelUp2D.Visible = true;
@@ -88,7 +108,7 @@ public partial class Player : CombatActor
     {
         await ToSignal(GetTree().CreateTimer(0.3f), SceneTreeTimer.SignalName.Timeout);
     }
-    
+
     public async void EquipAfterGlobalEvents()
     {
         while (inventoryUI.isready != true)
@@ -99,21 +119,25 @@ public partial class Player : CombatActor
         EquipStartingItems();
         SetActiveWeapon();
         GetCurrentAbilities();
-        GlobalEvents.Instance.EmitOnSkillBarChanged(allAbilities);
-    }
-    public void GetCurrentAbilities()
-    {
-        allAbilities.AddRange(GetItemBySlotType(EquipSlot.MainHand).weaponResource.Actions);
-        allAbilities.AddRange(GetItemBySlotType(EquipSlot.Ranged).weaponResource.Actions);
+        GlobalEvents.Instance.EmitOnSkillBarChanged(runtimeAbilities);
+        GlobalEvents.Instance.GetExperience += OnExperienceGained;
+        GlobalEvents.Instance.OnLevelUp += OnLevelUp;
+        
     }
 
-    public void GetCurrentAbilityByItem(EquipSlot itemType) => 
-        allAbilities.AddRange(GetItemBySlotType(itemType).weaponResource.Actions);
-    
-    public void RemoveCurrentAbilities(EquipSlot itemType)=>
-        allAbilities.RemoveAll(ability=>
-           GetItemBySlotType(itemType).weaponResource.Actions.Contains(ability));
-    
+    public void GetCurrentAbilities()
+    {
+        runtimeAbilities.AddRange(GetItemBySlotType(EquipSlot.MainHand).weaponResource.Actions);
+        runtimeAbilities.AddRange(GetItemBySlotType(EquipSlot.Ranged).weaponResource.Actions);
+    }
+
+    public void GetCurrentAbilityByItem(EquipSlot itemType) =>
+        runtimeAbilities.AddRange(GetItemBySlotType(itemType).weaponResource.Actions);
+
+    public void RemoveCurrentAbilities(EquipSlot itemType) =>
+        runtimeAbilities.RemoveAll(ability =>
+            GetItemBySlotType(itemType).weaponResource.Actions.Contains(ability));
+
     public void EquipStartingItems()
     {
         foreach (PackedScene equipabbleItem in startingInventory.EquippableItemScenes)
@@ -134,7 +158,7 @@ public partial class Player : CombatActor
         ActiveState = States[newState];
         ActiveState.EnterState();
     }
-    
+
     public override void EnterCombat()
     {
         SetPlayerState(State.Combat);
@@ -161,7 +185,7 @@ public partial class Player : CombatActor
     {
         ActiveState.HandleInputs();
         ActiveState.PhysicsProcess(delta);
-        
+
         if (Input.IsActionJustPressed("GetTile"))
         {
             var playerPos = GlobalPosition;

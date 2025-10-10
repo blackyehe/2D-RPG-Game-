@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://ra76nlxjlxsp" path="res://FreeAssets/64x64/fc1148.png" id="1_x8bw1"]
 [ext_resource type="Resource" uid="uid://dvrw7lq0dkswq" path="res://Resources/StatusEffects/Debuffs/Bleed.tres" id="2_5lpml"]
 [ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_gl58t"]
-[ext_resource type="Script" uid="uid://dyywnxt8b466f" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/MeleeScript/HeavySlash.cs" id="2_i7ydw"]
 [ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_s3ehj"]
+[ext_resource type="Script" uid="uid://dyywnxt8b466f" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Fighting/Basic/HeavySlash.cs" id="6_eghii"]
 
 [resource]
-script = ExtResource("2_i7ydw")
+script = ExtResource("6_eghii")
 Sprite = ExtResource("1_x8bw1")
 IsWeaponAction = true
 Name = "Heavy Slash"

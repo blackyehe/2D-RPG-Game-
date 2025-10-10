@@ -1,17 +1,24 @@
-[gd_scene load_steps=42 format=3 uid="uid://8mkqjavlwapl"]
+[gd_scene load_steps=52 format=3 uid="uid://8mkqjavlwapl"]
 
 [ext_resource type="Script" uid="uid://c37ur8v4g34aq" path="res://Scripts/GlobalEvents.cs" id="1_7t8sx"]
 [ext_resource type="Script" uid="uid://brb1lxll3kq15" path="res://Scripts/Turn Manager/TurnManager.cs" id="1_85qyi"]
 [ext_resource type="PackedScene" uid="uid://dknh1cinsquet" path="res://Scenes/player.tscn" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://yqxa2k0c5587" path="res://FreeAssets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://bsirrr5ean4om" path="res://FreeAssets/pixel art top down/Texture/TX Plant.png" id="2_o5yvi"]
+[ext_resource type="Script" uid="uid://buhnft6hjkbnb" path="res://Scripts/Libraries/AbilityLibrary/AbilityLibrary.cs" id="3_mg4q0"]
 [ext_resource type="Texture2D" uid="uid://xneb7df4e3jj" path="res://FreeAssets/pixel art top down/Texture/Extra/TX Plant with Shadow.png" id="3_rku1e"]
+[ext_resource type="Script" uid="uid://ranosym62st6" path="res://Scripts/Libraries/TalentLibrary/TalentLibrary.cs" id="3_xe308"]
+[ext_resource type="Resource" uid="uid://tuc7qn3cvc0s" path="res://Scripts/Libraries/AbilityLibrary/AbilityArrays/Pyromancy/Level1/Lvl1PyromancySkills.tres" id="4_22asu"]
+[ext_resource type="Resource" uid="uid://diucrxmhf4bjd" path="res://Resources/SkillSchools/Pyromancer/Pyromancy.tres" id="4_d3cha"]
 [ext_resource type="Texture2D" uid="uid://oawtg7jg2man" path="res://FreeAssets/pixel art top down/Texture/TX Tileset Stone Ground.png" id="4_rfjv2"]
 [ext_resource type="Texture2D" uid="uid://bsoy42yickfoy" path="res://FreeAssets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/DungeonTilesetnoBG.png" id="4_rku1e"]
 [ext_resource type="Texture2D" uid="uid://ue6skwa6glr4" path="res://FreeAssets/pixel art top down/Texture/TX Tileset Wall.png" id="5_1phco"]
+[ext_resource type="Resource" uid="uid://dhk1ggidoaxsj" path="res://Resources/SkillSchools/Pyromancer/Pyromancy_Passive1.tres" id="6_lmoi6"]
 [ext_resource type="Texture2D" uid="uid://fblwy266k7jt" path="res://FreeAssets/pixel art top down/Scene Overview.png" id="6_nb51f"]
+[ext_resource type="Resource" uid="uid://bm5a6w5bgv0mw" path="res://Resources/SkillSchools/Pyromancer/Pyromancy_Passive2.tres" id="7_6uxt2"]
 [ext_resource type="Texture2D" uid="uid://iibx254sxs8f" path="res://FreeAssets/pixel art top down/Texture/TX Tileset Grass.png" id="7_nnt18"]
 [ext_resource type="Texture2D" uid="uid://ch5f7m7laonw8" path="res://FreeAssets/pixel art top down/Texture/TX Props.png" id="8_ewbju"]
+[ext_resource type="Resource" uid="uid://cm3wiji2sbkpc" path="res://Resources/SkillSchools/Pyromancer/Pyromancy_Passive3.tres" id="8_ym3tv"]
 [ext_resource type="Texture2D" uid="uid://dvsfbhklo03ye" path="res://FreeAssets/pixel art top down/Texture/TX Player.png" id="9_85qyi"]
 [ext_resource type="Texture2D" uid="uid://pcpoiylukhft" path="res://FreeAssets/pixel art top down/Texture/Extra/TX Props with Shadow.png" id="10_iivbl"]
 [ext_resource type="PackedScene" uid="uid://pvwinkhh8rli" path="res://Scenes/sideway_door.tscn" id="13_rfjv2"]
@@ -21,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bgf1qxakie1og" path="res://Scenes/combat_ui.tscn" id="19_7t8sx"]
 [ext_resource type="Script" uid="uid://uellme8oq2qn" path="res://Scenes/TileDebugDrawer.cs" id="19_iivbl"]
 [ext_resource type="PackedScene" uid="uid://byr1q18b6btcn" path="res://Scenes/vampire.tscn" id="19_mg4q0"]
+[ext_resource type="PackedScene" uid="uid://dbjmmmlrgbacb" path="res://Scenes/skeleton.tscn" id="20_22asu"]
 [ext_resource type="PackedScene" uid="uid://bcvbhrn15qmeu" path="res://Scenes/level_up_ui.tscn" id="21_mg4q0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
@@ -8125,6 +8133,14 @@ size = Vector2(5, 32)
 resource_local_to_scene = true
 script = ExtResource("18_7t8sx")
 
+[sub_resource type="Resource" id="Resource_fkdbe"]
+resource_local_to_scene = true
+script = ExtResource("18_7t8sx")
+
+[sub_resource type="Resource" id="Resource_81klo"]
+resource_local_to_scene = true
+script = ExtResource("18_7t8sx")
+
 [sub_resource type="Animation" id="Animation_85qyi"]
 resource_name = "FadeIn"
 length = 3.0
@@ -8196,6 +8212,31 @@ script = ExtResource("1_85qyi")
 tileMap = NodePath("../TileMap")
 TransitionAnimation = NodePath("../TransitionLayer/FadeRect/Fade")
 
+[node name="TalentLibrary" type="Node" parent="."]
+script = ExtResource("3_xe308")
+PyroMainTalent = ExtResource("4_d3cha")
+PyroPassives = Array[Resource]([ExtResource("6_lmoi6"), ExtResource("7_6uxt2"), ExtResource("8_ym3tv")])
+
+[node name="AbilityLibrary" type="Node" parent="."]
+script = ExtResource("3_mg4q0")
+Pyromancy = Dictionary[int, Resource]({
+1: ExtResource("4_22asu")
+})
+Alchemy = Dictionary[int, Array]({})
+Aeromancy = Dictionary[int, Array]({})
+Geomancy = Dictionary[int, Array]({})
+Hemomancy = Dictionary[int, Array]({})
+Necromancy = Dictionary[int, Array]({})
+Fighting = Dictionary[int, Array]({})
+Archery = Dictionary[int, Array]({})
+Thief = Dictionary[int, Array]({})
+Divine = Dictionary[int, Array]({})
+Hydromancy = Dictionary[int, Array]({})
+Summoner = Dictionary[int, Array]({})
+
+[node name="Pathfinding" type="Node2D" parent="."]
+script = ExtResource("19_7nbq1")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_3dryh")
 format = 2
@@ -8223,7 +8264,7 @@ shape = SubResource("RectangleShape2D_rfjv2")
 
 [node name="Player" parent="." node_paths=PackedStringArray("inventoryUI", "combatUI", "levelUpUI") instance=ExtResource("1_ebmjs")]
 position = Vector2(-33, -26)
-inventoryUI = NodePath("../Inventory UI")
+inventoryUI = NodePath("../InventoryUI")
 combatUI = NodePath("../Combat UI")
 levelUpUI = NodePath("../LevelUpUI")
 
@@ -8236,15 +8277,26 @@ zoom = Vector2(6, 6)
 [node name="Vampire" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("19_mg4q0")]
 position = Vector2(54, -8)
 behaviour = SubResource("Resource_22asu")
-inventoryUI = NodePath("../../Inventory UI")
+inventoryUI = NodePath("../../InventoryUI")
+
+[node name="Skeleton" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("20_22asu")]
+position = Vector2(56, -27)
+behaviour = SubResource("Resource_fkdbe")
+inventoryUI = NodePath("../../InventoryUI")
+
+[node name="Skeleton2" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("20_22asu")]
+position = Vector2(56, 8)
+behaviour = SubResource("Resource_81klo")
+inventoryUI = NodePath("../../InventoryUI")
+
+[node name="LevelUpUI" parent="." instance=ExtResource("21_mg4q0")]
 
 [node name="Combat UI" parent="." instance=ExtResource("19_7t8sx")]
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Inventory UI" parent="." node_paths=PackedStringArray("InventoryStats") instance=ExtResource("15_nb51f")]
+[node name="InventoryUI" parent="." node_paths=PackedStringArray("InventoryStats") instance=ExtResource("15_nb51f")]
 process_mode = 3
-mouse_filter = 1
 InventoryStats = {
 0: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Vitality"),
 1: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Defense"),
@@ -8258,8 +8310,6 @@ InventoryStats = {
 9: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Charisma"),
 10: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/CurrentXP")
 }
-
-[node name="LevelUpUI" parent="." instance=ExtResource("21_mg4q0")]
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]
 
@@ -8281,9 +8331,6 @@ color = Color(0, 0, 0, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_7nbq1")
 }
-
-[node name="Pathfinding" type="Node2D" parent="."]
-script = ExtResource("19_7nbq1")
 
 [node name="Pottyospalya" type="Node2D" parent="."]
 script = ExtResource("19_iivbl")

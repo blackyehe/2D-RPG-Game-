@@ -43,7 +43,9 @@ public partial class GlobalEvents : Node
 	public event OnInventoryStatsUpgradedDelegate OnInventoryStatsUpgraded;
 	public void EmitInventoryStatsUpgraded(Player player)  => OnInventoryStatsUpgraded?.Invoke(player);
 	
-	
+	public delegate void OnTalentLearnedDelegate(BaseSkill Talent);
+	public event OnTalentLearnedDelegate OnTalentLearned;
+	public void EmitOnTalentLearned(BaseSkill Talent) => OnTalentLearned?.Invoke(Talent);
 	public override void _Ready()
 	{
 		Instance = this;
