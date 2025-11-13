@@ -1,28 +1,25 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://c1r2wd53xe2p4"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://c1r2wd53xe2p4"]
 
 [ext_resource type="Resource" uid="uid://c8lerd5y23j6v" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/FightingAbilities/Slash.tres" id="1_bftdm"]
 [ext_resource type="Texture2D" uid="uid://1tacsj80c7i4" path="res://Resources/WeaponTextures/Sword.tres" id="1_f68dp"]
 [ext_resource type="Script" uid="uid://dm2fvpoveg8kp" path="res://Scripts/ResourceScripts/WeaponResource.cs" id="2_erl1a"]
+[ext_resource type="Resource" uid="uid://ccmbn0dww0esb" path="res://Resources/WeaponProperties/weapons/Longsword.tres" id="3_4exce"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_erl1a")
 WeaponProperties = Array[int]([0])
-WhatKindOfWeapon = 0
+WhatWeapon = ExtResource("3_4exce")
 WeaponDamage = 10.0
-DamageDistribution = null
+DamageDistribution = Dictionary[int, int]({
+0: 10
+})
 IsMagical = true
-WeaponType = 0
 attackRange = 1
 Actions = Array[Resource]([ExtResource("1_bftdm")])
 ItemName = "Wax"
 Texture = ExtResource("1_f68dp")
-ItemRarity = 0
-ItemType = 0
-EffectDescription1 = ""
-EffectDescription2 = ""
-GainSkillNameAndType = ""
+ItemRarity = 4
 ItemFlavourDescription = "Nagyon gyertya"
-ItemPriceText = 0.0
-IsItemStackable = false
+ItemPriceText = 300.0
 ItemQuantity = 1
-equipSlot = 0

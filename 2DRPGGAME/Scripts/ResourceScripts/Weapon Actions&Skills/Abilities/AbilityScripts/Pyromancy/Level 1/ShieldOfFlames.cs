@@ -7,9 +7,5 @@ public partial class ShieldOfFlames : WeaponBaseAction
 	{
 		throw new NotImplementedException();
 	}
-
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

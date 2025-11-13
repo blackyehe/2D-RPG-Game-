@@ -8,8 +8,5 @@ public partial class ExplosiveStrength : WeaponBaseAction
 		//buff str + gives a movement speed buff 
 	}
 
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

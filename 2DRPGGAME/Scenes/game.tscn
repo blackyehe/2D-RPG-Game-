@@ -1,13 +1,17 @@
-[gd_scene load_steps=52 format=3 uid="uid://8mkqjavlwapl"]
+[gd_scene load_steps=63 format=3 uid="uid://8mkqjavlwapl"]
 
 [ext_resource type="Script" uid="uid://c37ur8v4g34aq" path="res://Scripts/GlobalEvents.cs" id="1_7t8sx"]
+[ext_resource type="Script" uid="uid://c48a4julfffqq" path="res://Scripts/ProjectileInstance.cs" id="1_8m3t6"]
 [ext_resource type="Script" uid="uid://brb1lxll3kq15" path="res://Scripts/Turn Manager/TurnManager.cs" id="1_85qyi"]
 [ext_resource type="PackedScene" uid="uid://dknh1cinsquet" path="res://Scenes/player.tscn" id="1_ebmjs"]
+[ext_resource type="Script" uid="uid://cxepwcpboie76" path="res://Scripts/Enemies/DummyCursorTarget.cs" id="1_ese38"]
 [ext_resource type="Texture2D" uid="uid://yqxa2k0c5587" path="res://FreeAssets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_qxrlw"]
 [ext_resource type="Texture2D" uid="uid://bsirrr5ean4om" path="res://FreeAssets/pixel art top down/Texture/TX Plant.png" id="2_o5yvi"]
+[ext_resource type="Resource" uid="uid://cilmuw7l556u8" path="res://Resources/ClassTypes/dummyTarget.tres" id="2_oeip8"]
 [ext_resource type="Script" uid="uid://buhnft6hjkbnb" path="res://Scripts/Libraries/AbilityLibrary/AbilityLibrary.cs" id="3_mg4q0"]
 [ext_resource type="Texture2D" uid="uid://xneb7df4e3jj" path="res://FreeAssets/pixel art top down/Texture/Extra/TX Plant with Shadow.png" id="3_rku1e"]
 [ext_resource type="Script" uid="uid://ranosym62st6" path="res://Scripts/Libraries/TalentLibrary/TalentLibrary.cs" id="3_xe308"]
+[ext_resource type="Script" uid="uid://dp55f4urfbxng" path="res://Scripts/GlobalCamera.cs" id="3_ym3tv"]
 [ext_resource type="Resource" uid="uid://tuc7qn3cvc0s" path="res://Scripts/Libraries/AbilityLibrary/AbilityArrays/Pyromancy/Level1/Lvl1PyromancySkills.tres" id="4_22asu"]
 [ext_resource type="Resource" uid="uid://diucrxmhf4bjd" path="res://Resources/SkillSchools/Pyromancer/Pyromancy.tres" id="4_d3cha"]
 [ext_resource type="Texture2D" uid="uid://oawtg7jg2man" path="res://FreeAssets/pixel art top down/Texture/TX Tileset Stone Ground.png" id="4_rfjv2"]
@@ -30,6 +34,12 @@
 [ext_resource type="PackedScene" uid="uid://byr1q18b6btcn" path="res://Scenes/vampire.tscn" id="19_mg4q0"]
 [ext_resource type="PackedScene" uid="uid://dbjmmmlrgbacb" path="res://Scenes/skeleton.tscn" id="20_22asu"]
 [ext_resource type="PackedScene" uid="uid://bcvbhrn15qmeu" path="res://Scenes/level_up_ui.tscn" id="21_mg4q0"]
+[ext_resource type="Script" uid="uid://08mhbcygqflk" path="res://Scripts/PartyManager.cs" id="24_bwj6o"]
+[ext_resource type="Resource" uid="uid://dnqgh0e75xpdt" path="res://Resources/ClassTypes/Wizard.tres" id="25_6uxt2"]
+[ext_resource type="PackedScene" uid="uid://c4a5u0daljk3" path="res://Scenes/skeleton_archer.tscn" id="28_i26dy"]
+[ext_resource type="Script" uid="uid://cbjsl80flt75y" path="res://Scripts/Behaviour/RangedBehaviour.cs" id="29_lmoi6"]
+[ext_resource type="PackedScene" uid="uid://1yc6pnencshj" path="res://Scenes/PartyPortraits.tscn" id="32_lmoi6"]
+[ext_resource type="Texture2D" uid="uid://c2j1ko1pqyupm" path="res://FreeAssets/64x64/fc67.png" id="34_xe308"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("1_qxrlw")
@@ -8137,9 +8147,9 @@ script = ExtResource("18_7t8sx")
 resource_local_to_scene = true
 script = ExtResource("18_7t8sx")
 
-[sub_resource type="Resource" id="Resource_81klo"]
+[sub_resource type="Resource" id="Resource_6uxt2"]
 resource_local_to_scene = true
-script = ExtResource("18_7t8sx")
+script = ExtResource("29_lmoi6")
 
 [sub_resource type="Animation" id="Animation_85qyi"]
 resource_name = "FadeIn"
@@ -8202,7 +8212,13 @@ _data = {
 &"RESET": SubResource("Animation_iivbl")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oeip8"]
+size = Vector2(10, 10)
+
 [node name="Game" type="Node2D"]
+
+[node name="BakasProjectiles" type="Node" parent="."]
+script = ExtResource("1_8m3t6")
 
 [node name="GlobalEvents" type="Node" parent="."]
 script = ExtResource("1_7t8sx")
@@ -8237,6 +8253,10 @@ Summoner = Dictionary[int, Array]({})
 [node name="Pathfinding" type="Node2D" parent="."]
 script = ExtResource("19_7nbq1")
 
+[node name="PlayerPartyManager" type="Node" parent="." node_paths=PackedStringArray("ActorParty")]
+script = ExtResource("24_bwj6o")
+ActorParty = NodePath("../PlayerParty")
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_3dryh")
 format = 2
@@ -8262,15 +8282,33 @@ collisionShape2D = NodePath("CollisionShape2D2")
 position = Vector2(0.5, -2)
 shape = SubResource("RectangleShape2D_rfjv2")
 
-[node name="Player" parent="." node_paths=PackedStringArray("inventoryUI", "combatUI", "levelUpUI") instance=ExtResource("1_ebmjs")]
-position = Vector2(-33, -26)
-inventoryUI = NodePath("../InventoryUI")
-combatUI = NodePath("../Combat UI")
-levelUpUI = NodePath("../LevelUpUI")
+[node name="PlayerParty" type="Node" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Player" parent="PlayerParty" node_paths=PackedStringArray("globalCamera", "inventoryUI", "combatUI", "levelUpUI", "PlayerParent", "cursorTarget") instance=ExtResource("1_ebmjs")]
+position = Vector2(-154, -10)
+CreatedCharacter = true
+globalCamera = NodePath("GlobalCamera")
+inventoryUI = NodePath("../../InventoryUI")
+combatUI = NodePath("../../Combat UI")
+levelUpUI = NodePath("../../LevelUpUI")
+isControllable = true
+PlayerParent = NodePath("..")
+cursorTarget = NodePath("../../DummyCursorTarget")
+
+[node name="GlobalCamera" type="Camera2D" parent="PlayerParty/Player"]
 position = Vector2(1, 1)
 zoom = Vector2(6, 6)
+script = ExtResource("3_ym3tv")
+
+[node name="Player2" parent="PlayerParty" node_paths=PackedStringArray("globalCamera", "inventoryUI", "combatUI", "levelUpUI", "PlayerParent", "cursorTarget") instance=ExtResource("1_ebmjs")]
+position = Vector2(-41, -41)
+globalCamera = NodePath("../Player/GlobalCamera")
+inventoryUI = NodePath("../../InventoryUI")
+combatUI = NodePath("../../Combat UI")
+levelUpUI = NodePath("../../LevelUpUI")
+PlayerParent = NodePath("..")
+cursorTarget = NodePath("../../DummyCursorTarget")
+actorStats = ExtResource("25_6uxt2")
 
 [node name="EnemyGroup1" type="Node" parent="."]
 
@@ -8284,9 +8322,9 @@ position = Vector2(56, -27)
 behaviour = SubResource("Resource_fkdbe")
 inventoryUI = NodePath("../../InventoryUI")
 
-[node name="Skeleton2" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("20_22asu")]
-position = Vector2(56, 8)
-behaviour = SubResource("Resource_81klo")
+[node name="SkeletonArcher" parent="EnemyGroup1" node_paths=PackedStringArray("inventoryUI") instance=ExtResource("28_i26dy")]
+position = Vector2(53, 10)
+behaviour = SubResource("Resource_6uxt2")
 inventoryUI = NodePath("../../InventoryUI")
 
 [node name="LevelUpUI" parent="." instance=ExtResource("21_mg4q0")]
@@ -8294,6 +8332,9 @@ inventoryUI = NodePath("../../InventoryUI")
 [node name="Combat UI" parent="." instance=ExtResource("19_7t8sx")]
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="PartyPortraitsUI" parent="." instance=ExtResource("32_lmoi6")]
+mouse_filter = 1
 
 [node name="InventoryUI" parent="." node_paths=PackedStringArray("InventoryStats") instance=ExtResource("15_nb51f")]
 process_mode = 3
@@ -8334,3 +8375,18 @@ libraries = {
 
 [node name="Pottyospalya" type="Node2D" parent="."]
 script = ExtResource("19_iivbl")
+
+[node name="DummyCursorTarget" type="CharacterBody2D" parent="." node_paths=PackedStringArray("Sprite")]
+collision_layer = 8
+collision_mask = 9
+script = ExtResource("1_ese38")
+Sprite = NodePath("Sprite2D")
+actorStats = ExtResource("2_oeip8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DummyCursorTarget"]
+shape = SubResource("RectangleShape2D_oeip8")
+
+[node name="Sprite2D" type="Sprite2D" parent="DummyCursorTarget"]
+visible = false
+scale = Vector2(0.046875, 0.046875)
+texture = ExtResource("34_xe308")

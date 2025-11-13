@@ -8,11 +8,7 @@ public partial class HeavySlash : WeaponBaseAction
 		target.TakeDamage(damage);
 		user.RemoveCostAfterAction();
 	}
-	public override double GetAnimDuration(CombatActor user)
-	{
-		return user.Stats.HeavyAttackAnimDuration;
-	}
-
+	
 	public HeavySlash()
 	{
 		//animationDuration = abilityUser.Stats.LightAttackAnimDuration;

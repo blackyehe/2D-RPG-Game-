@@ -12,6 +12,14 @@ public partial class Slot : TextureRect
     public WeaponBaseAction  currentAbilityAction = null;
     public BaseSkill currentTalent = null;
     public SkillSchools skillSchool;
+    public bool EventsSubbed = false;
+    
+    public delegate void SlotPressed(Slot slot);
+    public event SlotPressed OnSlotPressed;
+    public delegate void SlotExited(Slot slot);
+    public event SlotExited OnSlotExited;
+    public delegate void SlotEntered(Slot slot);
+    public event SlotEntered OnSlotEntered;
     
     public void SetSlotsEmpty()
     {
@@ -43,15 +51,6 @@ public partial class Slot : TextureRect
         itemButton.MouseExited += ItemButton_MouseExited;
         itemButton.Pressed += ItemButton_Pressed;
     }
-
-    public delegate void SlotPressed(Slot slot);
-    public event SlotPressed OnSlotPressed;
-
-    public delegate void SlotExited(Slot slot);
-    public event SlotExited OnSlotExited;
-
-    public delegate void SlotEntered(Slot slot);
-    public event SlotEntered OnSlotEntered;
     private void ItemButton_Pressed()
     {
         OnSlotPressed?.Invoke(this);

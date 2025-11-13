@@ -10,7 +10,7 @@ public partial class CombatUI : Control
     [Export] public PackedScene SlotScene;
     [Export] public DescriptionPanelUI descriptionPanel;
     [Export] public Container fakeContainer;
-    public Player player;
+    //public Player player;
     private bool descriptionBool;
 
     public override void _Ready()
@@ -20,16 +20,21 @@ public partial class CombatUI : Control
         endTurnButton.Pressed += EndTurnButton_Pressed;
         TurnManager.Instance.OnCombatStarted += Instance_OnCombatStarted;
         GlobalEvents.Instance.OnSkillBarChanged += OnSkillBarChanged;
+        PartyManager.Instance.OnMainPlayerChanged += OnMainPlayerChanged;
     }
 
+    private void OnMainPlayerChanged(Player previous, Player current)
+    {
+        GlobalEvents.Instance.EmitOnSkillBarChanged(current.runtimeAbilities,current);
+    }
+    
     public void ClearGridContainer()
     {
         while (spellContainer.GetChildCount() > 0)
         {
             var child = spellContainer.GetChild(0);
             spellContainer.RemoveChild(child);
-            Slot slot = child as Slot;
-            if (slot != null)
+            if (child is Slot slot)
             {
                 slot.OnSlotEntered -= OnSkillButtonMouseEntered;
                 slot.OnSlotExited -= OnSkillButtonMouseExited;
@@ -39,11 +44,11 @@ public partial class CombatUI : Control
             child.QueueFree();
         }
     }
-
-    private void OnSkillBarChanged(List<WeaponBaseAction> abilities)
+    
+    private void OnSkillBarChanged(List<WeaponBaseAction> abilities, Player current)
     {
         ClearGridContainer();
-        foreach (var ability in player.runtimeAbilities)
+        foreach (var ability in current.runtimeAbilities) 
         {
             var scene = SlotScene.Instantiate();
             spellContainer.AddChild(scene);
@@ -66,7 +71,7 @@ public partial class CombatUI : Control
 
     public void OnSkillButtonPressed(Slot slot)
     {
-        player.currentAbility = slot.currentAbilityAction;
+        PartyManager.Instance.MainPlayer.currentAbility = slot.currentAbilityAction;
     }
 
     public void OnSkillButtonMouseEntered(Slot slot)
@@ -78,22 +83,22 @@ public partial class CombatUI : Control
             descriptionPanel.SetDescriptionPanel(currentDescription);
             descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, 60);
             descriptionBool = true;
-            GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+            GetTree().CreateTimer(0.8).Timeout += IsDescriptionBoolTrue;
             return;
         }
 
         if (slot.currentItem == null && slot.currentAbilityAction != null)
         {
-            var CurrentDescription = slot.currentAbilityAction.GetDescription(player);
+            var CurrentDescription = slot.currentAbilityAction.GetDescription(PartyManager.Instance.MainPlayer);
             descriptionPanel.HideAllControlsInDescriptionPanel();
             descriptionPanel.SetDescriptionPanel(CurrentDescription);
             fakeContainer.GlobalPosition = slot.GlobalPosition + new Vector2(360, 330);
             descriptionBool = true;
-            GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+            GetTree().CreateTimer(0.8).Timeout += IsDescriptionBoolTrue;
         }
     }
 
-    public void isDescriptionBoolTrue()
+    public void IsDescriptionBoolTrue()
     {
         if (descriptionBool == false) return;
         descriptionPanel.Visible = true;
@@ -119,7 +124,7 @@ public partial class CombatUI : Control
 
     private void EndTurnButton_Pressed()
     {
-        player.EndTurn();
+        PartyManager.Instance.MainPlayer.EndTurn();
     }
 
     public override void _Process(double delta)

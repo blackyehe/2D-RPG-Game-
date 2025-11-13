@@ -105,7 +105,7 @@ public partial class LootUI : Node
             selectedSlot = slot;
 
             timer.Stop();
-            Player.Instance.inventory.AddItem(selectedSlot.currentItem);
+            PartyManager.Instance.MainPlayer.inventory.AddItem(selectedSlot.currentItem);
             selectedSlot.QueueFree();
             detailsPanel.Visible = false;
         }
@@ -118,7 +118,7 @@ public partial class LootUI : Node
             Slot slot = child as Slot;
             if (slot == null) return;
             selectedSlot = slot;
-            Player.Instance.inventory.AddItem(selectedSlot.currentItem);
+            PartyManager.Instance.MainPlayer.inventory.AddItem(selectedSlot.currentItem);
             gridContainer.RemoveChild(selectedSlot);
         }
         enemyLootPanel.Visible = false;

@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://be164x2d5m1rq" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/AshenGrasp.cs" id="5_fgtyg"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("5_fgtyg")
 Sprite = ExtResource("4_0d0sx")
 Name = "Ashen Grasp"

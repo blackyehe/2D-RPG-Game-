@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://byttal5gifcdf" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Alchemy/Level1/PoisonBreath.cs" id="6_0s0qi"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("6_0s0qi")
 Sprite = ExtResource("4_mgyyx")
 Name = "Create Potion"

@@ -7,9 +7,5 @@ public partial class PoisonBreath : WeaponBaseAction
 	{
 		//cone shape, has a chance to apply poison to the target
 	}
-
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

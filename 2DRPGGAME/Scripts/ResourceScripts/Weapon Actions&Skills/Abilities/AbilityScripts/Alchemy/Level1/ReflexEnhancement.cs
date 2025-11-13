@@ -8,8 +8,5 @@ public partial class ReflexEnhancement : WeaponBaseAction
 		//Improves the targets defense, and dodge chance
 	}
 
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

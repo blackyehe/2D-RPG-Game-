@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://pl74bgfyvdum" path="res://Resources/WeaponProperties/proficiency/Finesse.tres" id="3_di8gd"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_nbt0d")
 WeaponProperties = Array[Resource]([ExtResource("3_di8gd")])
 WhatWeapon = ExtResource("3_1af16")

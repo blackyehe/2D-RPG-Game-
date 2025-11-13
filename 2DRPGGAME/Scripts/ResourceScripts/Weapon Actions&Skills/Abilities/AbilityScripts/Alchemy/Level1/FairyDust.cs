@@ -8,8 +8,5 @@ public partial class FairyDust : WeaponBaseAction
 		//single target buff, gives the target weak hp regen and weak mana regen, also removes poison and paralyze
 	}
 
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

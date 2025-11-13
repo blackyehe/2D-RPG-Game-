@@ -9,12 +9,7 @@ public partial class RangedShot : WeaponBaseAction
 		target.TakeDamage(damage);
 		user.RemoveCostAfterAction();
 	}
-
-	public override double GetAnimDuration(CombatActor user)
-	{
-		return user.Stats.RangedShotAnimDuration;
-	}
-
+	
 	public RangedShot()
 	{
 		//animationDuration = abilityUser.Stats.RangedShotAnimDuration;

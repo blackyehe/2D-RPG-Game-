@@ -59,6 +59,7 @@ public enum State
 {
     Intro,
     Idle,
+    FollowParty,
     Walk,
     Attack,
     Combat,

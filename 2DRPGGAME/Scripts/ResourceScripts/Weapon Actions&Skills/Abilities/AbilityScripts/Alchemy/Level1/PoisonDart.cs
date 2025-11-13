@@ -8,8 +8,5 @@ public partial class PoisonDart : WeaponBaseAction
 		//single target, has a chance to apply poison to an enemy
 	}
 
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

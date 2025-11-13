@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://byttal5gifcdf" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Alchemy/Level1/PoisonBreath.cs" id="6_wvg56"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("6_wvg56")
 Sprite = ExtResource("4_7c4qw")
 Name = "Fairy Dust"

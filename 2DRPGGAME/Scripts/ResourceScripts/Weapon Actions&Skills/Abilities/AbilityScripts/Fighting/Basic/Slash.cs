@@ -9,12 +9,7 @@ public partial class Slash : WeaponBaseAction
 		target.TakeDamage(damage);
 		user.RemoveCostAfterAction();
 	}
-
-	public override double GetAnimDuration(CombatActor user)
-	{
-		return user.Stats.LightAttackAnimDuration;
-	}
-
+	
 	public Slash()
 	{
 		//animationDuration = abilityUser.Stats.LightAttackAnimDuration;

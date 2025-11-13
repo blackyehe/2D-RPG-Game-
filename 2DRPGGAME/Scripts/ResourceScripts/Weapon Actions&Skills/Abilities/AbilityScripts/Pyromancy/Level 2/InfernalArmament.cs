@@ -7,9 +7,5 @@ public partial class InfernalArmament : WeaponBaseAction
 	{
 		
 	}
-
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

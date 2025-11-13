@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_jr3el")
+CharacterName = "Skeleton"
 BaseHP = 10.0
 BaseMP = 10.0
 BaseAttack = 10.0
@@ -21,11 +22,8 @@ remainingCost = Dictionary[int, int]({
 })
 ActionCount = 1
 BonusActionCount = 1
-XP = 0.0
 Level = 1
 RewardXP = 50.0
-TileMovementCount = 0
 LightAttackAnimDuration = 1.0
-HeavyAttackAnimDuration = 0.0
-RangedShotAnimDuration = 0.0
 XPThresholds = null
+StartingSkills = null

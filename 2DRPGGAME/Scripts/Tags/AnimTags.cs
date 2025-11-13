@@ -12,6 +12,8 @@ public static class AnimTags
     public static readonly StringName Death = "Death";
 
     public static readonly StringName Hurt = "Hurt";
+    
+    public static readonly StringName FireSpellCasting = "FireSpellCasting";
 
     public static readonly StringName HeavyAttack = "AttackHeavy";
 
@@ -22,10 +24,17 @@ public static class AnimTags
     public static readonly StringName TurnRight = "TurnRight";
     
     public static readonly StringName LevelUp = "LevelUp";
+    
+    // Projectiles
+    public static readonly StringName Shoot = "Shoot";
+    
+    public static readonly StringName Disperse = "Disperse";
 }
 public static class InputTags
 {
     public static readonly StringName LeftClick = "LeftClick";
+    
+    public static readonly StringName RightClick = "RightClick";    
 
     public static readonly StringName Up = "Up";
 

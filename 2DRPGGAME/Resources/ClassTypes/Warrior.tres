@@ -7,13 +7,14 @@
 script = ExtResource("1_c8ia0")
 CharacterName = "McIsti"
 BaseHP = 60.0
+BaseMP = 200.0
 BaseAttack = 12.0
 BaseDefense = 12.0
 BaseStrength = 16.0
 BaseAgility = 32.0
 BaseCharisma = 8.0
 BaseLuck = 8.0
-BaseSpeed = 8.0
+BaseSpeed = 11.0
 remainingCost = Dictionary[int, float]({
 0: 0.0,
 1: 0.0,

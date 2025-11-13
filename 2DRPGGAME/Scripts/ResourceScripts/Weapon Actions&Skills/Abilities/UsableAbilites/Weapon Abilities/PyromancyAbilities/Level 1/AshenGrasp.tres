@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://cwsiec3ju6hkg" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/ShieldOfFlames.cs" id="5_nesxo"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("5_nesxo")
 Sprite = ExtResource("4_h6vyl")
 Name = "Shielf of Flame"

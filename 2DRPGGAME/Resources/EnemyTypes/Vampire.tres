@@ -4,16 +4,17 @@
 
 [resource]
 script = ExtResource("1_bvah2")
+CharacterName = "Vampire"
 BaseHP = 20.0
 BaseMP = 10.0
 BaseAttack = 15.0
 BaseDefense = 7.0
 BaseStrength = 10.0
-BaseAgility = 18.0
+BaseAgility = 10.0
 BaseCharisma = 10.0
 BaseMagicPower = 10.0
 BaseLuck = 2.0
-BaseSpeed = 8.0
+BaseSpeed = 6.0
 remainingCost = Dictionary[int, int]({
 0: 0,
 1: 0,
@@ -25,3 +26,4 @@ Level = 3
 RewardXP = 200.0
 LightAttackAnimDuration = 1.8
 XPThresholds = Array[float]([])
+StartingSkills = null

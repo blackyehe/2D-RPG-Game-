@@ -9,7 +9,7 @@ public partial class MoveAction : CombatAction
     private bool previousFacing;
     private Vector2I enemyPos;
     private const float reachThreshold = 1.5f;
-    
+
     public override bool IsLegal()
     {
         if (findPath != null && findPath.Length > 1 && actor.Stats.TileMovementCount > 0)
@@ -26,16 +26,17 @@ public partial class MoveAction : CombatAction
         {
             return true;
         }
-        
         if (actor.Position.DistanceTo(findPath[_index]) < reachThreshold)
         {
-            
             _index++;
-            
+
             if (_index >= findPath.Length)
             {
-                var moveCost = findPath.Length - 1;
-                actor.Stats.TileMovementCount -= moveCost;
+                if (actor.InCombat)
+                {
+                    var moveCost = findPath.Length - 1;
+                    actor.Stats.TileMovementCount -= moveCost;
+                }
                 actor.SnapToClosestTile(actor);
                 isActionFinished = true;
                 return false;
@@ -60,7 +61,8 @@ public partial class MoveAction : CombatAction
 
         actor.animationPlayer.Play(AnimTags.Walk);
 
-        float speed = 70f;
+        float speed = actor.InCombat? 70f : 103f;
+        
         actor.Position += (findPath[_index] - actor.Position).Normalized() * speed * (float)delta;
 
         return false;

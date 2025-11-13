@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://hc55edps63c6"]
+
+[ext_resource type="PackedScene" uid="uid://d2a4ud635lek0" path="res://Scenes/bow_1.tscn" id="1_aqpof"]
+[ext_resource type="Script" uid="uid://d36rhtcy0ofp0" path="res://Scripts/Inventory/StartingInventory.cs" id="2_roq4t"]
+
+[resource]
+script = ExtResource("2_roq4t")
+EquippableItemScenes = Array[PackedScene]([ExtResource("1_aqpof")])

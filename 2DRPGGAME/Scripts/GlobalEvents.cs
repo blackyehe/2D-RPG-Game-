@@ -12,14 +12,13 @@ public partial class GlobalEvents : Node
 	public event InventoryDelegate InventoryChanged;
 	public void EmitInventoryChanged(List<Item> items) => InventoryChanged?.Invoke(items);
 	
-
 	public event EventHandler OnInteract;
 	public void EmitOnInteract() => OnInteract?.Invoke(this, EventArgs.Empty);
 
 	
-	public delegate void EquipSlotDelegate(Item item);
+	public delegate void EquipSlotDelegate(Player player,Item item);
 	public event EquipSlotDelegate EquipSlotChanged;
-	public void EmitEquipSlotChanged(Item item) => EquipSlotChanged?.Invoke(item);
+	public void EmitEquipSlotChanged(Player player,Item item) => EquipSlotChanged?.Invoke(player,item);
 	
 	
 	public delegate void GetExperienceDelegate(double experience);
@@ -31,9 +30,9 @@ public partial class GlobalEvents : Node
 	public void EmitOnLevelUp() => OnLevelUp?.Invoke(this, EventArgs.Empty);
 	
 	
-	public delegate void OnSkillBarChangedDelegate(List<WeaponBaseAction> abilities);
+	public delegate void OnSkillBarChangedDelegate(List<WeaponBaseAction> abilities, Player current);
 	public event OnSkillBarChangedDelegate OnSkillBarChanged;
-	public void EmitOnSkillBarChanged(List<WeaponBaseAction> abilities)  => OnSkillBarChanged?.Invoke(abilities);
+	public void EmitOnSkillBarChanged(List<WeaponBaseAction> abilities, Player current)  => OnSkillBarChanged?.Invoke(abilities,current);
 
 	public delegate void OnSkillContainerChangedDelegate(List<WeaponBaseAction> skills);
 	public event OnSkillContainerChangedDelegate OnSkillContainerChanged;

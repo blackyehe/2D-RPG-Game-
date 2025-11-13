@@ -10,8 +10,5 @@ public partial class CreatePotion : WeaponBaseAction
 		//At level 1 Healing, Mana and Poison potions are available.
 	}
 
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

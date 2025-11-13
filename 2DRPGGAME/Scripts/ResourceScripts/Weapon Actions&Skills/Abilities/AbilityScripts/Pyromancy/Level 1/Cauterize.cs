@@ -7,9 +7,5 @@ public partial class Cauterize : WeaponBaseAction
 	{
 		//Heals the target for a small amount and removes bleed but reduces movement speed slightly.
 	}
-
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

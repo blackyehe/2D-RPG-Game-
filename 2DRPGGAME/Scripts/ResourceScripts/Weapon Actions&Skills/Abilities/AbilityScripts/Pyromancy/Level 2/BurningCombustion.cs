@@ -8,8 +8,5 @@ public partial class BurningCombustion : WeaponBaseAction
 		throw new NotImplementedException();
 	}
 
-	public override double GetAnimDuration(CombatActor user)
-	{
-		throw new NotImplementedException();
-	}
+	
 }

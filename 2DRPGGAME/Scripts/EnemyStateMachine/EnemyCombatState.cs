@@ -9,7 +9,7 @@ public partial class EnemyCombatState : EnemyState
     private double actionDuration;
     private int actionCounter = 0;
     private bool isStatusAlreadyChecked = false;
-    private bool isActionAlreadyChecked = false;
+
 
     public override void PhysicsProcess(double delta)
     {
@@ -36,18 +36,17 @@ public partial class EnemyCombatState : EnemyState
                 break;
 
             case CombatSubState.DecideAction:
-                if (!isActionAlreadyChecked)
-                {
-                    Enemy.behaviour.DecideAction();
-                    isActionAlreadyChecked = true;
-                }
+
+                Enemy.behaviour.DecideAction();
 
                 if (Enemy.combatActions.Count != 0)
                 {
                     currentAction = Enemy.combatActions.Dequeue();
+                    currentSubState = CombatSubState.PerformAction;
+                    break;
                 }
 
-                currentSubState = CombatSubState.PerformAction;
+                currentSubState = CombatSubState.ActionResult;
                 break;
 
             case CombatSubState.PerformAction:
@@ -59,9 +58,7 @@ public partial class EnemyCombatState : EnemyState
 
                 if (currentAction.DoAction(delta))
                 {
-                    currentSubState = Enemy.combatActions.Count == 0
-                        ? CombatSubState.ActionResult
-                        : CombatSubState.DecideAction;
+                    currentSubState = CombatSubState.DecideAction;
                 }
 
                 break;
@@ -79,7 +76,6 @@ public partial class EnemyCombatState : EnemyState
                 Enemy.animationPlayer.Play(AnimTags.Idle);
                 Enemy.IsTurnActive = false;
                 isStatusAlreadyChecked = false;
-                isActionAlreadyChecked = false;
                 currentAction = null;
                 Enemy.EndTurn();
                 break;
@@ -90,8 +86,7 @@ public partial class EnemyCombatState : EnemyState
     {
         currentSubState = CombatSubState.CheckStatusEffect;
     }
-
-
+    
     public override void ExitState()
     {
     }

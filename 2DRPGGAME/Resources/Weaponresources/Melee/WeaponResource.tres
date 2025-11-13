@@ -4,11 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://1lfglabsogy7" path="res://Resources/WeaponTextures/Sword2.tres" id="1_vkegg"]
 [ext_resource type="Script" uid="uid://dm2fvpoveg8kp" path="res://Scripts/ResourceScripts/WeaponResource.cs" id="2_c1dup"]
 [ext_resource type="Texture2D" uid="uid://dltb23llvl6ut" path="res://FreeAssets/64x64/fc1085.png" id="2_ttyev"]
-[ext_resource type="Resource" uid="uid://bb8cbdccxlb3j" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/FightingAbilities/HeavySlash.tres" id="3_rxjny"]
+[ext_resource type="Resource" uid="uid://b71frilbhk686" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 3/FireBall.tres" id="3_xrwtn"]
 [ext_resource type="Resource" uid="uid://pl74bgfyvdum" path="res://Resources/WeaponProperties/proficiency/Finesse.tres" id="7_nd0di"]
 [ext_resource type="Resource" uid="uid://ccmbn0dww0esb" path="res://Resources/WeaponProperties/weapons/Longsword.tres" id="8_rxjny"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_c1dup")
 WeaponProperties = Array[Resource]([ExtResource("7_nd0di")])
 WhatWeapon = ExtResource("8_rxjny")
@@ -24,7 +25,7 @@ ItemName = "Baszógép"
 Texture = ExtResource("1_vkegg")
 EffectTexture1 = ExtResource("2_ttyev")
 EffectDescription1 = "Rettentően erős leszel ha felveszed ezt a kardot, like nagyon erős, oneshotolni fogod az enemyket erős, have fun."
-GainSkill = ExtResource("3_rxjny")
+GainSkill = ExtResource("3_xrwtn")
 ItemFlavourDescription = "\"Mélyen vagyunk a hegyekbe\" Népszínház angle"
 ItemPriceText = 300.0
 ItemQuantity = 1

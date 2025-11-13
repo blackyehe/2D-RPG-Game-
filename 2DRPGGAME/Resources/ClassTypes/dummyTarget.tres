@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cilmuw7l556u8"]
+
+[ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_vby02"]
+
+[resource]
+script = ExtResource("1_vby02")
+CharacterName = "dummyCursor"
+BaseHP = 9.223372e+18
+remainingCost = null
+XPThresholds = null
+StartingSkills = null

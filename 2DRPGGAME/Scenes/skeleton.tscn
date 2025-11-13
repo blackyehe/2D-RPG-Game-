@@ -361,14 +361,14 @@ _data = {
 &"Walk": SubResource("Animation_k4moy")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3lw1"]
-size = Vector2(12.5, 15.75)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ks230"]
 size = Vector2(15, 20)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xbfmp"]
 radius = 19.2354
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3lw1"]
+size = Vector2(8, 11)
 
 [node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("swingArea2D", "Sprite", "animationPlayer", "deadArea2D")]
 script = ExtResource("1_v8sxu")
@@ -393,11 +393,8 @@ offset = Vector2(-3, 0)
 flip_h = true
 hframes = 9
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D"]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_t3lw1")
-
 [node name="SwingArea2D" type="Area2D" parent="."]
+visible = false
 position = Vector2(4, -0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwingArea2D"]
@@ -412,3 +409,7 @@ visible = false
 shape = SubResource("CircleShape2D_xbfmp")
 
 [node name="StartingInventory" type="Node" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_t3lw1")

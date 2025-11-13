@@ -12,6 +12,7 @@ public abstract partial class CombatActor : CharacterBody2D
     public bool IsAlive = true;
     public bool IsTurnActive = false;
     public bool HasActed = false;
+    public bool InCombat = false;
     [Export] public bool facingLeft;
 
     public CombatAction currentAction;
@@ -20,6 +21,7 @@ public abstract partial class CombatActor : CharacterBody2D
     [Export] public AnimationPlayer animationPlayer;
     [Export] public PlayerStats actorStats;
     [Export] public Area2D deadArea2D;
+    [Export] public CollisionShape2D collisionShape2D;
     
     public RuntimeStats Stats;
 
@@ -28,6 +30,11 @@ public abstract partial class CombatActor : CharacterBody2D
     public List<StatusEffectBase> statusEffectList = new();
     public event EventHandler OnActionFinished;
     public event EventHandler OnActorDeath;
+    public event EventHandler OnProjectileNeeded;
+    public delegate void DamageTakenEvent(CombatActor actor,double damage);
+    public event DamageTakenEvent OnDamageTaken;
+    public void EmitOnProjectileNeeded() => OnProjectileNeeded?.Invoke(this, EventArgs.Empty);
+    
     public WeaponBaseAction currentAbility;
     public BaseWeapon activeWeapon;
 
@@ -52,6 +59,7 @@ public abstract partial class CombatActor : CharacterBody2D
         actor.GlobalPosition = snappedTile;
     }
 
+    
     public int GetWeaponRange()
     {
         if (activeWeapon is null)
@@ -106,13 +114,14 @@ public abstract partial class CombatActor : CharacterBody2D
     public void TakeDamage(double damage)
     {
         Stats.HP -= damage;
+        OnDamageTaken?.Invoke(this,damage);
         if (Stats.HP < 1)
         {
             OnActorDeath?.Invoke(this, EventArgs.Empty);
             return;
         }
-        animationPlayer.AnimationSetNext(AnimTags.Hurt, AnimTags.Idle);
-        animationPlayer.Play(AnimTags.Hurt);
+        animationPlayer?.AnimationSetNext(AnimTags.Hurt, AnimTags.Idle);
+        animationPlayer?.Play(AnimTags.Hurt);
     }
 
     public void ResetActionPoints()
@@ -202,9 +211,7 @@ public class RuntimeStats
     public int MaxTileMovementCount;
     public double XPToNextLevel;
     public Array<double> XPThresholds;
-    public double LightAttackAnimDuration;
-    public double HeavyAttackAnimDuration;
-    public double RangedShotAnimDuration;
+    
     public Godot.Collections.Dictionary<actionCostType, int> remainingCost = new();
     public Array<BaseSkill> StartingSkills;
 
@@ -232,10 +239,6 @@ public class RuntimeStats
         MaxActionCount = actorStats.ActionCount;
         MaxBonusActionCount = actorStats.BonusActionCount;
         MaxTileMovementCount = (int)MaxAgility / 2;
-
-        LightAttackAnimDuration = actorStats.LightAttackAnimDuration;
-        HeavyAttackAnimDuration = actorStats.HeavyAttackAnimDuration;
-        RangedShotAnimDuration = actorStats.RangedShotAnimDuration;
 
         HP = MaxHP;
         Attack = MaxAttack;

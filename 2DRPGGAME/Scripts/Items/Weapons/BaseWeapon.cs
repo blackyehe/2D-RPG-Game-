@@ -21,13 +21,15 @@ public abstract partial class BaseWeapon : EquipableItem
         if (weaponResource.WeaponType is WeaponType.Melee)
         {
             itemUser.Stats.MaxAttack += weaponResource.WeaponDamage;
+            GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
         }
 
         if (weaponResource.GainSkill != null)
-        {
-            itemUser.runtimeAbilities.Add(weaponResource.GainSkill);
-            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities);
-        }
+            weaponResource.Actions.Add(weaponResource.GainSkill);
+        itemUser.runtimeAbilities.AddRange(weaponResource.Actions);
+        GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities, itemUser as Player);
+        GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
+        GD.Print(itemUser.runtimeAbilities);
     }
 
     public override void OnUnequip(CombatActor itemUser)
@@ -37,11 +39,16 @@ public abstract partial class BaseWeapon : EquipableItem
             itemUser.Stats.MaxAttack -= weaponResource.WeaponDamage;
         }
 
-        if (weaponResource.GainSkill != null)
+        GD.Print(itemUser.runtimeAbilities);
+        for (int i = 0; i < weaponResource.Actions.Count; i++)
         {
-            itemUser.runtimeAbilities.Remove(weaponResource.GainSkill);
-            GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities);
+            itemUser.runtimeAbilities.Remove(weaponResource.Actions[i]);
+            if(weaponResource.Actions[i] == weaponResource.GainSkill) weaponResource.Actions.RemoveAt(i);
         }
+        
+        GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
+        GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities, itemUser as Player);
+        GD.Print(itemUser.runtimeAbilities);
     }
 
     private void Area2D_BodyEntered(Node2D body)

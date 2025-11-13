@@ -6,6 +6,7 @@ using Godot.NativeInterop;
 public abstract partial class WeaponBaseAction : Resource
 {
     [Export] public Texture2D Sprite;
+    [Export] public bool HasProjectileOrSecondaryAnimation;
     [Export] public bool IsWeaponAction;
     [Export] public bool IsMelee;
     [Export] public string Name;
@@ -22,10 +23,25 @@ public abstract partial class WeaponBaseAction : Resource
     [Export] public StatusEffectBase StatusEffect;
     [Export] public double ActionRange;
     [Export] public double CoolDown;
+    [Export] public PackedScene ProjectileScene;
     public StringName SkillAnimation;
     public double AnimationDuration;
     public abstract void DoAction(CombatActor user, CombatActor target);
-    public abstract double GetAnimDuration(CombatActor user);
+    public AbilityProjectile SpawnProjectile(CombatActor user, CombatActor target)
+    {
+        if (ProjectileScene == null) return null;
+        
+        var projectileScene = ProjectileScene.Instantiate<AbilityProjectile>();
+        AbilityProjectile Projectile = projectileScene;
+        Projectile.Visible = true;
+        Projectile.SpawnPos = user.GlobalPosition;
+        Projectile.Target  = target;
+        Projectile.User = user;
+        ProjectileInstance.Instance.AddChild(Projectile);
+        Projectile.Scale = new Vector2(0.6f, 0.6f);
+        Projectile.LookAt(target.GlobalPosition);
+        return Projectile;
+    }
 
     public Dictionary<DescriptionPanel, BaseDescription> GetDescription(CombatActor user)
     {

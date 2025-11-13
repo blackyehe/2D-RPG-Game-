@@ -51,7 +51,7 @@ public abstract partial class BaseSkill : Resource
 
     public List<BaseSkill> GetPassivesBySkillSchool(BaseSkill mainTalent)
     {
-        if (!IsMain) return null;
+        if (!IsMain) return [];
         List<BaseSkill> passives = new();
         var allPassives = TalentLibrary.Instance.AllPassives;
         for (int i = 0; i < allPassives.Count; i++)

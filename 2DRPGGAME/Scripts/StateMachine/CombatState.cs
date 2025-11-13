@@ -9,7 +9,7 @@ public partial class CombatState : PlayerState
     public CombatActor enemyActor;
     public CombatSubState currentSubState;
     private int moveCost;
-    private bool isStatusAlreadyChecked = false;
+    private bool isStatusAlreadyChecked;
 
     public override void PhysicsProcess(double delta)
     {
@@ -82,23 +82,12 @@ public partial class CombatState : PlayerState
     {
     }
 
-    public void DoAttackAction()
+    public void PerformAction()
     {
         if (Player.currentAction.IsLegal())
         {
             currentSubState = CombatSubState.PerformAction;
             GD.Print("performing attack");
-        }
-    }
-
-    public void DoMovementAction()
-    {
-        if (Player.currentAction.IsLegal())
-        {
-            GD.Print("Movement action is legal: ", Player.currentAction.IsLegal());
-            GD.Print("Substate is now: ", currentSubState);
-
-            currentSubState = CombatSubState.PerformAction;
         }
     }
 
@@ -110,11 +99,23 @@ public partial class CombatState : PlayerState
         if (Player.GetViewport().GuiGetHoveredControl() != null)
             return;
 
+        if (Input.IsActionJustPressed(InputTags.RightClick))
+        {
+            Player.currentAbility = null;
+            return;
+        }
+        
         if (!Input.IsActionJustPressed(InputTags.LeftClick))
             return;
 
         Vector2I startTile = TurnManager.Instance.GetTilePosition(Player.GlobalPosition);
         Vector2I targetTile = TurnManager.Instance.GetClickedTilePosition();
+        
+        var cursorTarget = Player.cursorTarget;
+        var cursorTargetPos = TurnManager.Instance.GetTilePosition(cursorTarget.GlobalPosition);
+        cursorTargetPos = TurnManager.Instance.GetClickedTilePosition();
+        //Valahogy belekell integrálni a meglévő kódba, az aoe spell meg distance check a pos-tól. gl soldier o7
+        
         enemyActor = TurnManager.Instance.GetEnemyTile(targetTile);
 
         Pathfinding.Instance.SetTileSolid(targetTile, false, enemyActor);
@@ -123,21 +124,33 @@ public partial class CombatState : PlayerState
 
         moveCost = tilePath.Length - 1;
 
-        if (enemyActor == null)
+        if (enemyActor == null && Player.currentAbility == null)
         {
             if (moveCost <= Player.Stats.TileMovementCount)
             {
                 Player.currentAction = new MoveAction(tilePath, Player);
-                DoMovementAction();
+                PerformAction();
             }
 
             return;
         }
 
+        if (enemyActor == null && Player.currentAbility != null)
+        {
+           
+            cursorTarget.GlobalPosition = TurnManager.Instance.GetTileToLocal(cursorTargetPos);
+            if (startTile.DistanceTo(cursorTargetPos) <= Player.currentAbility.ActionRange)
+            {
+                Player.currentAction = new AttackAction(Player, cursorTarget, Player.currentAbility);
+                PerformAction();
+                return;
+            } 
+        }
+        
         if (Player.IsEntityInRange(enemyActor))
         {
             Player.currentAction = new AttackAction(Player, enemyActor, Player.currentAbility);
-            DoAttackAction();
+            PerformAction();
             return;
         }
 
@@ -145,6 +158,6 @@ public partial class CombatState : PlayerState
         var goodPos = TurnManager.Instance.GetTilePosition(nextToTile[^1]);
 
         Player.currentAction = new MoveAction(nextToTile, Player);
-        DoMovementAction();
+        PerformAction();
     }
 }

@@ -11,7 +11,6 @@ public partial class TurnManager : Node
     public int roundNumber;
     public int turnNumber;
     public int currentTurnIndex = 0;
-    public Player player;
     [Export] public TileMap tileMap;
 
     public List<CombatActor> turnQueue = new();
@@ -65,6 +64,17 @@ public partial class TurnManager : Node
         return null;
     }
 
+    public List<Vector2I> GetAllEnemiesPos()
+    {
+        var enemyList = new List<Vector2I>();
+        foreach (CombatActor entity in enemyCombatants)
+        {
+            enemyList.Add(GetTilePosition(entity.GlobalPosition));
+        }
+
+        return enemyList;
+    }
+
     public CombatActor GetAllyTile(Vector2I tile)
     {
         foreach (CombatActor ally in allyCombatants)
@@ -83,7 +93,6 @@ public partial class TurnManager : Node
         allActors.Add(actor);
         if (actor.IsPlayer)
         {
-            player = actor as Player;
             allyCombatants.Add(actor);
         }
         else
@@ -96,21 +105,26 @@ public partial class TurnManager : Node
 
     public void CombatTransition()
     {
-        player.isControllable = false;
-        player.SetPlayerState(State.Idle);
-        player.Velocity = Vector2.Zero;
+        PartyManager.Instance.PlayerParty.Find(x => x.isControllable).SetPlayerState(State.Idle);
+
+        foreach (var player in PartyManager.Instance.PlayerParty)
+        {
+            player.Velocity = Vector2.Zero;
+        }
 
         TransitionAnimation.Play("FadeIn");
     }
 
     public void StartCombat()
     {
+        
         Pathfinding.Instance.SetupWalkableTiles();
         isCombatActive = true;
         OnCombatStarted?.Invoke(this, EventArgs.Empty);
         foreach (var actor in allActors)
         {
             actor.EnterCombat();
+            actor.InCombat = true;
             actor.OnActorDeath += Actors_OnActorDeath;
         }
 
@@ -125,6 +139,7 @@ public partial class TurnManager : Node
         foreach (var actor in allActors)
         {
             actor.ExitCombat();
+            actor.InCombat = false;
         }
 
         ResetCombatants();
@@ -173,9 +188,14 @@ public partial class TurnManager : Node
         {
             BuildTurnQueue();
         }
-
+        
         currentActor = turnQueue[0];
 
+        if (currentActor.IsPlayer)
+        {
+            PartyManager.Instance.MainPlayer = currentActor as Player;
+        }
+        
         turnQueue.RemoveAt(0);
 
         currentActor.StartTurn();
@@ -194,6 +214,10 @@ public partial class TurnManager : Node
     private void CurrentActor_OnActionFinished(object sender, EventArgs e)
     {
         currentActor.OnActionFinished -= CurrentActor_OnActionFinished;
+        if (currentActor.IsPlayer)
+        {
+            if (currentActor is Player player) player.isControllable = false;
+        }
         Pathfinding.Instance.SetupWalkableTiles();
         NextCurrentActor();
     }

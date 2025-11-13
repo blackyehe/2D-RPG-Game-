@@ -2,15 +2,15 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 using Godot.Collections;
-using Range = Godot.Range;
+using GodotPlugins.Game;
+using Array = Godot.Collections.Array;
 
 public partial class Player : CombatActor
 {
-    public const float WalkSpeed = 100.0f;
-    public Inventory inventory = new Inventory();
+    [Export] private bool CreatedCharacter;
+    [Export] private Camera2D globalCamera;
     [Export] public InventoryUI inventoryUI;
     [Export] public CombatUI combatUI;
     [Export] public LevelUpUI levelUpUI;
@@ -18,18 +18,19 @@ public partial class Player : CombatActor
     [Export] public AnimationPlayer CharacterEffectPlayer;
     [Export] public Sprite2D LevelUp2D;
     [Export] public StartingInventory startingInventory;
+    [Export] public bool isControllable;
+    [Export] public TextureRect PlayerPortrait;
+    [Export] public Node PlayerParent;
     public Vector2 direction;
-    public bool isControllable = true;
     public PlayerState ActiveState;
     public System.Collections.Generic.Dictionary<State, PlayerState> States = new();
     public List<BaseSkill> LearnedTalents = new();
     public Array<WeaponBaseAction> selectableAbilities = new();
     public List<BaseSkill> selectableTalents = new();
     public IInteractable _interactable;
-
-
-    public static Player Instance { get; private set; }
-
+    [Export] public CombatActor cursorTarget;
+    public int FollowIndex;
+    
     public void SelectInteractable(IInteractable interactable)
     {
         _interactable = interactable;
@@ -43,42 +44,46 @@ public partial class Player : CombatActor
         }
     }
 
+    public const float WalkSpeed = 85f;
+    public Inventory inventory = new Inventory();
+    
     public override void _Ready()
     {
         SnapToClosestTile(this);
         Stats = new RuntimeStats(actorStats);
-        combatUI.player = this;
-        levelUpUI.player = this;
-        Instance = this;
-        LevelUp2D.Visible = false;
-
         States = new System.Collections.Generic.Dictionary<State, PlayerState>()
         {
             { State.Intro, new IntroState() { Player = this } },
             { State.Idle, new IdleState() { Player = this } },
+            { State.FollowParty, new FollowPartyState() { Player = this } },
             { State.Death, new DeathState() { Player = this } },
             { State.Walk, new WalkState() { Player = this } },
             { State.Attack, new AttackState() { Player = this } },
             { State.Combat, new CombatState() { Player = this } },
         };
-        SetPlayerState(State.Idle);
+
+        SetPlayerState(isControllable ? State.Idle : State.FollowParty);
+        LevelUp2D.Visible = false;
 
         foreach (var enumType in Enum.GetValues<EquipSlot>())
         {
             EquippedItems.Add(enumType, null);
         }
+
         EquipAfterGlobalEvents();
+
         GlobalEvents.Instance.OnTalentLearned += OnTalentLearned;
-        
+        GlobalEvents.Instance.GetExperience += OnExperienceGained;
+        GlobalEvents.Instance.OnLevelUp += OnLevelUp;
     }
 
     private void OnTalentLearned(BaseSkill talent)
     {
         LearnedTalents.Add(talent);
         selectableTalents.Add(talent);
-        
+
         if (!talent.IsMain) return;
-        
+
         if (talent.PassivesAdded != true)
         {
             var talentPassives = talent.GetPassivesBySkillSchool(talent);
@@ -118,25 +123,13 @@ public partial class Player : CombatActor
 
         EquipStartingItems();
         SetActiveWeapon();
-        GetCurrentAbilities();
-        GlobalEvents.Instance.EmitOnSkillBarChanged(runtimeAbilities);
-        GlobalEvents.Instance.GetExperience += OnExperienceGained;
-        GlobalEvents.Instance.OnLevelUp += OnLevelUp;
-        
+        GlobalEvents.Instance.EmitOnSkillBarChanged(runtimeAbilities, this);
     }
 
-    public void GetCurrentAbilities()
+    public void EmitProjectileSignal()
     {
-        runtimeAbilities.AddRange(GetItemBySlotType(EquipSlot.MainHand).weaponResource.Actions);
-        runtimeAbilities.AddRange(GetItemBySlotType(EquipSlot.Ranged).weaponResource.Actions);
+        EmitOnProjectileNeeded();
     }
-
-    public void GetCurrentAbilityByItem(EquipSlot itemType) =>
-        runtimeAbilities.AddRange(GetItemBySlotType(itemType).weaponResource.Actions);
-
-    public void RemoveCurrentAbilities(EquipSlot itemType) =>
-        runtimeAbilities.RemoveAll(ability =>
-            GetItemBySlotType(itemType).weaponResource.Actions.Contains(ability));
 
     public void EquipStartingItems()
     {
@@ -145,9 +138,8 @@ public partial class Player : CombatActor
             var itemScene = equipabbleItem.Instantiate<EquipableItem>();
             AddChild(itemScene);
             EquippedItems[itemScene.ItemResource.equipSlot] = itemScene;
-            GlobalEvents.Instance.EmitEquipSlotChanged(itemScene);
+            GlobalEvents.Instance.EmitEquipSlotChanged(this, itemScene);
             itemScene.OnEquip(this);
-            GlobalEvents.Instance.EmitInventoryStatsUpgraded(this);
             RemoveChild(itemScene);
         }
     }

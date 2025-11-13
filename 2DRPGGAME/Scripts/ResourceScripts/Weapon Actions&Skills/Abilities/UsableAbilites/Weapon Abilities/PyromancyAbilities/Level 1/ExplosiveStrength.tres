@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://b3swf3yeg18n6" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/ExplosiveStrength.cs" id="5_xot4q"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("5_xot4q")
 Sprite = ExtResource("4_2txun")
 Name = "Explosive Strength"

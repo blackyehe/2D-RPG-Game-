@@ -8,7 +8,7 @@ public partial class Enemy : CombatActor, IInteractable
 {
     public const float EnemyWalkSpeed = 100f;
     [Export] public Area2D swingArea2D;
-    [Export] public MeleeBehaviour behaviour;
+    [Export] public Behaviour behaviour;
     [Export] public InventoryUI inventoryUI;
     [Export] public LootUI lootUI;
     [Export] public StartingInventory startingInventory;
@@ -23,10 +23,9 @@ public partial class Enemy : CombatActor, IInteractable
     public Queue<CombatAction> combatActions = new();
     public override void _Ready()
     {
-        _player = Player.Instance;
         inventoryUI.enemy = this;
         Stats = new RuntimeStats(actorStats);
-        
+        _player = GetThePlayer();
         deadArea2D.BodyEntered += DeadArea2DOnBodyEntered;
         deadArea2D.BodyExited += DeadArea2DOnBodyExited;
         
@@ -56,8 +55,13 @@ public partial class Enemy : CombatActor, IInteractable
         SetEnemyState(StateEnemy.EnemyIdle);
     }
 
+    private Player GetThePlayer()
+    {
+        return PartyManager.Instance.PlayerParty.Find(x => x.isControllable);
+    }
     private void DeadArea2DOnBodyEntered(Node2D body)
     {
+        _player = GetThePlayer();
         switch (body)
         {
             case Player player:
@@ -101,7 +105,7 @@ public partial class Enemy : CombatActor, IInteractable
     public void ViewCircle()
     {
         var center = TurnManager.Instance.GetTilePosition(GlobalPosition);
-        var playerTile = TurnManager.Instance.GetTilePosition(_player.GlobalPosition);
+        var playerTile = TurnManager.Instance.GetTilePosition(GetThePlayer().GlobalPosition);
         int startVal = radius * 2 - 1;
         
         for (int x = 1; x <= radius; x++)
@@ -111,12 +115,12 @@ public partial class Enemy : CombatActor, IInteractable
             
             for (int y = -boundsY; y <= boundsY; y++)
             {
-                Vector2I tojlPos = new Vector2I(center.X + direction, center.Y + y);
+                Vector2I tilePos = new Vector2I(center.X + direction, center.Y + y);
                 
-                if (tojlPos == playerTile)
+                if (tilePos == playerTile)
                 {
-                    TurnManager.Instance.RegisterCombatant(_player);
                     RegisterEnemyGroup();
+                    RegisterPlayerGroup();
                     TurnManager.Instance.CombatTransition();
                     TurnManager.Instance.StartCombat();
                     return;
@@ -133,6 +137,15 @@ public partial class Enemy : CombatActor, IInteractable
        {
            TurnManager.Instance.RegisterCombatant(enemy as Enemy);
        }
+    }
+
+    private void RegisterPlayerGroup()
+    {
+        Node parentGroup = PartyManager.Instance.MainPlayer.GetParent();
+        foreach (var player in parentGroup.GetChildren())
+        {
+            TurnManager.Instance.RegisterCombatant(player as Player);
+        }
     }
 
     

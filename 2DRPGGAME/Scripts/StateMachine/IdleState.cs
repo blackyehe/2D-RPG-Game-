@@ -26,11 +26,6 @@ public partial class IdleState : PlayerState
     }
     protected override void HandleInput()
     {
-        if (Input.IsActionPressed(InputTags.LeftClick))
-        {
-            Player.SetPlayerState(State.Attack);
-            return;
-        }
         if (Input.IsActionJustPressed("Interact"))
         {
             Player._interactable?.Interact();
