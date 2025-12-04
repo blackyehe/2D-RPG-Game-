@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgf1qxakie1og"]
+[gd_scene load_steps=4 format=3 uid="uid://bgf1qxakie1og"]
 
 [ext_resource type="Texture2D" uid="uid://b1pksbbt83grb" path="res://FreeAssets/tinyRPG_manaSoulGUI_v_1_0/20250425compass-Sheet.png" id="1_2dvei"]
 [ext_resource type="Script" uid="uid://b3yr58o82odfp" path="res://Scripts/UI/CombatUI.cs" id="1_4s1nj"]
 [ext_resource type="PackedScene" uid="uid://desvf6csg601u" path="res://Scenes/Slot.tscn" id="2_sovtu"]
-[ext_resource type="PackedScene" uid="uid://bhkh2l6eqgumh" path="res://Scenes/description_panel.tscn" id="4_q8na3"]
 
 [node name="Combat UI" type="Control" node_paths=PackedStringArray("endTurnButton", "canvasLayer", "spellContainer", "descriptionPanel", "fakeContainer")]
 layout_mode = 3
@@ -15,9 +14,9 @@ grow_vertical = 2
 script = ExtResource("1_4s1nj")
 endTurnButton = NodePath("CanvasLayer/Panel/PassButtonCircle/EndTurn")
 canvasLayer = NodePath("CanvasLayer")
-spellContainer = NodePath("CanvasLayer/Panel/GridContainer")
+spellContainer = NodePath("CanvasLayer/Panel/SpellBar/GridContainer")
 SlotScene = ExtResource("2_sovtu")
-descriptionPanel = NodePath("CanvasLayer/Container/RemoteTransform2D/DescriptionPanel")
+descriptionPanel = NodePath("")
 fakeContainer = NodePath("CanvasLayer/Container")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -34,25 +33,31 @@ offset_right = 765.0
 offset_bottom = -55.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 1
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel"]
-custom_minimum_size = Vector2(40, 40)
+[node name="SpellBar" type="ScrollContainer" parent="CanvasLayer/Panel"]
+custom_minimum_size = Vector2(1207, 169)
 layout_mode = 0
 offset_left = 11.0
 offset_top = 10.0
 offset_right = 1218.0
 offset_bottom = 179.0
-columns = 19
 
-[node name="SpellBar" type="ScrollContainer" parent="CanvasLayer/Panel/GridContainer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel/SpellBar"]
 custom_minimum_size = Vector2(1207, 169)
 layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 19
 
 [node name="PassButtonCircle" type="TextureRect" parent="CanvasLayer/Panel"]
-layout_mode = 0
-offset_left = 1345.0
-offset_right = 1529.0
-offset_bottom = 185.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.88000005
+anchor_right = 1.0
+anchor_bottom = 0.99500006
+offset_left = -0.5201416
+offset_bottom = -0.070007324
 texture = ExtResource("1_2dvei")
 
 [node name="EndTurn" type="Button" parent="CanvasLayer/Panel/PassButtonCircle"]
@@ -71,54 +76,8 @@ grow_vertical = 2
 text = "End turn, ty"
 
 [node name="Container" type="Container" parent="CanvasLayer"]
-offset_left = 732.62
-offset_top = 832.0
-offset_right = 1265.09
-offset_bottom = 863.52997
-rotation = 3.1415927
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="CanvasLayer/Container"]
-position = Vector2(666.0001, 1264)
-rotation = 3.1415925
-
-[node name="DescriptionPanel" parent="CanvasLayer/Container/RemoteTransform2D" node_paths=PackedStringArray("DescriptionPanel") instance=ExtResource("4_q8na3")]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = 178.00003
-offset_top = 600.0
-offset_right = 521.0
-offset_bottom = 1080.0
-grow_vertical = 2
-DescriptionPanel = {
-0: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/Sprite"),
-1: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/Name"),
-2: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/TypeAndRarity"),
-3: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/Damage"),
-4: NodePath("DescriptionPanel/MarginContainer/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/DamageDistribution"),
-5: NodePath("DescriptionPanel/MarginContainer/BoxContainer/SkillDescription/SkillDescription"),
-6: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/EffectSprite"),
-7: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect/ItemEffect"),
-8: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/EffectSprite2"),
-9: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemEffect2/ItemEffect2"),
-10: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillSprite"),
-11: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillDescription"),
-12: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffSprite"),
-13: NodePath("DescriptionPanel/MarginContainer/BoxContainer/Debuff/DebuffDuration"),
-14: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeSprite"),
-15: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/ActionType/ActionTypeLabel"),
-16: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeSprite"),
-17: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/Range/ActionRangeLabel"),
-18: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOESprite"),
-19: NodePath("DescriptionPanel/MarginContainer/BoxContainer/AttackRangeAndType/STorAOE/STorAOELabel"),
-20: NodePath("DescriptionPanel/MarginContainer/BoxContainer/FlavourDescription/FlavourText"),
-21: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemSilhouetteSprite"),
-22: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty/ItemType"),
-23: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/property2Sprite"),
-24: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
-25: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
-26: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
-28: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Action/ActionLabel"),
-30: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
-32: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/Mana/ManaLabel"),
-34: NodePath("DescriptionPanel/MarginContainer/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
-}
+offset_left = 198.0
+offset_top = 787.0
+offset_right = 730.47
+offset_bottom = 818.52997
+rotation = -6.2831855

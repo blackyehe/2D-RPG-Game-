@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dhk1ggidoaxsj"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dhk1ggidoaxsj"]
 
+[ext_resource type="Script" uid="uid://cm5djrvs2qq63" path="res://Scripts/Libraries/AbilityLibrary/AbilityArray.cs" id="1_bdft0"]
 [ext_resource type="Texture2D" uid="uid://dhionqvkgtub1" path="res://FreeAssets/64x64/fc1000.png" id="1_p618q"]
 [ext_resource type="Script" uid="uid://fhc5r85l5vnj" path="res://Scripts/SkillSchools/PyromancyMainSkill/Pyromancy.cs" id="2_p618q"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("2_p618q")
 SkillLevel = 1
 SkillName = "Fanning the flames"

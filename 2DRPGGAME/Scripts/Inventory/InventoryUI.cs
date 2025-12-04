@@ -23,6 +23,7 @@ public partial class InventoryUI : Control
 
     [Export] public TextureRect inventoryPanel;
     [Export] public TextureRect wholeInventory;
+    [Export] public ReferenceRect EquippedInventoryDragPanel;
     [Export] public Array<GridContainer> skillContainer;
     [Export] public Array<Slot> equipSlots;
 
@@ -36,16 +37,18 @@ public partial class InventoryUI : Control
     [Export] public RichTextLabel LevelClassText;
 
     private Slot selectedSlot;
-    private bool descriptionBool;
+    private Slot currentlyDraggedSlot;
     public bool isready;
     
 
+
     public override void _Ready()
     {
+        LootUI.Instance.descriptionPanel = descriptionPanel;
         canvasLayer.Visible = true;
         inventoryPanel.Visible = false;
         wholeInventory.Visible = false;
-        descriptionPanel.Visible = false;
+        EquippedInventoryDragPanel.Visible = false;
         GlobalEvents.Instance.EquipSlotChanged += OnEquipSlotChanged;
         useButton.Pressed += UseButton_Pressed;
         unequipButton.Pressed += UnequipButtonOnPressed;
@@ -55,6 +58,9 @@ public partial class InventoryUI : Control
         isready = true;
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
         PartyManager.Instance.MainPlayer.inventory.InventoryChanged += Inventory_InventoryChanged;
+        EquippedInventoryDragPanel.MouseEntered += OnDragPanelMouseEntered;
+        EquippedInventoryDragPanel.MouseFilter = MouseFilterEnum.Ignore;
+        HeaderStatAtStart();
         
         SetStartingSkills();
     }
@@ -64,14 +70,29 @@ public partial class InventoryUI : Control
         previous.inventory.InventoryChanged -= Inventory_InventoryChanged;
         current.inventory.InventoryChanged += Inventory_InventoryChanged;
         Inventory_InventoryChanged(current.inventory.GetItemList());
-        ChangeShownEquipSlots(current);
+        GlobalEvents.Instance.EmitInventoryStatsUpgraded(current);
+        UpdateShownEquipSlots(current);
+        GD.Print(previous.LearnedTalents);
+        UpdateShownSkills(current);
     }
+
     public void OnPlayerTalentLearned(BaseSkill skill)
     {
         if (skill == null) return;
 
         for (int i = 0; i < 5; i++)
         {
+            var container = skillContainer[i];
+            var mainSkill = container.GetChild<Slot>(0);
+            if (mainSkill != null)
+            {
+                if (skill.IsMain && mainSkill.skillSchool == skill.SkillSchool)
+                {
+                    mainSkill.currentTalent = skill;
+                    return;
+                }
+            }
+            
             if (skillContainer[i].GetChildCount() == 0 && skill.IsMain)
             {
                 var scene = SlotScene.Instantiate();
@@ -82,31 +103,40 @@ public partial class InventoryUI : Control
                 skillSlot.itemButton.Visible = false;
                 skillSlot.Visible = true;
                 skillSlot.SetTalent(skill);
-                PartyManager.Instance.MainPlayer.LearnedTalents.Add(skill);
-                
                 return;
             }
 
-            if (skillContainer[i].GetChildCount() >= 1 && skill.IsMain == false &&
-                skillContainer[i].GetChildCount() <= 5)
+            if (skillContainer[i].GetChildCount() < 1 || skill.IsMain != false ||
+                skillContainer[i].GetChildCount() > 5) continue;
+            
+            if (mainSkill.skillSchool == skill.SkillSchool)
             {
-                var container = skillContainer[i];
-                var mainSkill = container.GetChild<Slot>(0);
-
-                if (mainSkill.skillSchool == skill.SkillSchool)
-                {
-                    var scene = SlotScene.Instantiate();
-                    Slot skillSlot = scene as Slot;
-                    container.AddChild(skillSlot);
-                    skillSlot.SetHSizeFlags(SizeFlags.ExpandFill);
-                    skillSlot.SetVSizeFlags(SizeFlags.ExpandFill);
-                    skillSlot.itemButton.Visible = false;
-                    skillSlot.SetTalent(skill);
-                    PartyManager.Instance.MainPlayer.LearnedTalents.Add(skill);
-                    
-                    return;
-                }
+                var scene = SlotScene.Instantiate();
+                Slot skillSlot = scene as Slot;
+                container.AddChild(skillSlot);
+                skillSlot.SetHSizeFlags(SizeFlags.ExpandFill);
+                skillSlot.SetVSizeFlags(SizeFlags.ExpandFill);
+                skillSlot.itemButton.Visible = false;
+                skillSlot.SetTalent(skill);
+                return;
             }
+        }
+    }
+
+    public void UpdateShownSkills(Player player)
+    {
+        for (int i = 0; i < skillContainer.Count; i++)
+        {
+            while (skillContainer[i].GetChildCount() > 0)
+            {
+                var child = skillContainer[i].GetChild(0);
+                skillContainer[i].RemoveChild(child);
+            }
+        }
+
+        for (int i = 0; i < player.LearnedTalents.Count; i++)
+        {
+            OnPlayerTalentLearned(player.LearnedTalents[i]);
         }
     }
 
@@ -135,9 +165,10 @@ public partial class InventoryUI : Control
         SlottestSlot.OnSlotExited += OnItemButtonMouseExited;
         SlottestSlot.OnSlotPressed += OnEquippedItemSlotPressed;
         SlottestSlot.EventsSubbed = true;
+        SlottestSlot.CurrentlyEquipped = true;
     }
 
-    public void ChangeShownEquipSlots(Player current)
+    public void UpdateShownEquipSlots(Player current)
     {
         foreach (var equipSlot in equipSlots)
         {
@@ -148,6 +179,7 @@ public partial class InventoryUI : Control
                 equipSlot.OnSlotExited -= OnItemButtonMouseExited;
                 equipSlot.OnSlotPressed -= OnEquippedItemSlotPressed;
                 equipSlot.EventsSubbed = false;
+                equipSlot.CurrentlyEquipped = false;
             }
         }
 
@@ -155,7 +187,7 @@ public partial class InventoryUI : Control
         {
             if (equipSlot.Value != null)
             {
-                OnEquipSlotChanged(current,equipSlot.Value);
+                OnEquipSlotChanged(current, equipSlot.Value);
             }
         }
     }
@@ -197,12 +229,35 @@ public partial class InventoryUI : Control
         {
             inventoryPanel.Visible = !inventoryPanel.Visible;
             wholeInventory.Visible = !wholeInventory.Visible;
+            GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
+            HeaderStatVisibilty();  
+            EquippedInventoryDragPanel.Visible = !EquippedInventoryDragPanel.Visible;
             GetTree().Paused = !GetTree().Paused;
             GD.Print("Paused");
         }
     }
 
+    public void HeaderStatVisibilty()
+    {
+        foreach (var stat in InventoryStats)
+        {
+            stat.Value.Visible = !stat.Value.Visible;
+        }
+    }
 
+    private void HeaderStatAtStart()
+    {
+        foreach (var stat in InventoryStats)
+        {
+            stat.Value.Visible = false;
+        }
+    }
+
+    private void OnDragPanelMouseEntered()
+    {
+        
+    }
+    
     public void ClearGridContainer()
     {
         while (gridContainer.GetChildCount() > 0)
@@ -223,28 +278,30 @@ public partial class InventoryUI : Control
 
     public void OnItemButtonPressed(Slot slot)
     {
-        if (slot.currentItem != null)
-        {
-            selectedSlot = slot;
-
-            useButton.Text = slot.currentItem is EquipableItem ? "Equip" : "Use";
-            usagePanel.GlobalPosition = slot.GlobalPosition + new Vector2(-50, 60);
-            usagePanel.Visible = !usagePanel.Visible;
-            detailsPanel.Visible = false;
-        }
+        if (slot.currentItem == null) return;
+        
+        selectedSlot = slot;
+        
+        currentlyDraggedSlot = slot;
+        
+        if (Input.IsActionPressed(InputTags.LeftClick))  return; // ugyan ezt többire is ugye
+        
+        useButton.Text = slot.currentItem is EquipableItem ? "Equip" : "Use";
+        usagePanel.GlobalPosition = slot.GlobalPosition + new Vector2(-50, 60);
+        usagePanel.Visible = !usagePanel.Visible;
+        detailsPanel.Visible = false;
     }
 
     private void OnEquippedItemSlotPressed(Slot slot)
     {
-        if (slot.currentItem != null)
-        {
-            selectedSlot = slot;
-            equippedItemPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-50, 60);
-            equippedItemPanel.Visible = !equippedItemPanel.Visible;
-            detailsPanel.Visible = false;
-        }
+        if (slot.currentItem == null) return;
+        
+        selectedSlot = slot;
+        equippedItemPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-50, 60);
+        equippedItemPanel.Visible = !equippedItemPanel.Visible;
+        detailsPanel.Visible = false;
     }
-
+    
     private void UnequipButtonOnPressed()
     {
         if (selectedSlot == null || selectedSlot.currentItem == null)
@@ -263,13 +320,15 @@ public partial class InventoryUI : Control
         SlothSlot.OnSlotEntered -= OnItemButtonMouseEntered;
         SlothSlot.OnSlotPressed -= OnEquippedItemSlotPressed;
         SlothSlot.OnSlotExited -= OnItemButtonMouseExited;
+        
         SlothSlot.EventsSubbed = false;
+        SlothSlot.CurrentlyEquipped = false;
         equippedItemPanel.Visible = false;
     }
 
     private void UseButton_Pressed()
     {
-        if (selectedSlot == null || selectedSlot.currentItem == null)
+        if (selectedSlot?.currentItem == null)
             return;
 
         if (!(selectedSlot.currentItem is EquipableItem itemToEquip))
@@ -279,9 +338,7 @@ public partial class InventoryUI : Control
         }
 
         EquipSlot slotType = itemToEquip.ItemResource.equipSlot;
-
         EquipableItem currentlyEquipped = PartyManager.Instance.MainPlayer.EquippedItems[slotType];
-
         PartyManager.Instance.MainPlayer.EquippedItems[slotType] = itemToEquip;
 
         if (currentlyEquipped != null)
@@ -308,56 +365,23 @@ public partial class InventoryUI : Control
         
         itemToEquip.OnEquip(PartyManager.Instance.MainPlayer);
 
-
         PartyManager.Instance.MainPlayer.inventory.RemoveItem(itemToEquip);
-
+        
+        UpdateShownEquipSlots(PartyManager.Instance.MainPlayer);
         usagePanel.Visible = false;
+        
     }
 
     public void OnItemButtonMouseEntered(Slot slot)
     {
         if (slot.currentItem != null && usagePanel.Visible == false)
         {
-            GetDescription(slot, slot.currentItem.ItemResource);
+            if (Input.IsActionPressed(InputTags.LeftClick)) return;
+            slot.GetDescription(descriptionPanel,slot, slot.currentItem.ItemResource,slot.GlobalPosition,-100,50);
         }
     }
-    public void GetDescription(Slot slot, Resource descType)
-    {
-        descriptionPanel.HideAllControlsInDescriptionPanel();
-        Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> currentDescription;
-        switch (descType)
-        {
-            case BaseSkill:
-                currentDescription = slot.currentTalent.GetDescription(PartyManager.Instance.MainPlayer);
-                descriptionPanel.SetDescriptionPanel(currentDescription);
-                break;
-            
-            case ItemResource:
-                currentDescription = slot.currentItem.ItemResource.GetDescription();
-                descriptionPanel.SetDescriptionPanel(currentDescription);
-                break;
-            
-            case WeaponBaseAction:
-                currentDescription = slot.currentAbilityAction.GetDescription(PartyManager.Instance.MainPlayer);
-                descriptionPanel.SetDescriptionPanel(currentDescription);
-                break;
-        }
-
-        descriptionPanel.Scale = new Vector2(1.1f, 1.1f);
-        descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-380, -100);
-        descriptionBool = true;
-        GetTree().CreateTimer(0.8).Timeout += IsDescriptionBoolTrue;
-    }
-
-    public void IsDescriptionBoolTrue()
-    {
-        if (descriptionBool == false) return;
-        descriptionPanel.Visible = true;
-    }
-
     public void OnItemButtonMouseExited(Slot slot)
     {
-        descriptionBool = false;
         descriptionPanel.Visible = false;
     }
 

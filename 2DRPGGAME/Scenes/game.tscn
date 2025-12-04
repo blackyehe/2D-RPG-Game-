@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://8mkqjavlwapl"]
+[gd_scene load_steps=64 format=3 uid="uid://8mkqjavlwapl"]
 
 [ext_resource type="Script" uid="uid://c37ur8v4g34aq" path="res://Scripts/GlobalEvents.cs" id="1_7t8sx"]
 [ext_resource type="Script" uid="uid://c48a4julfffqq" path="res://Scripts/ProjectileInstance.cs" id="1_8m3t6"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://cbjsl80flt75y" path="res://Scripts/Behaviour/RangedBehaviour.cs" id="29_lmoi6"]
 [ext_resource type="PackedScene" uid="uid://1yc6pnencshj" path="res://Scenes/PartyPortraits.tscn" id="32_lmoi6"]
 [ext_resource type="Texture2D" uid="uid://c2j1ko1pqyupm" path="res://FreeAssets/64x64/fc67.png" id="34_xe308"]
+[ext_resource type="PackedScene" uid="uid://bhkh2l6eqgumh" path="res://Scenes/description_panel.tscn" id="41_f3c8l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("1_qxrlw")
@@ -8327,29 +8328,70 @@ position = Vector2(53, 10)
 behaviour = SubResource("Resource_6uxt2")
 inventoryUI = NodePath("../../InventoryUI")
 
-[node name="LevelUpUI" parent="." instance=ExtResource("21_mg4q0")]
+[node name="LevelUpUI" parent="." node_paths=PackedStringArray("descriptionPanel") instance=ExtResource("21_mg4q0")]
+descriptionPanel = NodePath("../CanvasLayer/dsecPanel")
 
-[node name="Combat UI" parent="." instance=ExtResource("19_7t8sx")]
+[node name="Combat UI" parent="." node_paths=PackedStringArray("descriptionPanel") instance=ExtResource("19_7t8sx")]
 mouse_filter = 1
+descriptionPanel = NodePath("../CanvasLayer/dsecPanel")
 metadata/_edit_use_anchors_ = true
+
+[node name="InventoryUI" parent="." node_paths=PackedStringArray("descriptionPanel", "InventoryStats") instance=ExtResource("15_nb51f")]
+process_mode = 3
+mouse_filter = 1
+descriptionPanel = NodePath("../CanvasLayer/dsecPanel")
+InventoryStats = {
+0: NodePath("CanvasLayer/WholeInventory/InventoryHeader/Vitality"),
+1: NodePath("CanvasLayer/WholeInventory/InventoryHeader/Defense"),
+2: NodePath("CanvasLayer/WholeInventory/InventoryHeader/Mana"),
+3: NodePath("CanvasLayer/WholeInventory/InventoryHeader/MagicPower"),
+4: NodePath("CanvasLayer/WholeInventory/InventoryHeader/Agility"),
+5: NodePath("CanvasLayer/WholeInventory/InventoryHeader/MovementCount"),
+6: NodePath("CanvasLayer/WholeInventory/InventoryHeader/Strength"),
+7: NodePath("CanvasLayer/WholeInventory/InventoryHeader/CurrentAttackPower"),
+8: NodePath("CanvasLayer/WholeInventory/InventoryHeader/Luck"),
+9: NodePath("CanvasLayer/WholeInventory/InventoryHeader/Charisma"),
+10: NodePath("CanvasLayer/WholeInventory/InventoryHeader/CurrentXP")
+}
 
 [node name="PartyPortraitsUI" parent="." instance=ExtResource("32_lmoi6")]
 mouse_filter = 1
 
-[node name="InventoryUI" parent="." node_paths=PackedStringArray("InventoryStats") instance=ExtResource("15_nb51f")]
-process_mode = 3
-InventoryStats = {
-0: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Vitality"),
-1: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Defense"),
-2: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Mana"),
-3: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/MagicPower"),
-4: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Agility"),
-5: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/MovementCount"),
-6: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Strength"),
-7: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/CurrentAttackPower"),
-8: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Luck"),
-9: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/Charisma"),
-10: NodePath("CanvasLayer/WholeInventory/InventoryHeaderStats/CurrentXP")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="dsecPanel" parent="CanvasLayer" node_paths=PackedStringArray("DescriptionPanel") instance=ExtResource("41_f3c8l")]
+DescriptionPanel = {
+0: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/Sprite"),
+1: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/Name"),
+2: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/TypeAndRarity"),
+3: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/Damage"),
+4: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/DamageDistribution"),
+5: NodePath("DescriptionPanel/BoxContainer/SkillDescription/SkillDescription"),
+6: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect/EffectSprite"),
+7: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect/ItemEffect"),
+8: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect2/EffectSprite2"),
+9: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect2/ItemEffect2"),
+10: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillSprite"),
+11: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillDescription"),
+12: NodePath("DescriptionPanel/BoxContainer/Debuff/DebuffSprite"),
+13: NodePath("DescriptionPanel/BoxContainer/Debuff/DebuffDuration"),
+14: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/ActionType/ActionTypeSprite"),
+15: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/ActionType/ActionTypeLabel"),
+16: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/Range/ActionRangeSprite"),
+17: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/Range/ActionRangeLabel"),
+18: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/STorAOE/STorAOESprite"),
+19: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/STorAOE/STorAOELabel"),
+20: NodePath("DescriptionPanel/BoxContainer/FlavourDescription/FlavourText"),
+21: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty/ItemSilhouetteSprite"),
+22: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty/ItemType"),
+23: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty2/property2Sprite"),
+24: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
+25: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
+26: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
+28: NodePath("DescriptionPanel/BoxContainer/ActionCosts/Action/ActionLabel"),
+30: NodePath("DescriptionPanel/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
+32: NodePath("DescriptionPanel/BoxContainer/ActionCosts/Mana/ManaLabel"),
+34: NodePath("DescriptionPanel/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
 }
 
 [node name="TransitionLayer" type="CanvasLayer" parent="."]

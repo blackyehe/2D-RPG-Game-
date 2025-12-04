@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bm5a6w5bgv0mw"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bm5a6w5bgv0mw"]
 
 [ext_resource type="Texture2D" uid="uid://crcc7axthbqrg" path="res://FreeAssets/64x64/fc1323.png" id="1_1clu0"]
+[ext_resource type="Script" uid="uid://cm5djrvs2qq63" path="res://Scripts/Libraries/AbilityLibrary/AbilityArray.cs" id="1_4ivxv"]
 [ext_resource type="Script" uid="uid://fhc5r85l5vnj" path="res://Scripts/SkillSchools/PyromancyMainSkill/Pyromancy.cs" id="2_1clu0"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("2_1clu0")
 SkillLevel = 1
 SkillName = "Blessing of Fire"

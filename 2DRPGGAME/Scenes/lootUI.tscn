@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dabe03qajurql"]
 
-[ext_resource type="Texture2D" uid="uid://dis2oh83bhyhy" path="res://Free Assets/Banner_Horizontal.png" id="2_oeer5"]
+[ext_resource type="Texture2D" uid="uid://dis2oh83bhyhy" path="res://FreeAssets/Banner_Horizontal.png" id="2_oeer5"]
 
 [node name="LootInventory" type="Control"]
 layout_mode = 3

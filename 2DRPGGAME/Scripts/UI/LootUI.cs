@@ -12,20 +12,21 @@ public partial class LootUI : Node
     [Export] public TextureRect usagePanel;
     [Export] public MarginContainer detailsPanel;
     [Export] PackedScene slotScene;
-    [Export] public Timer timer;
     [Export] public RichTextLabel detailsLabel;
     [Export] public Button lootAllButton;
+    [Export] public DescriptionPanelUI descriptionPanel;
 
     public Player Player;
     public Enemy enemy;
     private Slot selectedSlot;
 
+    public static LootUI Instance {get; private set;}
     public override void _Ready()
     {
+        Instance = this;
         enemyLootPanel.Visible = false;
         GlobalEvents.Instance.InventoryChanged += Instance_InventoryChanged;
         GlobalEvents.Instance.OnInteract += Instance_OnInteract;
-        timer.Timeout += Timer_Timeout;
         lootAllButton.Pressed += lootAllButton_Pressed;
     }
 
@@ -103,8 +104,7 @@ public partial class LootUI : Node
         if (slot.currentItem != null)
         {
             selectedSlot = slot;
-
-            timer.Stop();
+            
             PartyManager.Instance.MainPlayer.inventory.AddItem(selectedSlot.currentItem);
             selectedSlot.QueueFree();
             detailsPanel.Visible = false;
@@ -129,16 +129,14 @@ public partial class LootUI : Node
     {
         if (slot.currentItem != null && usagePanel.Visible == false)
         {
-            detailsPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, 60);
-           //detailsLabel.Text = slot.currentItem.ItemResource.GetDescription();
-            timer.Start();
+            if (Input.IsActionPressed(InputTags.LeftClick)) return;
+            slot.GetDescription(descriptionPanel,slot, slot.currentItem.ItemResource, slot.GlobalPosition, 80, -40);
         }
     }
     
     public void OnItemButtonMouseExited(Slot slot)
     {
-        detailsPanel.Visible = false;
-        timer.Stop();
+        descriptionPanel.Visible = false;
     }
 
     private void Timer_Timeout()

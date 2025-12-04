@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 public partial class LevelUpUI : Control
 {
@@ -19,11 +20,14 @@ public partial class LevelUpUI : Control
     [Export] public PackedScene slotScene;
 
     [Export] public Slot SelectedTalentSlot;
+    private TextureRect talentSlotTexture;
     [Export] public Panel SelectableTalentPanel;
     [Export] public GridContainer selectableTalentsContainer;
     [Export] public GridContainer SelectablePassivesContainer;
     [Export] public Button TalentConfirmButton;
+
     [Export] public DescriptionPanelUI descriptionPanel;
+
     //public Player player;
     private bool descriptionBool = false;
 
@@ -35,7 +39,6 @@ public partial class LevelUpUI : Control
         SelectedSkillBackGround.Visible = false;
         SelectOKButton.Visible = false;
         LevelUPConfirmButton.Visible = false;
-        descriptionPanel.Visible = false;
         TalentConfirmButton.Visible = false;
         SelectableTalentPanel.Visible = false;
         GlobalEvents.Instance.OnSkillContainerChanged += OnSkillContainerChanged;
@@ -47,11 +50,26 @@ public partial class LevelUpUI : Control
         LevelUpButton.Pressed += LevelUpButtonOnPressed;
         GlobalEvents.Instance.OnTalentLearned += OnPlayerTalentLearned;
         TalentConfirmButton.Pressed += TalentConfirmButtonOnPressed;
+        PartyManager.Instance.OnMainPlayerChanged += OnMainPlayerChanged;
+        talentSlotTexture = SelectedTalentSlot.itemIcon;
     }
-    
+
+    private void OnMainPlayerChanged(Player previous, Player current)
+    {
+        if (current.LevelUpAvailable)
+        {
+            canvasLayer.Visible = true;
+            LevelUpButton.Visible = true;
+            levelUpPanel.Visible = false;
+            SelectableSkillPanel.Visible = false;
+            GainedStatsLabel.Text = current.Stats.GetLvlUpStats();
+        }
+        SortLearnableTalents(current.selectableTalents,current);
+        SelectedTalentSlot.SetSlotsEmpty();
+    }
     private void OnPlayerTalentLearned(BaseSkill talent)
     {
-        SortLearnableTalents(PartyManager.Instance.MainPlayer.selectableTalents);
+        SortLearnableTalents(PartyManager.Instance.MainPlayer.selectableTalents,PartyManager.Instance.MainPlayer);
     }
 
     private void OnPlayerLevelUp(object sender, EventArgs e)
@@ -69,14 +87,16 @@ public partial class LevelUpUI : Control
         levelUpPanel.Visible = true;
         SelectedSkillBackGround.Visible = false;
         GetTree().Paused = true;
-        GlobalEvents.Instance.EmitOnSkillContainerChanged(PartyManager.Instance.MainPlayer.selectableAbilities.ToList());
+        GlobalEvents.Instance.EmitOnSkillContainerChanged(PartyManager.Instance.MainPlayer.selectableAbilities
+            .ToList());
     }
 
     private void SelectSkillOnPressed(Slot slot)
     {
         SelectableSkillPanel.GlobalPosition = slot.GlobalPosition + new Vector2(370, -50);
         SelectableSkillPanel.Visible = !SelectableSkillPanel.Visible;
-        GlobalEvents.Instance.EmitOnSkillContainerChanged(PartyManager.Instance.MainPlayer.selectableAbilities.ToList());
+        GlobalEvents.Instance.EmitOnSkillContainerChanged(PartyManager.Instance.MainPlayer.selectableAbilities
+            .ToList());
     }
 
     private void SelectOKButtonOnPressed()
@@ -88,9 +108,11 @@ public partial class LevelUpUI : Control
     private void LevelUPConfirmButtonOnPressed()
     {
         PartyManager.Instance.MainPlayer.Stats.OnLevelUp();
-        GlobalEvents.Instance.EmitOnSkillBarChanged(PartyManager.Instance.MainPlayer.runtimeAbilities,PartyManager.Instance.MainPlayer);
+        GlobalEvents.Instance.EmitOnSkillBarChanged(PartyManager.Instance.MainPlayer.runtimeAbilities,
+            PartyManager.Instance.MainPlayer);
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
         GlobalEvents.Instance.EmitOnTalentLearned(SelectedTalentSlot.currentTalent);
+        PartyManager.Instance.MainPlayer.LevelUpAvailable = false;
         canvasLayer.Visible = false;
         GetTree().Paused = false;
     }
@@ -109,6 +131,7 @@ public partial class LevelUpUI : Control
                 slot.OnSlotPressed -= OnTalentButtonPressed;
                 slot.OnSlotPressed -= OnPassiveButtonPressed;
             }
+
             child.QueueFree();
         }
     }
@@ -151,11 +174,11 @@ public partial class LevelUpUI : Control
         {
             PartyManager.Instance.MainPlayer.selectableAbilities.Add(SelectedSkillSlot.currentAbilityAction);
             PartyManager.Instance.MainPlayer.runtimeAbilities.Remove(SelectedSkillSlot.currentAbilityAction);
-            changeSelectedSlotAbility(abilityToChoose);
+            ChangeSelectedSlotAbility(abilityToChoose);
         }
         else
         {
-            changeSelectedSlotAbility(abilityToChoose);
+            ChangeSelectedSlotAbility(abilityToChoose);
         }
 
         SelectOKButton.Visible = true;
@@ -165,78 +188,37 @@ public partial class LevelUpUI : Control
     {
         if (slot.currentItem != null)
         {
-            var currentDescription = slot.currentItem.ItemResource.GetDescription();
-            descriptionPanel.HideAllControlsInDescriptionPanel();
-            descriptionPanel.SetDescriptionPanel(currentDescription);
-            descriptionPanel.GlobalPosition = slot.GlobalPosition + new Vector2(-60, 60);
-            descriptionBool = true;
-            GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+            slot.GetDescription(descriptionPanel,slot,slot.currentItem.ItemResource,selectableTalentsContainer.GlobalPosition,220,60);
             return;
         }
 
         if (slot.currentItem == null && slot.currentAbilityAction != null)
         {
-            var CurrentDescription = slot.currentAbilityAction.GetDescription(PartyManager.Instance.MainPlayer);
-            descriptionPanel.HideAllControlsInDescriptionPanel();
-            descriptionPanel.SetDescriptionPanel(CurrentDescription);
-            descriptionPanel.GlobalPosition = SelectableSkillsContainer.GlobalPosition + new Vector2(0, -320);
-            descriptionBool = true;
-            GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
+            slot.GetDescription(descriptionPanel,slot,slot.currentAbilityAction,selectableTalentsContainer.GlobalPosition,220,60);
+            return;
         }
 
         if (slot.currentItem == null && slot.currentTalent != null)
         {
-            GetDescription(slot, slot.currentTalent);
+            slot.GetDescription(descriptionPanel,slot,slot.currentTalent,selectableTalentsContainer.GlobalPosition,220,60);
         }
-    }
-
-    public void GetDescription(Slot slot, Resource descType)
-    {
-        descriptionPanel.HideAllControlsInDescriptionPanel();
-        Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> currentDescription;
-        switch (descType)
-        {
-            case BaseSkill:
-                currentDescription = slot.currentTalent.GetDescription(PartyManager.Instance.MainPlayer);
-                descriptionPanel.SetDescriptionPanel(currentDescription);
-                break;
-
-            case ItemResource:
-                currentDescription = slot.currentItem.ItemResource.GetDescription();
-                descriptionPanel.SetDescriptionPanel(currentDescription);
-                break;
-
-            case WeaponBaseAction:
-                currentDescription = slot.currentAbilityAction.GetDescription(PartyManager.Instance.MainPlayer);
-                descriptionPanel.SetDescriptionPanel(currentDescription);
-                break;
-        }
-
-        descriptionPanel.GlobalPosition = selectableTalentsContainer.GlobalPosition + new Vector2(220, 60);
-        descriptionBool = true;
-        GetTree().CreateTimer(0.8).Timeout += isDescriptionBoolTrue;
-    }
-
-    public void isDescriptionBoolTrue()
-    {
-        if (descriptionBool == false) return;
-        descriptionPanel.Visible = true;
     }
 
     public void OnSkillButtonMouseExited(Slot slot)
     {
-        descriptionBool = false;
+        
         descriptionPanel.Visible = false;
     }
 
-    public void changeSelectedSlotAbility(WeaponBaseAction abilityToChoose)
+    public void ChangeSelectedSlotAbility(WeaponBaseAction abilityToChoose)
     {
         SelectedSkillSlot.SetAbility(abilityToChoose);
 
         PartyManager.Instance.MainPlayer.runtimeAbilities.Add(abilityToChoose);
         PartyManager.Instance.MainPlayer.selectableAbilities.Remove(abilityToChoose);
 
-        GlobalEvents.Instance.EmitOnSkillContainerChanged(PartyManager.Instance.MainPlayer.selectableAbilities.ToList());
+        GlobalEvents.Instance.EmitOnSkillContainerChanged(PartyManager.Instance.MainPlayer.selectableAbilities
+            .ToList());
     }
 
     private void SelectedTalentOnSlotPressed(Slot slot)
@@ -245,22 +227,21 @@ public partial class LevelUpUI : Control
         SelectableTalentPanel.GlobalPosition = slot.GlobalPosition + new Vector2(370, -90);
     }
 
-    private void SortLearnableTalents(List<BaseSkill> talents)
+    private void SortLearnableTalents(List<BaseSkill> talents, Player currentPlayer)
     {
         ClearGridContainer(selectableTalentsContainer);
         ClearGridContainer(SelectablePassivesContainer);
-        
+
         if (talents == null) return;
-        
         foreach (var learnableTalent in talents.Where(x => x.IsMain))
         {
-            var learntPassives = PartyManager.Instance.MainPlayer.LearnedTalents.Where(x =>
+            var learntPassives = currentPlayer.LearnedTalents.Where(x =>
                 !x.IsMain
-                && x.SkillSchool ==  learnableTalent.SkillSchool
-                ).ToList();
-            
-            if ( learntPassives.Count < learnableTalent.SkillLevel) continue;
-            
+                && x.SkillSchool == learnableTalent.SkillSchool
+            ).ToList();
+
+            if (learntPassives.Count < learnableTalent.SkillLevel) continue;
+
             var scene = slotScene.Instantiate();
             selectableTalentsContainer.AddChild(scene);
             scene.Reparent(selectableTalentsContainer);
@@ -268,17 +249,18 @@ public partial class LevelUpUI : Control
 
             slot.SetCustomMinimumSize(new Vector2(64, 64));
             slot.itemQuantityLabel.Visible = false;
-            slot.SetTalent(learnableTalent);
+            var DuplicateTalent = learnableTalent.Duplicate() as BaseSkill;
+            DuplicateTalent.SkillLevel++;
+            slot.SetTalent(DuplicateTalent);
 
             slot.OnSlotEntered += OnSkillButtonMouseEntered;
             slot.OnSlotExited += OnSkillButtonMouseExited;
             slot.OnSlotPressed += OnTalentButtonPressed;
-
         }
-        
+
         foreach (var learnablePassive in talents.Where(x =>
                      !x.IsMain
-                     && !PartyManager.Instance.MainPlayer.LearnedTalents.Contains(x)))
+                     && !currentPlayer.LearnedTalents.Contains(x)))
         {
             var scene = slotScene.Instantiate();
             SelectablePassivesContainer.AddChild(scene);
@@ -292,9 +274,8 @@ public partial class LevelUpUI : Control
             slot.OnSlotExited += OnSkillButtonMouseExited;
             slot.OnSlotPressed += OnPassiveButtonPressed;
         }
-        
     }
-    
+
     public void OnTalentButtonPressed(Slot slot)
     {
         var talentToChoose = slot.currentTalent;
@@ -321,31 +302,35 @@ public partial class LevelUpUI : Control
     public void SetSelectedTalentSlot(BaseSkill NewTalent)
     {
         SelectedTalentSlot.SetTalent(NewTalent);
-        if (NewTalent.IsMain)
+        if (!NewTalent.IsMain) return;
+
+        var selectableAbilities = PartyManager.Instance.MainPlayer.selectableAbilities;
+        var correspondingSpells =
+            NewTalent.MainSkillEffect().Where(x => !selectableAbilities.Contains(x)).ToArray();
+        Array<WeaponBaseAction> realCorrespondingSpells = [];
+        for (int i = 0; i < correspondingSpells.Length; i++)
         {
-            var CorrespondingSpells = NewTalent.MainSkillEffect();
-            PartyManager.Instance.MainPlayer.selectableAbilities.AddRange(CorrespondingSpells);
-            GlobalEvents.Instance.EmitOnSkillContainerChanged(PartyManager.Instance.MainPlayer.selectableAbilities.ToList());
+            var spell = correspondingSpells[i];
+            realCorrespondingSpells.Add(spell);
         }
+
+        selectableAbilities.AddRange(realCorrespondingSpells);
+        GlobalEvents.Instance.EmitOnSkillContainerChanged(selectableAbilities.ToList());
     }
 
     public void OnPassiveButtonPressed(Slot slot)
     {
         var talentToChoose = slot.currentTalent;
-        if (SelectedTalentSlot.currentTalent != null && SelectedTalentSlot.currentTalent.IsMain)
+        if (SelectedTalentSlot.currentTalent is { IsMain: true })
         {
             var currentTalent = SelectedTalentSlot.currentTalent;
             foreach (var spell in currentTalent.MainSkillEffect())
             {
                 PartyManager.Instance.MainPlayer.selectableAbilities.Remove(spell);
             }
+        }
 
-            SetSelectedTalentSlot(talentToChoose);
-        }
-        else
-        {
-            SetSelectedTalentSlot(talentToChoose);
-        }
+        SetSelectedTalentSlot(talentToChoose);
 
         SelectOKButton.Visible = true;
         TalentConfirmButton.Visible = true;

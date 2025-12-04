@@ -1,10 +1,7 @@
 using Godot;
-using System;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
-public partial class CombatState : PlayerState
+public class CombatState : PlayerState
 {
     public CombatActor enemyActor;
     public CombatSubState currentSubState;
@@ -73,8 +70,7 @@ public partial class CombatState : PlayerState
     {
         GD.Print(Player.ActiveState);
         GD.Print(Player.IsTurnActive);
-
-
+        
         currentSubState = CombatSubState.CheckStatusEffect;
     }
 

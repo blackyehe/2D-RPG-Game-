@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot.Collections;
+using Array = Godot.Collections.Array;
 
 
 public abstract partial class BaseSkill : Resource
@@ -38,15 +39,15 @@ public abstract partial class BaseSkill : Resource
 
     public Array<WeaponBaseAction> MainSkillEffect()
     {
-        if (!IsMain) return null;
-        var currentAbilities = Abilities[SkillLevel];
-        Array<WeaponBaseAction> skillArray = new();
-        foreach (var skill in currentAbilities.skillArray.Where(x => x.SkillLevel <= SkillLevel))
+        
+        var currAbilities = Abilities;
+        Array<WeaponBaseAction> skillArray2 = [];
+        for (int i = 1; i <= SkillLevel; i++)
         {
-            skillArray.Add(skill); //Main skill level upnál figyelni kéne, hogy hamarabb történjen meg ^ emiatt kösz heló.
+            var skillsToAdd = currAbilities[i].skillArray;
+            skillArray2.AddRange(skillsToAdd);
         }
-
-        return skillArray;
+        return skillArray2;
     }
 
     public List<BaseSkill> GetPassivesBySkillSchool(BaseSkill mainTalent)
@@ -63,6 +64,9 @@ public abstract partial class BaseSkill : Resource
             {
                 passives.AddRange(currentPassiveArray);
             }
+
+            passives =
+                passives.Where(x => !PartyManager.Instance.MainPlayer.LearnedTalents.Contains(x)).ToList();
         }
 
         return passives;

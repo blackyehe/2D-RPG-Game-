@@ -99,8 +99,7 @@ public partial class TurnManager : Node
         {
             enemyCombatants.Add(actor);
         }
-
-        GD.Print("Combatants sorted");
+        
     }
 
     public void CombatTransition()

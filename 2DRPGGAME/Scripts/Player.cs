@@ -30,7 +30,8 @@ public partial class Player : CombatActor
     public IInteractable _interactable;
     [Export] public CombatActor cursorTarget;
     public int FollowIndex;
-    
+    public bool LevelUpAvailable = false;
+
     public void SelectInteractable(IInteractable interactable)
     {
         _interactable = interactable;
@@ -46,7 +47,7 @@ public partial class Player : CombatActor
 
     public const float WalkSpeed = 85f;
     public Inventory inventory = new Inventory();
-    
+
     public override void _Ready()
     {
         SnapToClosestTile(this);
@@ -70,32 +71,47 @@ public partial class Player : CombatActor
             EquippedItems.Add(enumType, null);
         }
 
+        InitialLearnedTalents();
         EquipAfterGlobalEvents();
 
-        GlobalEvents.Instance.OnTalentLearned += OnTalentLearned;
         GlobalEvents.Instance.GetExperience += OnExperienceGained;
         GlobalEvents.Instance.OnLevelUp += OnLevelUp;
     }
 
-    private void OnTalentLearned(BaseSkill talent)
+    private void InitialLearnedTalents()
     {
-        LearnedTalents.Add(talent);
-        selectableTalents.Add(talent);
-
-        if (!talent.IsMain) return;
-
-        if (talent.PassivesAdded != true)
+        foreach (var talent in Stats.StartingSkills)
         {
-            var talentPassives = talent.GetPassivesBySkillSchool(talent);
-            selectableTalents.AddRange(talentPassives);
-            talent.PassivesAdded = true;
+            LearnedTalents.Add(talent);
+            if (talent.PassivesAdded != true && talent.IsMain)
+            {
+                var talentPassives = talent.GetPassivesBySkillSchool(talent);
+                selectableTalents.AddRange(talentPassives);
+                talent.PassivesAdded = true;
+            }
         }
+
+        selectableTalents =
+            selectableTalents.Where(x => !LearnedTalents.Contains(x)).ToList();
+
+        var learnedMainSkills = LearnedTalents.Where(x => x.IsMain).ToList();
+        var learnedPassives = LearnedTalents.Where(x => !x.IsMain).ToList();
+        for (int i = 0; i < learnedMainSkills.Count(); i++)
+        {
+            var passiveList = learnedPassives.Where(x =>
+                x.SkillLevel == learnedMainSkills[i].SkillLevel).ToList();
+            if (passiveList.Count > learnedMainSkills[i].SkillLevel)
+            {
+                selectableTalents.Add(learnedMainSkills[i]);
+            }
+        }
+        GD.Print(selectableTalents);
     }
 
     private void OnExperienceGained(double experience)
     {
         Stats.XP += experience;
-        GlobalEvents.Instance.EmitInventoryStatsUpgraded(this);
+        GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
         if (Stats.XP >= Stats.XPToNextLevel)
         {
             GlobalEvents.Instance.EmitOnLevelUp();
@@ -104,6 +120,7 @@ public partial class Player : CombatActor
 
     private void OnLevelUp(object sender, EventArgs e)
     {
+        LevelUpAvailable = true;
         LevelUp2D.Visible = true;
         CharacterEffectPlayer.Play(AnimTags.LevelUp);
         GetTree().CreateTimer(1.7).Timeout += () => LevelUp2D.Visible = false;
@@ -123,7 +140,7 @@ public partial class Player : CombatActor
 
         EquipStartingItems();
         SetActiveWeapon();
-        GlobalEvents.Instance.EmitOnSkillBarChanged(runtimeAbilities, this);
+        GlobalEvents.Instance.EmitOnSkillBarChanged(runtimeAbilities, PartyManager.Instance.MainPlayer);
     }
 
     public void EmitProjectileSignal()

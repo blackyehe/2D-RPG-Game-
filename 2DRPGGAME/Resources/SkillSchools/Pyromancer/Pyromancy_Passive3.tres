@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://fhc5r85l5vnj" path="res://Scripts/SkillSchools/PyromancyMainSkill/Pyromancy.cs" id="2_5fxhp"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("2_5fxhp")
 SkillLevel = 1
 SkillName = "Flames of Purgatory"

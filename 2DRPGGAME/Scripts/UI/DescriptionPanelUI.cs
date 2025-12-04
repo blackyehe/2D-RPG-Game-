@@ -5,12 +5,22 @@ using Godot.Collections;
 public partial class DescriptionPanelUI : VBoxContainer
 {
 	[Export] public Dictionary<DescriptionPanel, Control> DescriptionPanel = new();
+	[Export] public AnimationPlayer AnimationPlayer;
 	private bool descriptionBool;
 	public void HideAllControlsInDescriptionPanel()
 	{
 		foreach (var control in DescriptionPanel.Values)
 		{
 			control.Visible = false;
+			switch (control)
+			{
+				case RichTextLabel rLabel:
+					rLabel.Text = "";
+					break;
+				case TextureRect tRect:
+					tRect.Texture = null;
+					break;
+			}
 			
 			var parent = control.GetParent() as Control; 
 			

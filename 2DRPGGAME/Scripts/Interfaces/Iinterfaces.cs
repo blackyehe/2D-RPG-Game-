@@ -8,7 +8,6 @@ public interface IApplicable
 {
 	public void Apply(CombatActor target);
 }
-
 public interface IStatusEffect
 {
 	public bool StatusEffect(CombatActor target);

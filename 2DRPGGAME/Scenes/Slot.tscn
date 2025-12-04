@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://desvf6csg601u"]
 
-[ext_resource type="Texture2D" uid="uid://dyamjc0k66mcd" path="res://Free Assets/sajat assetek/SlotBGType1.png" id="1_ncnge"]
+[ext_resource type="Texture2D" uid="uid://dyamjc0k66mcd" path="res://FreeAssets/sajat assetek/SlotBGType1.png" id="1_ncnge"]
 [ext_resource type="Script" uid="uid://c7jdwsdgob5qp" path="res://Scripts/Inventory/Slot.cs" id="2_a1x03"]
-[ext_resource type="Texture2D" uid="uid://bc6qy5qg6wfmh" path="res://Free Assets/craftőox-net/4 GUI/3 Icons/Icon_50.png" id="3_ncnge"]
+[ext_resource type="Texture2D" uid="uid://bc6qy5qg6wfmh" path="res://FreeAssets/craftőox-net/4 GUI/3 Icons/Icon_50.png" id="3_ncnge"]
 
 [sub_resource type="SystemFont" id="SystemFont_a1x03"]
 subpixel_positioning = 0
@@ -14,8 +14,11 @@ base_font = SubResource("SystemFont_a1x03")
 
 [node name="InventorySlot" type="TextureRect" node_paths=PackedStringArray("itemIcon", "itemButton", "itemQuantityLabel")]
 custom_minimum_size = Vector2(64, 64)
-offset_right = 86.0
-offset_bottom = 91.0
+anchors_preset = -1
+anchor_right = 0.045
+anchor_bottom = 0.08400001
+offset_right = -0.40000153
+offset_bottom = 0.27999115
 texture = ExtResource("1_ncnge")
 script = ExtResource("2_a1x03")
 itemIcon = NodePath("Container/ItemIcon")

@@ -29,7 +29,6 @@ public abstract partial class BaseWeapon : EquipableItem
         itemUser.runtimeAbilities.AddRange(weaponResource.Actions);
         GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities, itemUser as Player);
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
-        GD.Print(itemUser.runtimeAbilities);
     }
 
     public override void OnUnequip(CombatActor itemUser)
@@ -48,7 +47,6 @@ public abstract partial class BaseWeapon : EquipableItem
         
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
         GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities, itemUser as Player);
-        GD.Print(itemUser.runtimeAbilities);
     }
 
     private void Area2D_BodyEntered(Node2D body)
