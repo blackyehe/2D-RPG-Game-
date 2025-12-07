@@ -6,8 +6,18 @@ public partial class DescriptionPanelUI : VBoxContainer
 {
 	[Export] public Dictionary<DescriptionPanel, Control> DescriptionPanel = new();
 	[Export] public AnimationPlayer AnimationPlayer;
+	[Export] public PanelContainer ContainerToResize;
 	private bool descriptionBool;
-	public void HideAllControlsInDescriptionPanel()
+	public Slot currentlyHoveredSlot;
+	
+	public EventHandler OnDescriptionAppeared;
+	public void DescriptionAppeared() => OnDescriptionAppeared?.Invoke(this, EventArgs.Empty);
+
+	public void AnimationPlayerFinished()
+	{
+		currentlyHoveredSlot = null;
+	}
+	public void SetDescriptionPanel(Dictionary<DescriptionPanel, BaseDescription> descriptions)
 	{
 		foreach (var control in DescriptionPanel.Values)
 		{
@@ -25,12 +35,9 @@ public partial class DescriptionPanelUI : VBoxContainer
 			var parent = control.GetParent() as Control; 
 			
 			if (parent == null) continue;
-			
 			parent.Visible = false;
 		}
-	}
-	public void SetDescriptionPanel(Dictionary<DescriptionPanel, BaseDescription> descriptions)
-	{
+		
 		foreach (var valuePair in descriptions)
 		{
 			if (valuePair.Value.textureData is null && string.IsNullOrEmpty(valuePair.Value.stringData))

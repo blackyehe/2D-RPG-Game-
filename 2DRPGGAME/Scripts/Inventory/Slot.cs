@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 public partial class Slot : TextureRect
 {
@@ -80,9 +81,9 @@ public partial class Slot : TextureRect
         OnSlotEntered?.Invoke(this);
     }
 
-    public void GetDescription(DescriptionPanelUI descriptionPanel,Slot slot, Resource descType, Vector2 globPos, float x, float y)
+    public void GetDescription(DescriptionPanelUI descriptionPanel, Slot slot, Resource descType, Vector2 globPos,
+        float x, float y)
     {
-        descriptionPanel.HideAllControlsInDescriptionPanel();
         Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> currentDescription;
         switch (descType)
         {
@@ -101,16 +102,11 @@ public partial class Slot : TextureRect
                 descriptionPanel.SetDescriptionPanel(currentDescription);
                 break;
         }
-
-        IsMouseInsideSlot(slot,descriptionPanel);
-        //descriptionPanel.SetSize(new Vector2(373,485));
+        
         descriptionPanel.GlobalPosition = globPos + new Vector2(x, y);
+        descriptionPanel.AnimationPlayer.Play("Appear");
+        
+        GD.Print(descriptionPanel.ContainerToResize.Size);
     }
-
-    private void IsMouseInsideSlot(Slot slot,DescriptionPanelUI  descriptionPanel)
-    {
-            descriptionPanel.AnimationPlayer.Play("Appear");
-            //descriptionPanel.Visible = true;
-            GD.Print(slot);
-    }
+    
 }

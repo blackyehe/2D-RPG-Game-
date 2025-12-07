@@ -10,6 +10,7 @@ public partial class CombatUI : Control
     [Export] public PackedScene SlotScene;
     [Export] public DescriptionPanelUI descriptionPanel;
     [Export] public Container fakeContainer;
+    
 
     public override void _Ready()
     {
@@ -18,7 +19,11 @@ public partial class CombatUI : Control
         TurnManager.Instance.OnCombatStarted += Instance_OnCombatStarted;
         GlobalEvents.Instance.OnSkillBarChanged += OnSkillBarChanged;
         PartyManager.Instance.OnMainPlayerChanged += OnMainPlayerChanged;
+        descriptionPanel.OnDescriptionAppeared += OnDescriptionAppeared;
     }
+
+    
+
 
     private void OnMainPlayerChanged(Player previous, Player current)
     {
@@ -71,7 +76,7 @@ public partial class CombatUI : Control
         PartyManager.Instance.MainPlayer.currentAbility = slot.currentAbilityAction;
     }
 
-    public void OnSkillButtonMouseEntered(Slot slot)
+    public async void OnSkillButtonMouseEntered(Slot slot)
     {
         if (slot.currentItem != null)
         {
@@ -82,10 +87,29 @@ public partial class CombatUI : Control
 
         if (slot.currentItem == null && slot.currentAbilityAction != null)
         {
+            GD.Print(descriptionPanel.ContainerToResize.Size + "||||||");
+
+            descriptionPanel.currentlyHoveredSlot = slot;
+            
             slot.GetDescription(descriptionPanel,slot, slot.currentAbilityAction, slot.GlobalPosition, -100, -250);
+            
+            descriptionPanel.GlobalPosition = slot.GlobalPosition +
+                                              new Vector2(-100, -descriptionPanel.ContainerToResize.Size.Y);
+            
+            
+            GD.Print(descriptionPanel.ContainerToResize.Size);
         }
     }
-
+    private void OnDescriptionAppeared(object sender, EventArgs e)
+    {
+        GD.Print("After appeared Event" + descriptionPanel.ContainerToResize.Size);
+        float panelHeight = descriptionPanel.ContainerToResize.Size.Y;
+        float padding = 50f;
+        if (descriptionPanel.currentlyHoveredSlot is null) return;
+        descriptionPanel.GlobalPosition = descriptionPanel.currentlyHoveredSlot.GlobalPosition +
+                                          new Vector2(-100, -panelHeight - padding);
+    }
+    
     public void OnSkillButtonMouseExited(Slot slot)
     {
         descriptionPanel.Visible = false;
