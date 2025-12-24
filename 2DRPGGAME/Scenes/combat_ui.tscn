@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgf1qxakie1og"]
+[gd_scene load_steps=6 format=3 uid="uid://bgf1qxakie1og"]
 
 [ext_resource type="Texture2D" uid="uid://b1pksbbt83grb" path="res://FreeAssets/tinyRPG_manaSoulGUI_v_1_0/20250425compass-Sheet.png" id="1_2dvei"]
 [ext_resource type="Script" uid="uid://b3yr58o82odfp" path="res://Scripts/UI/CombatUI.cs" id="1_4s1nj"]
 [ext_resource type="PackedScene" uid="uid://desvf6csg601u" path="res://Scenes/Slot.tscn" id="2_sovtu"]
+[ext_resource type="FontFile" uid="uid://pmou50mja4es" path="res://FreeAssets/GameDevFonts/minecraftia/Minecraftia-Regular.ttf" id="4_q8na3"]
 
-[node name="Combat UI" type="Control" node_paths=PackedStringArray("endTurnButton", "canvasLayer", "spellContainer", "descriptionPanel", "fakeContainer")]
+[sub_resource type="Theme" id="Theme_oemdt"]
+default_font = ExtResource("4_q8na3")
+
+[node name="Combat UI" type="Control" node_paths=PackedStringArray("endTurnButton", "canvasLayer", "spellContainer", "fakeContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +20,6 @@ endTurnButton = NodePath("CanvasLayer/Panel/PassButtonCircle/EndTurn")
 canvasLayer = NodePath("CanvasLayer")
 spellContainer = NodePath("CanvasLayer/Panel/SpellBar/GridContainer")
 SlotScene = ExtResource("2_sovtu")
-descriptionPanel = NodePath("")
 fakeContainer = NodePath("CanvasLayer/Container")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -73,6 +76,7 @@ offset_right = 63.0
 offset_bottom = 58.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_oemdt")
 text = "End turn, ty"
 
 [node name="Container" type="Container" parent="CanvasLayer"]

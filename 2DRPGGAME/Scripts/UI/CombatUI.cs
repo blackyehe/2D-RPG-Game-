@@ -10,8 +10,6 @@ public partial class CombatUI : Control
     [Export] public PackedScene SlotScene;
     [Export] public DescriptionPanelUI descriptionPanel;
     [Export] public Container fakeContainer;
-    
-
     public override void _Ready()
     {
         canvasLayer.Visible = false;
@@ -21,10 +19,7 @@ public partial class CombatUI : Control
         PartyManager.Instance.OnMainPlayerChanged += OnMainPlayerChanged;
         descriptionPanel.OnDescriptionAppeared += OnDescriptionAppeared;
     }
-
     
-
-
     private void OnMainPlayerChanged(Player previous, Player current)
     {
         GlobalEvents.Instance.EmitOnSkillBarChanged(current.runtimeAbilities, current);
@@ -76,7 +71,7 @@ public partial class CombatUI : Control
         PartyManager.Instance.MainPlayer.currentAbility = slot.currentAbilityAction;
     }
 
-    public async void OnSkillButtonMouseEntered(Slot slot)
+    public void OnSkillButtonMouseEntered(Slot slot)
     {
         if (slot.currentItem != null)
         {
@@ -87,17 +82,10 @@ public partial class CombatUI : Control
 
         if (slot.currentItem == null && slot.currentAbilityAction != null)
         {
-            GD.Print(descriptionPanel.ContainerToResize.Size + "||||||");
-
             descriptionPanel.currentlyHoveredSlot = slot;
-            
             slot.GetDescription(descriptionPanel,slot, slot.currentAbilityAction, slot.GlobalPosition, -100, -250);
-            
             descriptionPanel.GlobalPosition = slot.GlobalPosition +
                                               new Vector2(-100, -descriptionPanel.ContainerToResize.Size.Y);
-            
-            
-            GD.Print(descriptionPanel.ContainerToResize.Size);
         }
     }
     private void OnDescriptionAppeared(object sender, EventArgs e)
