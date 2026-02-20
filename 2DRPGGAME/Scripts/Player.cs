@@ -154,9 +154,11 @@ public partial class Player : CombatActor
         {
             var itemScene = equipabbleItem.Instantiate<EquipableItem>();
             AddChild(itemScene);
+            inventory.AddItem(itemScene);
             EquippedItems[itemScene.ItemResource.equipSlot] = itemScene;
             GlobalEvents.Instance.EmitEquipSlotChanged(this, itemScene);
             itemScene.OnEquip(this);
+            inventory.RemoveItem(itemScene);
             RemoveChild(itemScene);
         }
     }

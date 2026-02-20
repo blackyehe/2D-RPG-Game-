@@ -45,6 +45,11 @@ public partial class GlobalEvents : Node
 	public delegate void OnTalentLearnedDelegate(BaseSkill Talent);
 	public event OnTalentLearnedDelegate OnTalentLearned;
 	public void EmitOnTalentLearned(BaseSkill Talent) => OnTalentLearned?.Invoke(Talent);
+	
+	public delegate void SlotDropped(Slot droppedSlot, Slot slotAtPosition);
+	public event SlotDropped OnSlotDropped;
+	public void EmitOnSlotDropped(Slot droppedSlot, Slot slotAtPosition) => OnSlotDropped?.Invoke(droppedSlot, slotAtPosition);
+	
 	public override void _Ready()
 	{
 		Instance = this;

@@ -23,3 +23,4 @@ ItemRarity = 4
 ItemFlavourDescription = "Nagyon gyertya"
 ItemPriceText = 300.0
 ItemQuantity = 1
+equipSlot = 1

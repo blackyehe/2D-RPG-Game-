@@ -20,4 +20,4 @@ Actions = Array[Resource]([ExtResource("1_w85bm")])
 ItemName = "Bow Bow"
 Texture = ExtResource("1_phl5m")
 ItemQuantity = 1
-equipSlot = 7
+equipSlot = 8

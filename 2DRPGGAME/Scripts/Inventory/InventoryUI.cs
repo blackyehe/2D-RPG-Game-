@@ -2,9 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 using Godot.Collections;
-using Microsoft.VisualBasic.CompilerServices;
-using Array = Godot.Collections.Array;
-using Range = System.Range;
+
 
 public partial class InventoryUI : Control
 {
@@ -23,7 +21,6 @@ public partial class InventoryUI : Control
 
     [Export] public TextureRect inventoryPanel;
     [Export] public TextureRect wholeInventory;
-    [Export] public ReferenceRect EquippedInventoryDragPanel;
     [Export] public Array<GridContainer> skillContainer;
     [Export] public Array<Slot> equipSlots;
 
@@ -33,7 +30,7 @@ public partial class InventoryUI : Control
     [Export] public InventoryHeaderUI InventoryHeader;
 
     private Slot selectedSlot;
-    private Slot currentlyDraggedSlot;
+    private Slot tempSlot = new();
     public bool isready;
 
     public override void _Ready()
@@ -42,21 +39,20 @@ public partial class InventoryUI : Control
         canvasLayer.Visible = true;
         inventoryPanel.Visible = false;
         wholeInventory.Visible = false;
-        EquippedInventoryDragPanel.Visible = false;
         GlobalEvents.Instance.EquipSlotChanged += OnEquipSlotChanged;
         useButton.Pressed += UseButton_Pressed;
         unequipButton.Pressed += UnequipButtonOnPressed;
         GlobalEvents.Instance.OnTalentLearned += OnPlayerTalentLearned;
         GlobalEvents.Instance.OnInventoryStatsUpgraded += OnInventoryStatsUpgraded;
         PartyManager.Instance.OnMainPlayerChanged += OnMainPlayerChanged;
+        GlobalEvents.Instance.OnSlotDropped += OnSlotDropped;
         isready = true;
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
         PartyManager.Instance.MainPlayer.inventory.InventoryChanged += Inventory_InventoryChanged;
-        EquippedInventoryDragPanel.MouseEntered += OnDragPanelMouseEntered;
-        EquippedInventoryDragPanel.MouseFilter = MouseFilterEnum.Ignore;
         HeaderStatAtStart();
 
         SetStartingSkills();
+        
     }
 
     private void OnMainPlayerChanged(Player previous, Player current)
@@ -150,16 +146,18 @@ public partial class InventoryUI : Control
 
     public void SwapEquipSlot(Item item)
     {
-        var SlottestSlot = equipSlots.FirstOrDefault(x => x.equipSlot == item.ItemResource.equipSlot);
-        SlottestSlot.SetItem(item);
-        SlottestSlot.itemQuantityLabel.Visible = false;
-        SlottestSlot.Visible = true;
-        if (SlottestSlot.EventsSubbed) return;
-        SlottestSlot.OnSlotEntered += OnItemButtonMouseEntered;
-        SlottestSlot.OnSlotExited += OnItemButtonMouseExited;
-        SlottestSlot.OnSlotPressed += OnEquippedItemSlotPressed;
-        SlottestSlot.EventsSubbed = true;
-        SlottestSlot.CurrentlyEquipped = true;
+        var slottestSlot = equipSlots.FirstOrDefault(x => x.equipSlot == item.ItemResource.equipSlot);
+        slottestSlot.SetItem(item);
+        slottestSlot.itemQuantityLabel.Visible = false;
+        slottestSlot.Visible = true;
+        slottestSlot.Texture = slottestSlot.EquippedSlotTexture;
+        slottestSlot.itemIcon.Visible = true;
+        if (slottestSlot.EventsSubbed) return;
+        slottestSlot.OnSlotEntered += OnItemButtonMouseEntered;
+        slottestSlot.OnSlotExited += OnItemButtonMouseExited;
+        slottestSlot.OnSlotPressed += OnEquippedItemSlotPressed;
+        slottestSlot.EventsSubbed = true;
+        slottestSlot.CurrentlyEquipped = true;
     }
 
     public void UpdateShownEquipSlots(Player current)
@@ -172,6 +170,7 @@ public partial class InventoryUI : Control
                 equipSlot.OnSlotEntered -= OnItemButtonMouseEntered;
                 equipSlot.OnSlotExited -= OnItemButtonMouseExited;
                 equipSlot.OnSlotPressed -= OnEquippedItemSlotPressed;
+                equipSlot.currentItem = null;
                 equipSlot.EventsSubbed = false;
                 equipSlot.CurrentlyEquipped = false;
             }
@@ -182,8 +181,27 @@ public partial class InventoryUI : Control
             if (equipSlot.Value != null)
             {
                 OnEquipSlotChanged(current, equipSlot.Value);
+                
             }
         }
+
+        foreach (var equipSlot in equipSlots)
+        {
+            if (equipSlot.currentItem is null)
+            {
+                equipSlot.Visible = true;
+                equipSlot.OnSlotEntered += OnItemButtonMouseEntered;
+                equipSlot.OnSlotExited += OnItemButtonMouseExited;
+                equipSlot.OnSlotPressed += OnEquippedItemSlotPressed;
+                equipSlot.EventsSubbed = true;
+                equipSlot.Texture = null;
+                equipSlot.itemIcon.Visible = false;
+                equipSlot.CurrentlyEquipped = false;
+            }
+        }
+        
+        GD.Print(current.EquippedItems[EquipSlot.Ranged]);
+        
     }
 
     private void Inventory_InventoryChanged(List<Item> items)
@@ -194,7 +212,7 @@ public partial class InventoryUI : Control
             var scene = SlotScene.Instantiate();
             gridContainer.AddChild(scene);
             Slot slot = scene as Slot;
-            slot.SetCustomMinimumSize(new Vector2(86, 91));
+            slot.SetCustomMinimumSize(new Vector2(77, 81));
             if (item != null)
             {
                 detailsPanel.Visible = false;
@@ -210,8 +228,20 @@ public partial class InventoryUI : Control
             slot.OnSlotExited += OnItemButtonMouseExited;
             slot.OnSlotPressed += OnItemButtonPressed;
         }
+
+        for (int i = 0; i < 30; i++)
+        {
+            var scene = SlotScene.Instantiate();
+            gridContainer.AddChild(scene);
+            Slot slot = scene as Slot;
+            slot.SetCustomMinimumSize(new Vector2(77, 81));
+            slot.SetSlotsEmpty();
+            slot.OnSlotEntered += OnItemButtonMouseEntered;
+            slot.OnSlotExited += OnItemButtonMouseExited;
+            slot.OnSlotPressed += OnItemButtonPressed;
+        }
     }
-    
+
     public void ClearGridContainer()
     {
         while (gridContainer.GetChildCount() > 0)
@@ -229,10 +259,12 @@ public partial class InventoryUI : Control
             child.QueueFree();
         }
     }
+
     public override void _PhysicsProcess(double delta)
     {
         UIOn();
     }
+
     public void UIOn()
     {
         if (Input.IsActionJustPressed("Inventory"))
@@ -245,14 +277,16 @@ public partial class InventoryUI : Control
             GD.Print("Paused");
         }
     }
+
     public void HeaderStatVisibilty()
     {
-         GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
-         foreach (var stat in InventoryHeader.InventoryStats)
-         {
-             stat.Value.Visible = !stat.Value.Visible;
-         }
+        GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
+        foreach (var stat in InventoryHeader.InventoryStats)
+        {
+            stat.Value.Visible = !stat.Value.Visible;
+        }
     }
+
     private void HeaderStatAtStart()
     {
         foreach (var stat in InventoryHeader.InventoryStats)
@@ -260,9 +294,7 @@ public partial class InventoryUI : Control
             stat.Value.Visible = false;
         }
     }
-    private void OnDragPanelMouseEntered()
-    {
-    }
+
     public void OnItemButtonPressed(Slot slot)
     {
         if (slot.currentItem == null) return;
@@ -274,6 +306,7 @@ public partial class InventoryUI : Control
         usagePanel.Visible = !usagePanel.Visible;
         descriptionPanel.Visible = false;
     }
+
     private void OnEquippedItemSlotPressed(Slot slot)
     {
         if (slot.currentItem == null) return;
@@ -283,6 +316,7 @@ public partial class InventoryUI : Control
         equippedItemPanel.Visible = !equippedItemPanel.Visible;
         descriptionPanel.Visible = false;
     }
+
     private void UnequipButtonOnPressed()
     {
         if (selectedSlot == null || selectedSlot.currentItem == null)
@@ -294,16 +328,16 @@ public partial class InventoryUI : Control
         }
 
         PartyManager.Instance.MainPlayer.inventory.AddItem(currentlyEquipped);
-        var SlothSlot = equipSlots.FirstOrDefault(x => x.equipSlot == currentlyEquipped.ItemResource.equipSlot);
+        var equipSlotByItem = equipSlots.FirstOrDefault(x => x.equipSlot == currentlyEquipped.ItemResource.equipSlot);
         PartyManager.Instance.MainPlayer.EquippedItems[currentlyEquipped.ItemResource.equipSlot] = null;
         currentlyEquipped.OnUnequip(PartyManager.Instance.MainPlayer);
-        SlothSlot.Visible = false;
-        SlothSlot.OnSlotEntered -= OnItemButtonMouseEntered;
-        SlothSlot.OnSlotPressed -= OnEquippedItemSlotPressed;
-        SlothSlot.OnSlotExited -= OnItemButtonMouseExited;
-
-        SlothSlot.EventsSubbed = false;
-        SlothSlot.CurrentlyEquipped = false;
+        if (equipSlotByItem is null) return;
+        equipSlotByItem.SetSlotsEmpty();
+        equipSlotByItem.OnSlotEntered -= OnItemButtonMouseEntered;
+        equipSlotByItem.OnSlotExited -= OnItemButtonMouseExited;
+        equipSlotByItem.OnSlotPressed -= OnEquippedItemSlotPressed;
+        UpdateShownEquipSlots(PartyManager.Instance.MainPlayer);
+        equipSlotByItem.CurrentlyEquipped = false;
         equippedItemPanel.Visible = false;
     }
 
@@ -363,8 +397,46 @@ public partial class InventoryUI : Control
     public void OnItemButtonMouseExited(Slot slot)
     {
         descriptionPanel.Visible = false;
+        if (Input.IsActionPressed(InputTags.LeftClick)) return;
     }
 
+    private void OnSlotDropped(Slot droppedSlot, Slot slotAtPosition)
+    {
+        if (droppedSlot == slotAtPosition) return;
+        if (slotAtPosition.currentTalent != null) return;
+        if (droppedSlot.equipSlot != EquipSlot.Empty && slotAtPosition.equipSlot is EquipSlot.Empty)
+        {
+            selectedSlot = droppedSlot;
+            UnequipButtonOnPressed();
+        }
+
+        if (droppedSlot.equipSlot is EquipSlot.Empty && slotAtPosition.equipSlot is EquipSlot.Empty && slotAtPosition.currentItem is null)
+        {
+            selectedSlot = droppedSlot;
+            slotAtPosition.SetItem(selectedSlot.currentItem);
+            selectedSlot.SetSlotsEmpty();
+        }
+
+        if (droppedSlot.equipSlot is EquipSlot.Empty && slotAtPosition.equipSlot is EquipSlot.Empty &&
+            droppedSlot.currentItem != null && slotAtPosition.currentItem != null)
+        {
+            selectedSlot = droppedSlot;
+            tempSlot.SetItem(selectedSlot.currentItem);
+            selectedSlot.SetItem(slotAtPosition.currentItem);
+            slotAtPosition.SetItem(tempSlot.currentItem);
+            tempSlot.SetSlotsEmpty();
+        }
+
+        if (droppedSlot.equipSlot is EquipSlot.Empty && slotAtPosition.equipSlot != EquipSlot.Empty)
+        {
+            if (droppedSlot.currentItem?.ItemResource.equipSlot != slotAtPosition.equipSlot) return;
+            selectedSlot = droppedSlot;
+            UseButton_Pressed();    
+            
+        }
+        
+    }
+    
     void OnInventoryStatsUpgraded(Player player)
     {
         InventoryHeader.PlayerNameText.Text = player.Stats.Name;

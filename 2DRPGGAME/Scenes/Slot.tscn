@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://desvf6csg601u"]
+[gd_scene load_steps=8 format=3 uid="uid://desvf6csg601u"]
 
 [ext_resource type="Texture2D" uid="uid://dyamjc0k66mcd" path="res://FreeAssets/sajat assetek/SlotBGType1.png" id="1_ncnge"]
 [ext_resource type="Script" uid="uid://c7jdwsdgob5qp" path="res://Scripts/Inventory/Slot.cs" id="2_a1x03"]
 [ext_resource type="Texture2D" uid="uid://bc6qy5qg6wfmh" path="res://FreeAssets/craftőox-net/4 GUI/3 Icons/Icon_50.png" id="3_ncnge"]
+[ext_resource type="Texture2D" uid="uid://ds2pp2pywkek1" path="res://FreeAssets/EquipSlotAfterMerge.png" id="3_tngci"]
 
 [sub_resource type="SystemFont" id="SystemFont_a1x03"]
 subpixel_positioning = 0
@@ -24,6 +25,7 @@ script = ExtResource("2_a1x03")
 itemIcon = NodePath("Container/ItemIcon")
 itemButton = NodePath("ItemButton")
 itemQuantityLabel = NodePath("ItemQuantity")
+EquippedSlotTexture = ExtResource("3_tngci")
 
 [node name="Container" type="CenterContainer" parent="."]
 custom_minimum_size = Vector2(1, 1)
@@ -70,5 +72,6 @@ offset_right = -2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxEmpty_0q7qi")
 flat = true

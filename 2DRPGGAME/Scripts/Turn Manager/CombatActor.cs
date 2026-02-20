@@ -273,6 +273,4 @@ public class RuntimeStats
     {
         return $"Level: {CurrentLevel} => {CurrentLevel + 1}\nVitality: {MaxHP} + {MaxHP/2} => {MaxHP + MaxHP/2}";
     }
-
-    
 }

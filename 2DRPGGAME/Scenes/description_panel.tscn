@@ -173,7 +173,6 @@ ContainerToResize = NodePath("DescriptionPanel")
 
 [node name="DescriptionPanel" type="PanelContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_js5w8")
 
 [node name="BoxContainer" type="BoxContainer" parent="DescriptionPanel"]
@@ -186,10 +185,11 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/NameTypeDamage"]
 layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="NameAndTypeVBOXContaner" type="VBoxContainer" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer"]
+custom_minimum_size = Vector2(410, 168)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/separation = 0
 
@@ -198,6 +198,7 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "God's Godly GodKiller Godshot, god.."
 fit_content = true
+scroll_active = false
 
 [node name="TypeAndRarity" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner"]
 custom_minimum_size = Vector2(10, 10)
@@ -228,10 +229,9 @@ tab_size = 10
 [node name="Sprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer"]
 custom_minimum_size = Vector2(84, 84)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_horizontal = 3
 texture = ExtResource("1_2mqvy")
-stretch_mode = 4
+stretch_mode = 5
 
 [node name="SkillDescription" type="VBoxContainer" parent="DescriptionPanel/BoxContainer"]
 layout_mode = 2
@@ -239,7 +239,7 @@ layout_mode = 2
 [node name="SkillDescription" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/SkillDescription"]
 layout_mode = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "Make a ranged attack with your equipped weapon, or don't i'm not gonna force you to do that, why would i do such a thing? You think I'm a monster aren't you? Well guess what I'm not >:( Touch some grass, eat some milk and drink my piss and die, thanks, also KURVA ANYÁD KEVIN."
+text = "Make a ranged attack stb stb stb. Edd ki a faszomat Kevin, a büds kurva anyádat megbaszom remélem valahol egy árokban fogsz meghalni te fasz"
 fit_content = true
 autowrap_mode = 2
 
@@ -264,7 +264,7 @@ stretch_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-text = "This is the item's effect description, this is a very good item yes very oood item, loot goblin japanese goblin very goblin."
+text = "Item effect description, lehetne hosszabb is de fasznak van kedve ennyit írni."
 fit_content = true
 autowrap_mode = 2
 

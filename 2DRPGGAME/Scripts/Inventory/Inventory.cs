@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-	List<Item> _items = new List<Item>();
+	List<Item> _items = new();
 	public int inventorySize = 50;
 	public bool AddItem(Item item)
 	{
@@ -18,10 +18,9 @@ public class Inventory
 		return true;
 	}
 	public delegate void InventoryDelegate(List<Item> items);
-
 	public event InventoryDelegate InventoryChanged;
+	
     public int TestItemCount => _items.Count;
-
 	public void RemoveItem(Item item)
 	{
 		_items.Remove(item);

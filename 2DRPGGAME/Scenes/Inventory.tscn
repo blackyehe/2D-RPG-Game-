@@ -17,7 +17,7 @@ default_font = ExtResource("1_fih0l")
 [sub_resource type="Theme" id="Theme_6faio"]
 default_font = ExtResource("1_fih0l")
 
-[node name="Control" type="Control" node_paths=PackedStringArray("canvasLayer", "gridContainer", "detailsPanel", "detailsLabel", "usagePanel", "useButton", "dropButton", "inventoryPanel", "wholeInventory", "EquippedInventoryDragPanel", "skillContainer", "equipSlots", "equippedItemPanel", "unequipButton", "compareButton", "InventoryHeader")]
+[node name="Control" type="Control" node_paths=PackedStringArray("canvasLayer", "gridContainer", "detailsPanel", "detailsLabel", "usagePanel", "useButton", "dropButton", "inventoryPanel", "wholeInventory", "skillContainer", "equipSlots", "equippedItemPanel", "unequipButton", "compareButton", "InventoryHeader")]
 process_mode = 3
 z_as_relative = false
 layout_mode = 3
@@ -39,7 +39,6 @@ useButton = NodePath("CanvasLayer/UsagePanel/TextureRect/HBoxContainer/UseButton
 dropButton = NodePath("CanvasLayer/UsagePanel/Drop/HBoxContainer/DropButton")
 inventoryPanel = NodePath("CanvasLayer/PlayerInventory")
 wholeInventory = NodePath("CanvasLayer/WholeInventory")
-EquippedInventoryDragPanel = NodePath("CanvasLayer/WholeInventory/PanelToDragInto")
 skillContainer = [NodePath("CanvasLayer/PlayerInventory/SkillContainer1"), NodePath("CanvasLayer/PlayerInventory/SkillContainer2"), NodePath("CanvasLayer/PlayerInventory/SkillContainer3"), NodePath("CanvasLayer/PlayerInventory/SkillContainer4"), NodePath("CanvasLayer/PlayerInventory/SkillContainer5")]
 equipSlots = [NodePath("CanvasLayer/WholeInventory/MainHand"), NodePath("CanvasLayer/WholeInventory/Boots"), NodePath("CanvasLayer/WholeInventory/Trinket 1"), NodePath("CanvasLayer/WholeInventory/Ring2"), NodePath("CanvasLayer/WholeInventory/Cloak"), NodePath("CanvasLayer/WholeInventory/Gloves"), NodePath("CanvasLayer/WholeInventory/Helmet"), NodePath("CanvasLayer/WholeInventory/Ring1"), NodePath("CanvasLayer/WholeInventory/Breastplate"), NodePath("CanvasLayer/WholeInventory/Ranged2"), NodePath("CanvasLayer/WholeInventory/Ranged1"), NodePath("CanvasLayer/WholeInventory/Trinket2"), NodePath("CanvasLayer/WholeInventory/OffHand")]
 equippedItemPanel = NodePath("CanvasLayer/EquippedItempanel")
@@ -65,19 +64,20 @@ transform = Transform2D(1.4, 0, 0, 1.4, 0, 0)
 
 [node name="WholeInventory" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = -1
-anchor_left = 0.091000006
-anchor_top = 0.079
-anchor_right = 0.59300005
-anchor_bottom = 0.62
-offset_left = -94.72002
-offset_top = -254.60571
-offset_right = -482.56
-offset_bottom = -262.88568
+anchor_left = 0.004092264
+anchor_top = -0.17526452
+anchor_right = 0.54409224
+anchor_bottom = 0.7847354
+offset_left = 39.999992
+offset_top = 4.2856903
+offset_right = -420.8
+offset_bottom = -456.51422
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
+scale = Vector2(1.8, 1.8)
 theme = SubResource("Theme_6faio")
 texture = ExtResource("4_yeyjc")
+metadata/_edit_use_anchors_ = true
 
 [node name="MainHand" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -91,6 +91,7 @@ offset_top = 0.11099243
 offset_right = 31.856964
 offset_bottom = 31.85498
 scale = Vector2(0.5, 0.5)
+equipSlot = 1
 
 [node name="Boots" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -104,7 +105,7 @@ offset_top = -0.059020996
 offset_right = 32.257965
 offset_bottom = 32.260986
 scale = Vector2(0.5, 0.5)
-equipSlot = 4
+equipSlot = 5
 
 [node name="Trinket 1" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -118,7 +119,7 @@ offset_top = -3.5969849
 offset_right = 32.206985
 offset_bottom = 32.178986
 scale = Vector2(0.5, 0.5)
-equipSlot = 11
+equipSlot = 12
 
 [node name="Ring2" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -132,7 +133,7 @@ offset_top = -2.7690125
 offset_right = 31.872955
 offset_bottom = 31.85498
 scale = Vector2(0.5, 0.5)
-equipSlot = 10
+equipSlot = 11
 
 [node name="Cloak" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -146,7 +147,7 @@ offset_top = 0.117996216
 offset_right = 31.814972
 offset_bottom = 31.861969
 scale = Vector2(0.5, 0.5)
-equipSlot = 6
+equipSlot = 7
 
 [node name="Gloves" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -160,7 +161,7 @@ offset_top = 0.117996216
 offset_right = 32.277954
 offset_bottom = 31.861969
 scale = Vector2(0.5, 0.5)
-equipSlot = 5
+equipSlot = 6
 
 [node name="Helmet" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -174,7 +175,7 @@ offset_top = 0.117996216
 offset_right = 32.03897
 offset_bottom = 31.861969
 scale = Vector2(0.5, 0.5)
-equipSlot = 2
+equipSlot = 3
 
 [node name="Ring1" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -188,7 +189,7 @@ offset_top = 0.2239685
 offset_right = 31.814972
 offset_bottom = 31.967987
 scale = Vector2(0.5, 0.5)
-equipSlot = 9
+equipSlot = 10
 
 [node name="Breastplate" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -202,7 +203,7 @@ offset_top = 0.07498169
 offset_right = 32.03897
 offset_bottom = 31.81897
 scale = Vector2(0.5, 0.5)
-equipSlot = 3
+equipSlot = 4
 
 [node name="Ranged2" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -216,7 +217,7 @@ offset_top = 0.117996216
 offset_right = 31.743927
 offset_bottom = 31.861969
 scale = Vector2(0.5, 0.5)
-equipSlot = 8
+equipSlot = 9
 
 [node name="Ranged1" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -230,7 +231,7 @@ offset_top = 0.117996216
 offset_right = 31.856964
 offset_bottom = 31.861969
 scale = Vector2(0.5, 0.5)
-equipSlot = 7
+equipSlot = 8
 
 [node name="Trinket2" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -244,7 +245,7 @@ offset_top = -0.03503418
 offset_right = 32.230957
 offset_bottom = 32.284973
 scale = Vector2(0.5, 0.5)
-equipSlot = 12
+equipSlot = 9
 
 [node name="OffHand" parent="CanvasLayer/WholeInventory" instance=ExtResource("2_1pi3o")]
 visible = false
@@ -258,26 +259,16 @@ offset_top = 0.11099243
 offset_right = 31.743927
 offset_bottom = 31.85498
 scale = Vector2(0.5, 0.5)
-equipSlot = 1
-
-[node name="PanelToDragInto" type="ReferenceRect" parent="CanvasLayer/WholeInventory"]
-layout_mode = 0
-offset_left = 216.07143
-offset_top = 224.64285
-offset_right = 395.0
-offset_bottom = 388.2143
-border_color = Color(1, 0, 0, 0)
+equipSlot = 2
 
 [node name="InventoryHeader" parent="CanvasLayer/WholeInventory" node_paths=PackedStringArray("InventoryStats") instance=ExtResource("6_tqkc6")]
 layout_mode = 1
-anchor_left = 0.087000005
-anchor_top = 0.224
-anchor_right = 0.91300005
-anchor_bottom = 0.335
-offset_left = 0.24514008
-offset_top = -0.09542847
-offset_right = -475.5309
-offset_bottom = -64.03143
+anchor_left = 0.0874256
+anchor_top = 0.22383434
+anchor_right = 0.087425694
+anchor_bottom = 0.22383434
+offset_right = -5.722046e-05
+offset_bottom = 0.0
 InventoryStats = {
 0: NodePath("TextureRect/Control/Vitality"),
 1: NodePath("TextureRect/Control/Defense"),
@@ -291,108 +282,7 @@ InventoryStats = {
 9: NodePath("TextureRect/Control/Charisma"),
 10: NodePath("TextureRect/Control/CurrentXP")
 }
-
-[node name="PlayerInventory" type="TextureRect" parent="CanvasLayer"]
-z_as_relative = false
-anchors_preset = -1
-anchor_left = 0.47300002
-anchor_top = 0.25500003
-anchor_right = 0.56600004
-anchor_bottom = 0.551
-offset_left = -0.30285645
-offset_top = -0.4000244
-offset_right = 78.27991
-offset_bottom = 137.06293
-scale = Vector2(0.7, 0.7)
-expand_mode = 3
-stretch_mode = 4
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PlayerInventory"]
-custom_minimum_size = Vector2(257, 457)
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.9990001
-anchor_bottom = 1.0
-offset_top = -0.35754395
-offset_right = 0.11428833
-offset_bottom = -0.5004883
-horizontal_scroll_mode = 0
-
-[node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/PlayerInventory/ScrollContainer"]
-z_as_relative = false
-custom_minimum_size = Vector2(80.5, 86)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-columns = 3
-
-[node name="SkillContainer1" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
-custom_minimum_size = Vector2(339, 86)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -3.844
-anchor_right = -2.523
-anchor_bottom = 0.20400001
-offset_left = -0.11431885
-offset_top = 6.734685
-offset_right = -0.0040283203
-offset_bottom = 0.2122345
-theme_override_constants/h_separation = 4
-columns = 4
-
-[node name="SkillContainer2" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -3.844
-anchor_top = 0.21300001
-anchor_right = -2.523
-anchor_bottom = 0.40500003
-offset_left = -0.11431885
-offset_top = 0.17958832
-offset_right = -0.0040283203
-offset_bottom = 0.16322327
-columns = 4
-
-[node name="SkillContainer3" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -3.844
-anchor_top = 0.41400003
-anchor_right = -2.523
-anchor_bottom = 0.60400003
-offset_left = -0.11431885
-offset_top = 0.13056946
-offset_right = -0.0040283203
-offset_bottom = 0.008148193
-columns = 4
-
-[node name="SkillContainer4" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -3.844
-anchor_top = 0.615
-anchor_right = -2.523
-anchor_bottom = 0.80300003
-offset_left = -0.11425781
-offset_top = 0.08157349
-offset_right = -0.0040283203
-offset_bottom = -0.14694214
-columns = 4
-
-[node name="SkillContainer5" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -3.844
-anchor_top = 0.81600004
-anchor_right = -2.523
-anchor_bottom = 1.0040001
-offset_left = -0.11431885
-offset_top = 0.032592773
-offset_right = -0.0040283203
-offset_bottom = -0.1960144
-columns = 4
+metadata/_edit_use_anchors_ = true
 
 [node name="DetailsPanel" type="MarginContainer" parent="CanvasLayer"]
 visible = false
@@ -598,6 +488,94 @@ theme_override_font_sizes/font_size = 20
 text = "Compare
 "
 flat = true
+
+[node name="PlayerInventory" type="TextureRect" parent="CanvasLayer"]
+z_as_relative = false
+anchors_preset = -1
+anchor_left = 0.384
+anchor_top = 0.33200002
+anchor_right = 0.46800002
+anchor_bottom = 0.59900004
+offset_left = 57.005676
+offset_top = -139.98865
+offset_right = 136.1726
+offset_bottom = -68.157104
+scale = Vector2(0.7, 0.7)
+stretch_mode = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0048742266
+anchor_top = -0.016997684
+anchor_right = 0.95909846
+anchor_bottom = 1.1275182
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="InventoryGrid" type="GridContainer" parent="CanvasLayer/PlayerInventory/ScrollContainer"]
+z_as_relative = false
+custom_minimum_size = Vector2(80.5, 86)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="SkillContainer1" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.7090788
+anchor_top = 0.0056661046
+anchor_right = -2.4316957
+anchor_bottom = 0.22097115
+theme_override_constants/h_separation = 4
+columns = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="SkillContainer2" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.7090788
+anchor_top = 0.23230286
+anchor_right = -2.4359396
+anchor_bottom = 0.45062628
+columns = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="SkillContainer3" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.704835
+anchor_top = 0.46460557
+anchor_right = -2.4316957
+anchor_bottom = 0.6799106
+columns = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="SkillContainer4" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.704835
+anchor_top = 0.68840957
+anchor_right = -2.431696
+anchor_bottom = 0.9035791
+offset_top = 1.5258789e-05
+columns = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="SkillContainer5" type="GridContainer" parent="CanvasLayer/PlayerInventory"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -3.7048352
+anchor_top = 0.9178791
+anchor_right = -2.4316957
+anchor_bottom = 1.1360171
+offset_bottom = -3.0517578e-05
+columns = 4
+metadata/_edit_use_anchors_ = true
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0

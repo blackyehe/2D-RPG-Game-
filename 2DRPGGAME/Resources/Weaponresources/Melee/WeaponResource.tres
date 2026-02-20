@@ -29,3 +29,4 @@ GainSkill = ExtResource("3_xrwtn")
 ItemFlavourDescription = "\"Mélyen vagyunk a hegyekbe\" Népszínház angle"
 ItemPriceText = 300.0
 ItemQuantity = 1
+equipSlot = 1

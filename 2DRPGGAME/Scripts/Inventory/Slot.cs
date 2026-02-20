@@ -5,31 +5,24 @@ using System.Threading.Tasks;
 
 public partial class Slot : TextureRect
 {
-    [Export] public TextureRect itemIcon;
+    [Export] public TextureRect itemIcon = new();
     [Export] public Button itemButton;
-    [Export] public Label itemQuantityLabel;
+    [Export] public Label itemQuantityLabel = new();
     [Export] public EquipSlot equipSlot;
+    [Export] public Texture2D EquippedSlotTexture;
     public Item currentItem = null;
     public WeaponBaseAction currentAbilityAction = null;
     public BaseSkill currentTalent = null;
     public SkillSchools skillSchool;
     public bool EventsSubbed = false;
-    public bool Dragged = false;
     public bool CurrentlyEquipped = false;
-    private int HoverTimerInt = 0;
-
     public delegate void SlotPressed(Slot slot);
-
     public event SlotPressed OnSlotPressed;
-
     public delegate void SlotExited(Slot slot);
-
     public event SlotExited OnSlotExited;
-
     public delegate void SlotEntered(Slot slot);
-
     public event SlotEntered OnSlotEntered;
-
+    
     public void SetSlotsEmpty()
     {
         itemIcon.Texture = null;
@@ -102,11 +95,41 @@ public partial class Slot : TextureRect
                 descriptionPanel.SetDescriptionPanel(currentDescription);
                 break;
         }
-        
+
         descriptionPanel.GlobalPosition = globPos + new Vector2(x, y);
         descriptionPanel.AnimationPlayer.Play("Appear");
-        
+        descriptionPanel.Scale = new Vector2(0.75f, 0.75f);
         GD.Print(descriptionPanel.ContainerToResize.Size);
     }
+
+    public override Variant _GetDragData(Vector2 atPosition)
+    {
+        if (itemIcon == null) return default;
+        var preview = Duplicate() as Slot;
+        var c = new Control();
+        c.AddChild(preview);
+        preview.Position -= new Vector2(25, 25);
+        preview.SelfModulate = Colors.Transparent;
+
+        c.Scale = new Vector2(1.6f, 1.6f);
+        SetDragPreview(c);
+        GD.Print("dragged? idk");
+        return this;
+    }
+
+    public override bool _CanDropData(Vector2 atPosition, Variant data)
+    {
+        var dropData = data.AsGodotObject();
+        Slot realData = dropData as Slot;
+        if(realData == null) return false;
+        return true;
+
+    }
     
+    public override void _DropData(Vector2 atPosition, Variant data)
+    {
+        var dropData = data.AsGodotObject();
+        Slot realData = dropData as Slot;
+        GlobalEvents.Instance.EmitOnSlotDropped(realData, this);
+    }
 }

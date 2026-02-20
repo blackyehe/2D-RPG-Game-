@@ -84,6 +84,7 @@ public enum CombatSubState
 }
 public enum EquipSlot
 {
+    Empty, 
     MainHand,
     OffHand,
     Helmet,
