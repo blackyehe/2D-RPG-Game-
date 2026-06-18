@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://jgy3dclw1sh4"]
+
+[ext_resource type="Resource" uid="uid://dh0flf0hj2i3k" path="res://Resources/AttackProperties/ActionType/Melee.tres" id="1_mgyyx"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_mgyyx"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_0o0ps"]
+[ext_resource type="Texture2D" uid="uid://c88cpn2bkpdsh" path="res://FreeAssets/64x64/fc960.png" id="4_mgyyx"]
+[ext_resource type="Resource" uid="uid://cf3g1cqp25hc3" path="res://Resources/StatusEffects/Debuffs/Poison.tres" id="5_cdbpu"]
+[ext_resource type="Script" uid="uid://byttal5gifcdf" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Alchemy/Level1/PoisonBreath.cs" id="6_0s0qi"]
+
+[resource]
+script = ExtResource("6_0s0qi")
+Sprite = ExtResource("4_mgyyx")
+Name = "Create Potion"
+Description = "Creates a potion based on the user's alchemy proficiency. "
+SkillLevel = 1
+SkillDamageType = 8
+ActionType = 1
+Action = ExtResource("1_mgyyx")
+Range = ExtResource("3_0o0ps")
+ActionArea = ExtResource("2_mgyyx")
+DamageDistribution = Dictionary[int, int]({})
+ActionCosts = Dictionary[int, int]({
+1: 1,
+2: 30
+})
+StatusEffect = ExtResource("5_cdbpu")
+CoolDown = 1.0

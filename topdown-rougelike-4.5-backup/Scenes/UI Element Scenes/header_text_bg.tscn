@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://clr85rforbnug"]
+
+[ext_resource type="FontFile" uid="uid://pmou50mja4es" path="res://FreeAssets/GameDevFonts/minecraftia/Minecraftia-Regular.ttf" id="1_ec4ci"]
+[ext_resource type="Texture2D" uid="uid://dy8rsigekusq6" path="res://FreeAssets/sajat assetek/HeaderTextBG.png" id="2_pd6k2"]
+[ext_resource type="Script" uid="uid://r40jisnps2o8" path="res://Scripts/UI/HeaderBGUI.cs" id="3_pd6k2"]
+
+[sub_resource type="Theme" id="Theme_utdk7"]
+default_font = ExtResource("1_ec4ci")
+default_font_size = 8
+
+[node name="HeaderTextBG" type="TextureRect" node_paths=PackedStringArray("Number")]
+anchors_preset = -1
+anchor_right = 0.019000001
+anchor_bottom = 0.014
+offset_right = -36.480003
+offset_bottom = -15.120001
+theme = SubResource("Theme_utdk7")
+texture = ExtResource("2_pd6k2")
+script = ExtResource("3_pd6k2")
+Number = NodePath("number")
+
+[node name="number" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18900001
+anchor_top = 0.133
+anchor_right = 0.86500007
+anchor_bottom = 1.133
+offset_left = 0.0069994926
+offset_top = 0.004999995
+offset_right = -0.005001068
+offset_bottom = 0.0049991608
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "4000"
+horizontal_alignment = 1

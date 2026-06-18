@@ -1,7 +1,9 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Godot.Collections;
 
 public partial class Slot : TextureRect
 {
@@ -10,12 +12,14 @@ public partial class Slot : TextureRect
     [Export] public Label itemQuantityLabel = new();
     [Export] public EquipSlot equipSlot;
     [Export] public Texture2D EquippedSlotTexture;
+    [Export] public EquipSlot BackUpEquipSlot; 
     public Item currentItem = null;
     public WeaponBaseAction currentAbilityAction = null;
     public BaseSkill currentTalent = null;
     public SkillSchools skillSchool;
     public bool EventsSubbed = false;
     public bool CurrentlyEquipped = false;
+
     public delegate void SlotPressed(Slot slot);
     public event SlotPressed OnSlotPressed;
     public delegate void SlotExited(Slot slot);
@@ -29,14 +33,24 @@ public partial class Slot : TextureRect
         currentItem = null;
         currentTalent = null;
         currentAbilityAction = null;
+        Texture = null;
         itemQuantityLabel.Text = "";
     }
 
     public void SetItem(Item newItem)
     {
+        if (newItem is null) return;
         currentItem = newItem;
         itemIcon.Texture = newItem.ItemResource.Texture;
         itemQuantityLabel.Text = newItem.ItemResource.ItemQuantity.ToString();
+
+        itemQuantityLabel.Visible = false;
+        Visible = true;
+        if (equipSlot != EquipSlot.Empty)
+        {
+            Texture = EquippedSlotTexture;
+        }
+        itemIcon.Visible = true;
     }
 
     public void SetAbility(WeaponBaseAction ability)
@@ -102,6 +116,49 @@ public partial class Slot : TextureRect
         GD.Print(descriptionPanel.ContainerToResize.Size);
     }
 
+    public void SlotUnequip()
+    {
+        SetSlotsEmpty();
+        CurrentlyEquipped = false;
+    }
+
+    public void SlotEquip(EquipableItem item)
+    {
+        SetItem(item);
+        CurrentlyEquipped = true;
+    }
+
+    public Slot GetExactSlot(EquipableItem itemToEquip)
+    {
+        if (itemToEquip is null) return null;
+        Slot backupSlot = new();
+
+        if (itemToEquip.ItemResource.equipSlot2 != EquipSlot.Empty && CurrentlyEquipped)
+        {
+            switch (equipSlot)
+            {
+                case EquipSlot.MainHand:
+                    backupSlot.equipSlot = EquipSlot.OffHand;
+                    break;
+                case EquipSlot.TrinketOne:
+                    backupSlot.equipSlot = EquipSlot.TrinketTwo;
+                    break;
+                case EquipSlot.RingOne:
+                    backupSlot.equipSlot = EquipSlot.RingTwo;
+                    break;
+            }
+
+            return backupSlot;
+        }
+
+        if (itemToEquip.ItemResource.equipSlot is EquipSlot.MainHand)
+        {
+            PartyManager.Instance.MainPlayer.activeWeapon = (BaseWeapon)itemToEquip;
+        }
+
+        return this;
+    }
+
     public override Variant _GetDragData(Vector2 atPosition)
     {
         if (itemIcon == null) return default;
@@ -121,11 +178,10 @@ public partial class Slot : TextureRect
     {
         var dropData = data.AsGodotObject();
         Slot realData = dropData as Slot;
-        if(realData == null) return false;
+        if (realData == null) return false;
         return true;
-
     }
-    
+
     public override void _DropData(Vector2 atPosition, Variant data)
     {
         var dropData = data.AsGodotObject();

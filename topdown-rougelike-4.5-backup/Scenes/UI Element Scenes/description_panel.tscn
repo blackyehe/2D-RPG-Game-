@@ -1,0 +1,538 @@
+[gd_scene load_steps=23 format=3 uid="uid://bhkh2l6eqgumh"]
+
+[ext_resource type="Texture2D" uid="uid://cmmp0fuk2b51h" path="res://FreeAssets/64x64/fc1201.png" id="1_2mqvy"]
+[ext_resource type="FontFile" uid="uid://pmou50mja4es" path="res://FreeAssets/GameDevFonts/minecraftia/Minecraftia-Regular.ttf" id="1_4pxei"]
+[ext_resource type="Script" uid="uid://b0p87yxrp8euj" path="res://Scripts/UI/DescriptionPanelUI.cs" id="1_jmwyt"]
+[ext_resource type="Texture2D" uid="uid://dfm60airlot5j" path="res://FreeAssets/64x64/fc1064.png" id="2_jmwyt"]
+[ext_resource type="Texture2D" uid="uid://bcfhiqvbwrcwf" path="res://FreeAssets/64x64/fc1088.png" id="3_25rox"]
+[ext_resource type="Texture2D" uid="uid://bbhna8usc8bm" path="res://FreeAssets/Button_Disable.png" id="5_4pxei"]
+[ext_resource type="Texture2D" uid="uid://bh26getowuppv" path="res://FreeAssets/64x64/fc1089.png" id="5_lsjd1"]
+[ext_resource type="Texture2D" uid="uid://bq1pii8ay7t2f" path="res://FreeAssets/64x64/fc1098.png" id="6_4pxei"]
+[ext_resource type="Texture2D" uid="uid://dk67hrqudwbli" path="res://FreeAssets/64x64/fc1077.png" id="7_jfoaa"]
+[ext_resource type="Texture2D" uid="uid://be70yo0gman1x" path="res://FreeAssets/64x64/fc1153.png" id="8_wekbc"]
+[ext_resource type="Texture2D" uid="uid://4e5i0lnbguur" path="res://FreeAssets/64x64/fc1789.png" id="9_i6o4a"]
+[ext_resource type="Texture2D" uid="uid://cw8tbne3htosa" path="res://FreeAssets/64x64/fc839.png" id="11_fw1y2"]
+[ext_resource type="Texture2D" uid="uid://csn2n1iukqv61" path="res://FreeAssets/64x64/fc669.png" id="12_gkpii"]
+[ext_resource type="Texture2D" uid="uid://b7txyaxhxdooi" path="res://FreeAssets/64x64/fc804.png" id="12_lsjd1"]
+[ext_resource type="Texture2D" uid="uid://cbar5bvabqnnt" path="res://FreeAssets/64x64/ActionSprite.png" id="13_lsjd1"]
+[ext_resource type="Texture2D" uid="uid://duyxiky6ppfhp" path="res://FreeAssets/64x64/BonusActionSprite.png" id="14_4pxei"]
+[ext_resource type="Texture2D" uid="uid://0o5kwpxp1pyf" path="res://FreeAssets/64x64/fc2118.png" id="16_lsjd1"]
+
+[sub_resource type="Theme" id="Theme_jfoaa"]
+default_font = ExtResource("1_4pxei")
+default_font_size = 19
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_js5w8"]
+bg_color = Color(0.717457, 0.415556, 0.34973, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.455578, 0.192229, 0.0508752, 0.937255)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 20.0
+expand_margin_top = 20.0
+expand_margin_right = 20.0
+expand_margin_bottom = 20.0
+
+[sub_resource type="Animation" id="Animation_lsjd1"]
+resource_name = "Appear"
+length = 0.6
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2983725, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"DescriptionAppeared"
+}, {
+"args": [],
+"method": &"AnimationPlayerFinished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4pxei"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jfoaa"]
+_data = {
+&"Appear": SubResource("Animation_lsjd1"),
+&"RESET": SubResource("Animation_4pxei")
+}
+
+[node name="VBoxContainer" type="VBoxContainer" node_paths=PackedStringArray("DescriptionPanel", "ContainersToDisable", "AnimationPlayer", "ContainerToResize")]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = -1
+anchor_left = 0.314
+anchor_top = 0.020000001
+anchor_right = 0.643
+anchor_bottom = 1.011
+offset_left = 0.11999512
+offset_top = 0.3999977
+offset_right = -0.5600586
+offset_bottom = 0.11999512
+mouse_filter = 2
+theme = SubResource("Theme_jfoaa")
+theme_override_constants/separation = 4
+script = ExtResource("1_jmwyt")
+DescriptionPanel = {
+0: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/Sprite"),
+1: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/Name"),
+2: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/TypeAndRarity"),
+3: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/Damage"),
+4: NodePath("DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX/DamageDistribution"),
+5: NodePath("DescriptionPanel/BoxContainer/SkillDescription/SkillDescription"),
+6: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect/EffectSprite"),
+7: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect/ItemEffect"),
+8: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect2/EffectSprite2"),
+9: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect2/ItemEffect2"),
+10: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillSprite"),
+11: NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemSkill/ItemSkillDescription"),
+12: NodePath("DescriptionPanel/BoxContainer/Debuff/DebuffSprite"),
+13: NodePath("DescriptionPanel/BoxContainer/Debuff/DebuffDuration"),
+14: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/ActionType/ActionTypeSprite"),
+15: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/ActionType/ActionTypeLabel"),
+16: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/Range/ActionRangeSprite"),
+17: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/Range/ActionRangeLabel"),
+18: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/STorAOE/STorAOESprite"),
+19: NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType/STorAOE/STorAOELabel"),
+20: NodePath("DescriptionPanel/BoxContainer/FlavourDescription/FlavourText"),
+21: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty/ItemSilhouetteSprite"),
+22: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty/ItemType"),
+23: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty2/property2Sprite"),
+24: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty2/Property2Label"),
+25: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty3/Property3Sprite"),
+26: NodePath("DescriptionPanel/BoxContainer/ItemProperty/ItemProperty3/Property3Label"),
+28: NodePath("DescriptionPanel/BoxContainer/ActionCosts/Action/ActionLabel"),
+30: NodePath("DescriptionPanel/BoxContainer/ActionCosts/BonusAction/BonusActionLabel"),
+32: NodePath("DescriptionPanel/BoxContainer/ActionCosts/Mana/ManaLabel"),
+34: NodePath("DescriptionPanel/BoxContainer/ActionCosts/ItemPrice/PriceLabel")
+}
+ContainersToDisable = [NodePath("DescriptionPanel/BoxContainer/ItemEffectsConatiner"), NodePath("DescriptionPanel/BoxContainer/AttackRangeAndType"), NodePath("DescriptionPanel/BoxContainer/ItemProperty"), NodePath("DescriptionPanel/BoxContainer/ActionCosts")]
+AnimationPlayer = NodePath("DescriptionAnimation")
+ContainerToResize = NodePath("DescriptionPanel")
+
+[node name="DescriptionPanel" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_js5w8")
+
+[node name="BoxContainer" type="BoxContainer" parent="DescriptionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+vertical = true
+
+[node name="NameTypeDamage" type="VBoxContainer" parent="DescriptionPanel/BoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/NameTypeDamage"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="NameAndTypeVBOXContaner" type="VBoxContainer" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer"]
+custom_minimum_size = Vector2(410, 168)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Name" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "God's Godly GodKiller Godshot, god.."
+fit_content = true
+scroll_active = false
+
+[node name="TypeAndRarity" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Exclusive weapon attack"
+fit_content = true
+
+[node name="DamageVBOX" type="VBoxContainer" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner"]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="Damage" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "22 Damage"
+fit_content = true
+autowrap_mode = 2
+
+[node name="DamageDistribution" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer/NameAndTypeVBOXContaner/DamageVBOX"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "	/t14 Slashing
+	/t8 Fire"
+fit_content = true
+tab_size = 10
+
+[node name="Sprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/NameTypeDamage/HBoxContainer"]
+custom_minimum_size = Vector2(84, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_2mqvy")
+stretch_mode = 5
+
+[node name="SkillDescription" type="VBoxContainer" parent="DescriptionPanel/BoxContainer"]
+layout_mode = 2
+
+[node name="SkillDescription" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/SkillDescription"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Make a ranged attack stb stb stb. Edd ki a faszomat Kevin, a büds kurva anyádat megbaszom remélem valahol egy árokban fogsz meghalni te fasz"
+fit_content = true
+autowrap_mode = 2
+
+[node name="ItemEffectsConatiner" type="VBoxContainer" parent="DescriptionPanel/BoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="ItemEffect" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="EffectSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("2_jmwyt")
+stretch_mode = 2
+
+[node name="ItemEffect" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Item effect description, lehetne hosszabb is de fasznak van kedve ennyit írni."
+fit_content = true
+autowrap_mode = 2
+
+[node name="ItemEffect2" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner"]
+layout_mode = 2
+
+[node name="EffectSprite2" type="TextureRect" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect2"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("3_25rox")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="ItemEffect2" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemEffect2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "This is another item effect in the item effect's description, very cool use it maybe? >:("
+fit_content = true
+autowrap_mode = 2
+
+[node name="ItemSkill" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ItemSkillSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemSkill"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+texture = ExtResource("5_4pxei")
+stretch_mode = 2
+
+[node name="ItemSkillDescription" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ItemEffectsConatiner/ItemSkill"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Skill name if the item gives a skill
+TypeAndRarity (Lvl 1 Fire Spell FOREG)"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Debuff" type="HBoxContainer" parent="DescriptionPanel/BoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_stretch_ratio = 0.99
+
+[node name="DebuffSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/Debuff"]
+layout_mode = 2
+texture = ExtResource("5_lsjd1")
+stretch_mode = 2
+
+[node name="DebuffDuration" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/Debuff"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "2  Turns
+Frozen: No clue why frozen tho."
+fit_content = true
+autowrap_mode = 2
+
+[node name="AttackRangeAndType" type="HBoxContainer" parent="DescriptionPanel/BoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 17
+
+[node name="ActionType" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/AttackRangeAndType"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ActionTypeSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/AttackRangeAndType/ActionType"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("6_4pxei")
+expand_mode = 2
+
+[node name="ActionTypeLabel" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/AttackRangeAndType/ActionType"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Ranged Attack"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Range" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/AttackRangeAndType"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ActionRangeSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/AttackRangeAndType/Range"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("7_jfoaa")
+expand_mode = 2
+
+[node name="ActionRangeLabel" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/AttackRangeAndType/Range"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Skill range : 8"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="STorAOE" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/AttackRangeAndType"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="STorAOESprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/AttackRangeAndType/STorAOE"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("8_wekbc")
+expand_mode = 2
+
+[node name="STorAOELabel" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/AttackRangeAndType/STorAOE"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Single Target"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="FlavourDescription" type="VBoxContainer" parent="DescriptionPanel/BoxContainer"]
+layout_mode = 2
+
+[node name="FlavourText" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/FlavourDescription"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "\"Idk szinező szöveg képzelj ide valami szépet valami profound-ot, valami.. jót idk nem vagyok író nem értek én ilyesfajta dolgokhoz bro\""
+fit_content = true
+autowrap_mode = 2
+
+[node name="ItemProperty" type="HBoxContainer" parent="DescriptionPanel/BoxContainer"]
+layout_mode = 2
+
+[node name="ItemProperty" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ItemProperty"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ItemSilhouetteSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ItemProperty/ItemProperty"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("9_i6o4a")
+expand_mode = 2
+
+[node name="ItemType" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ItemProperty/ItemProperty"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Longbow"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ItemProperty2" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ItemProperty"]
+layout_mode = 2
+
+[node name="property2Sprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ItemProperty/ItemProperty2"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("11_fw1y2")
+expand_mode = 2
+
+[node name="Property2Label" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ItemProperty/ItemProperty2"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Finesse"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ItemProperty3" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ItemProperty"]
+layout_mode = 2
+
+[node name="Property3Sprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ItemProperty/ItemProperty3"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("12_lsjd1")
+expand_mode = 2
+
+[node name="Property3Label" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ItemProperty/ItemProperty3"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Versatile"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ActionCosts" type="HBoxContainer" parent="DescriptionPanel/BoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="Action" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ActionCosts"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CostActionSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ActionCosts/Action"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+texture = ExtResource("13_lsjd1")
+expand_mode = 2
+
+[node name="ActionLabel" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ActionCosts/Action"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Action
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="BonusAction" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ActionCosts"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BonusActionSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ActionCosts/BonusAction"]
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("14_4pxei")
+expand_mode = 2
+
+[node name="BonusActionLabel" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ActionCosts/BonusAction"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "Bonus action
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Mana" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ActionCosts"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ManaSprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ActionCosts/Mana"]
+layout_mode = 2
+texture = ExtResource("12_gkpii")
+expand_mode = 2
+
+[node name="ManaLabel" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ActionCosts/Mana"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "20 Mana
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ItemPrice" type="HBoxContainer" parent="DescriptionPanel/BoxContainer/ActionCosts"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Pricesprite" type="TextureRect" parent="DescriptionPanel/BoxContainer/ActionCosts/ItemPrice"]
+layout_mode = 2
+texture = ExtResource("16_lsjd1")
+expand_mode = 2
+
+[node name="PriceLabel" type="RichTextLabel" parent="DescriptionPanel/BoxContainer/ActionCosts/ItemPrice"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+text = "300G
+"
+fit_content = true
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="DescriptionAnimation" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_jfoaa")
+}

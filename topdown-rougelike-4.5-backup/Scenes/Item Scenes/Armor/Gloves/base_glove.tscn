@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0ymloux71c7c"]
+
+[ext_resource type="Script" uid="uid://dh86k3dxwhqar" path="res://Scripts/Items/Armor/BaseArmor.cs" id="1_efjjq"]
+[ext_resource type="Resource" uid="uid://csh66si6tx7qv" path="res://Resources/ItemResources/ArmorResources/Gloves/BasicGlove.tres" id="2_rtei3"]
+[ext_resource type="Texture2D" uid="uid://dlk2ixc1aek3l" path="res://FreeAssets/64x64/fc2170.png" id="3_25kfa"]
+
+[node name="BaseGlove" type="Node2D"]
+script = ExtResource("1_efjjq")
+ItemResource = ExtResource("2_rtei3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_25kfa")

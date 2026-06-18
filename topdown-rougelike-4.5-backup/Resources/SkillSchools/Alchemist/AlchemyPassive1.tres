@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c21vd1aqj8op1"]
+
+[ext_resource type="Texture2D" uid="uid://bl30km2bmpyi6" path="res://FreeAssets/64x64/fc849.png" id="1_f3k5t"]
+[ext_resource type="Script" uid="uid://btbp2scjsigef" path="res://Scripts/SkillSchools/BaseSkill.cs" id="2_2cxva"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_2cxva")
+SkillSchool = 11
+SkillLevel = 1
+SkillName = "Malicious Concoction "
+Sprite = ExtResource("1_f3k5t")
+Description = "Boosts the capabilities of poision used by the hero, increasing the damage of posiion damage dealt by [x] while also increasing the duration it lasts by [x] turns."

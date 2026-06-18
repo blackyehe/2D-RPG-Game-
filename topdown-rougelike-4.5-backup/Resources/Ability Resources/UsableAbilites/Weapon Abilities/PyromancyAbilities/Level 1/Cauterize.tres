@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://c1vyip2icwo21"]
+
+[ext_resource type="Resource" uid="uid://dh0flf0hj2i3k" path="res://Resources/AttackProperties/ActionType/Melee.tres" id="1_an7uh"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_an7uh"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_ypiuu"]
+[ext_resource type="Texture2D" uid="uid://calbqum2wwwvi" path="res://FreeAssets/64x64/fc1315.png" id="4_an7uh"]
+[ext_resource type="Script" uid="uid://cf8dclchkoxr0" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/Cauterize.cs" id="5_ypiuu"]
+
+[resource]
+script = ExtResource("5_ypiuu")
+Sprite = ExtResource("4_an7uh")
+Name = "Cauterize"
+Description = "Sears the target's wounds with fire, providing small amounts of healing to the target, while removing bleed and reducing the target's movement speed."
+SkillDamage = 6.0
+SkillLevel = 1
+SkillDamageType = 3
+ActionType = 1
+Action = ExtResource("1_an7uh")
+Range = ExtResource("3_ypiuu")
+ActionArea = ExtResource("2_an7uh")
+DamageDistribution = Dictionary[int, int]({
+3: 6
+})
+ActionCosts = Dictionary[int, int]({
+0: 1,
+2: 30
+})
+ActionRange = 1.0
+CoolDown = 1.0

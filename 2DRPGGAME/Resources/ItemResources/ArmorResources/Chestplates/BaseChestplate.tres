@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bcsfpvrdgrh4j"]
+
+[ext_resource type="Texture2D" uid="uid://vhvcx6px4170" path="res://FreeAssets/64x64/fc1927.png" id="1_2xgnt"]
+[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="2_rntej"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_rntej")
+WhatKindOfArmor = 2
+ArmorDefense = 10.0
+ItemName = "Random Chestplate"
+Texture = ExtResource("1_2xgnt")
+ItemRarity = 2
+ItemType = 1
+ItemFlavourDescription = "Konok Melles"
+ItemPriceText = 300.0
+ItemQuantity = 1
+equipSlot = 4

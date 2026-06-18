@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://c6wptjt2god2u"]
+
+[ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_xqybs"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_n1d4d"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_ltkco"]
+[ext_resource type="Texture2D" uid="uid://stb3ewlhp74d" path="res://FreeAssets/64x64/fc835.png" id="4_n1d4d"]
+[ext_resource type="Script" uid="uid://b5qypik8odmly" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Archery/Basic/HeavyShot.cs" id="5_am8d8"]
+[ext_resource type="Resource" uid="uid://cf3g1cqp25hc3" path="res://Resources/StatusEffects/Debuffs/Poison.tres" id="5_n1d4d"]
+
+[resource]
+script = ExtResource("5_am8d8")
+Sprite = ExtResource("4_n1d4d")
+Name = "Posion Dart"
+Description = "Throws a dart laced with deadly poison "
+SkillDamage = 8.0
+SkillDamageType = 8
+ActionType = 1
+Action = ExtResource("1_xqybs")
+Range = ExtResource("3_ltkco")
+ActionArea = ExtResource("2_n1d4d")
+DamageDistribution = Dictionary[int, int]({
+2: 4,
+8: 4
+})
+ActionCosts = Dictionary[int, int]({
+0: 1,
+2: 20
+})
+StatusEffect = ExtResource("5_n1d4d")
+ActionRange = 4.0

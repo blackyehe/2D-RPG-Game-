@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://chlk1uqj31ex7"]
+
+[ext_resource type="Resource" uid="uid://dh0flf0hj2i3k" path="res://Resources/AttackProperties/ActionType/Melee.tres" id="1_denle"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_denle"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_kpqnj"]
+[ext_resource type="Texture2D" uid="uid://cwymbvhvabw3h" path="res://FreeAssets/64x64/fc1321.png" id="4_h6vyl"]
+[ext_resource type="Script" uid="uid://cwsiec3ju6hkg" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/ShieldOfFlames.cs" id="5_nesxo"]
+
+[resource]
+script = ExtResource("5_nesxo")
+Sprite = ExtResource("4_h6vyl")
+Name = "Shielf of Flame"
+Description = "Envelops the caster in a shield of flames, reducing incoming melee damage, and dealing Fire damage to an opponent when attacked."
+SkillDamage = 5.0
+SkillLevel = 1
+SkillDamageType = 3
+ActionType = 1
+Action = ExtResource("1_denle")
+Range = ExtResource("3_kpqnj")
+ActionArea = ExtResource("2_denle")
+DamageDistribution = Dictionary[int, int]({
+3: 5
+})
+ActionCosts = Dictionary[int, int]({
+0: 1,
+2: 30
+})

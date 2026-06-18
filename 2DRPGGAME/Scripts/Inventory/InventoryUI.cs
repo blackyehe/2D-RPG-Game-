@@ -22,13 +22,14 @@ public partial class InventoryUI : Control
     [Export] public TextureRect inventoryPanel;
     [Export] public TextureRect wholeInventory;
     [Export] public Array<GridContainer> skillContainer;
-    [Export] public Array<Slot> equipSlots;
+    [Export] public Array<Slot> equipSlotsArray;
 
     [Export] public TextureRect equippedItemPanel;
     [Export] public Button unequipButton;
     [Export] public Button compareButton;
     [Export] public InventoryHeaderUI InventoryHeader;
 
+    public System.Collections.Generic.Dictionary<EquipSlot, Slot> equipSlotsDict = new();
     private Slot selectedSlot;
     private Slot tempSlot = new();
     public bool isready;
@@ -39,9 +40,10 @@ public partial class InventoryUI : Control
         canvasLayer.Visible = true;
         inventoryPanel.Visible = false;
         wholeInventory.Visible = false;
+        FillEquipSlotsDict();
         GlobalEvents.Instance.EquipSlotChanged += OnEquipSlotChanged;
         useButton.Pressed += UseButton_Pressed;
-        unequipButton.Pressed += UnequipButtonOnPressed;
+        unequipButton.Pressed += UnequipButtonPressed;
         GlobalEvents.Instance.OnTalentLearned += OnPlayerTalentLearned;
         GlobalEvents.Instance.OnInventoryStatsUpgraded += OnInventoryStatsUpgraded;
         PartyManager.Instance.OnMainPlayerChanged += OnMainPlayerChanged;
@@ -49,21 +51,37 @@ public partial class InventoryUI : Control
         isready = true;
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(PartyManager.Instance.MainPlayer);
         PartyManager.Instance.MainPlayer.inventory.InventoryChanged += Inventory_InventoryChanged;
+        PartyManager.Instance.MainPlayer.inventory.OnSlotItemEquipped += ItemInSlotEquip;
+        PartyManager.Instance.MainPlayer.inventory.OnSlotItemUnequipped += ItemInSlotUnequip;
         HeaderStatAtStart();
-
         SetStartingSkills();
-        
+        SubToEquippedSlotEvents();
+    }
+
+    private void FillEquipSlotsDict()
+    {
+        for (int i = 0; i < equipSlotsArray.Count; i++)
+        {
+            var equipSlotEnum = equipSlotsArray[i].equipSlot;
+            equipSlotsDict.Add(equipSlotEnum, equipSlotsArray[i]);
+        }
     }
 
     private void OnMainPlayerChanged(Player previous, Player current)
     {
         previous.inventory.InventoryChanged -= Inventory_InventoryChanged;
+        previous.inventory.OnSlotItemEquipped -= ItemInSlotEquip;
+        previous.inventory.OnSlotItemUnequipped -= ItemInSlotUnequip;
+
+        current.inventory.OnSlotItemEquipped += ItemInSlotEquip;
+        current.inventory.OnSlotItemUnequipped += ItemInSlotUnequip;
         current.inventory.InventoryChanged += Inventory_InventoryChanged;
+
         Inventory_InventoryChanged(current.inventory.GetItemList());
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(current);
-        UpdateShownEquipSlots(current);
         GD.Print(previous.LearnedTalents);
         UpdateShownSkills(current);
+        UpdateShownEquipSlots(current);
     }
 
     public void OnPlayerTalentLearned(BaseSkill skill)
@@ -113,6 +131,38 @@ public partial class InventoryUI : Control
         }
     }
 
+    private void SubToEquipButtonEvents(Slot slot)
+    {
+        slot.OnSlotEntered += OnItemButtonMouseEntered;
+        slot.OnSlotExited += OnItemButtonMouseExited;
+        slot.OnSlotPressed += OnEquippedItemSlotPressed;
+        slot.EventsSubbed = true;
+    }
+
+    private void UnSubToEquipButtonEvents(Slot slot)
+    {
+        slot.OnSlotEntered -= OnItemButtonMouseEntered;
+        slot.OnSlotExited -= OnItemButtonMouseExited;
+        slot.OnSlotPressed -= OnEquippedItemSlotPressed;
+        slot.EventsSubbed = false;
+    }
+
+    private void SubToBaseButtonEvents(Slot slot)
+    {
+        slot.OnSlotEntered += OnItemButtonMouseEntered;
+        slot.OnSlotExited += OnItemButtonMouseExited;
+        slot.OnSlotPressed += OnItemButtonPressed;
+        slot.EventsSubbed = true;
+    }
+
+    private void UnSubToBaseButtonEvents(Slot slot)
+    {
+        slot.OnSlotEntered -= OnItemButtonMouseEntered;
+        slot.OnSlotExited -= OnItemButtonMouseExited;
+        slot.OnSlotPressed -= OnItemButtonPressed;
+        slot.EventsSubbed = false;
+    }
+
     public void UpdateShownSkills(Player player)
     {
         for (int i = 0; i < skillContainer.Count; i++)
@@ -138,70 +188,61 @@ public partial class InventoryUI : Control
         }
     }
 
-    private void OnEquipSlotChanged(Player player, Item item)
+    private void SubToEquippedSlotEvents()
+    {
+        foreach (var equipSlot in equipSlotsArray)
+        {
+            SubToEquipButtonEvents(equipSlot);
+        }
+    }
+
+    private void OnEquipSlotChanged(Player player, EquipableItem item)
     {
         SwapEquipSlot(item);
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(player);
     }
 
-    public void SwapEquipSlot(Item item)
+    //[Benchmark]
+    public void SwapEquipSlot(EquipableItem item)
     {
-        var slottestSlot = equipSlots.FirstOrDefault(x => x.equipSlot == item.ItemResource.equipSlot);
-        slottestSlot.SetItem(item);
-        slottestSlot.itemQuantityLabel.Visible = false;
-        slottestSlot.Visible = true;
-        slottestSlot.Texture = slottestSlot.EquippedSlotTexture;
-        slottestSlot.itemIcon.Visible = true;
-        if (slottestSlot.EventsSubbed) return;
-        slottestSlot.OnSlotEntered += OnItemButtonMouseEntered;
-        slottestSlot.OnSlotExited += OnItemButtonMouseExited;
-        slottestSlot.OnSlotPressed += OnEquippedItemSlotPressed;
-        slottestSlot.EventsSubbed = true;
-        slottestSlot.CurrentlyEquipped = true;
+        /*var slotChangedTo = equipSlotsArray.FirstOrDefault(x => x.equipSlot == item.ItemResource.equipSlot);
+        
+        if (slotChangedTo is null) return;
+
+        var slotFromMethod = slotChangedTo.GetExactSlot(item);
+
+        var finalSlot = equipSlotsArray.FirstOrDefault(x => x.equipSlot == slotFromMethod.equipSlot);
+
+        if (finalSlot is null) return;
+
+        finalSlot.SlotEquip(item);*/
+
+        var slot = equipSlotsDict[item.ItemResource.equipSlot];
+        if (!slot.CurrentlyEquipped)
+        {
+            slot.SlotEquip(item);
+            return;
+        }
+        var backupSlot = equipSlotsDict[slot.BackUpEquipSlot];
+        backupSlot.SlotEquip(item);
     }
 
     public void UpdateShownEquipSlots(Player current)
     {
-        foreach (var equipSlot in equipSlots)
-        {
-            if (equipSlot.currentItem != null)
-            {
-                equipSlot.Visible = false;
-                equipSlot.OnSlotEntered -= OnItemButtonMouseEntered;
-                equipSlot.OnSlotExited -= OnItemButtonMouseExited;
-                equipSlot.OnSlotPressed -= OnEquippedItemSlotPressed;
-                equipSlot.currentItem = null;
-                equipSlot.EventsSubbed = false;
-                equipSlot.CurrentlyEquipped = false;
-            }
-        }
-
         foreach (var equipSlot in current.EquippedItems)
         {
-            if (equipSlot.Value != null)
+            var slotToSet = equipSlotsArray.FirstOrDefault(x => x.equipSlot == equipSlot.Key);
+            if (equipSlot.Value is null)
             {
-                OnEquipSlotChanged(current, equipSlot.Value);
-                
+                slotToSet?.SlotUnequip();
+            }
+            else
+            {
+                slotToSet?.SlotEquip(equipSlot.Value);
             }
         }
 
-        foreach (var equipSlot in equipSlots)
-        {
-            if (equipSlot.currentItem is null)
-            {
-                equipSlot.Visible = true;
-                equipSlot.OnSlotEntered += OnItemButtonMouseEntered;
-                equipSlot.OnSlotExited += OnItemButtonMouseExited;
-                equipSlot.OnSlotPressed += OnEquippedItemSlotPressed;
-                equipSlot.EventsSubbed = true;
-                equipSlot.Texture = null;
-                equipSlot.itemIcon.Visible = false;
-                equipSlot.CurrentlyEquipped = false;
-            }
-        }
-        
-        GD.Print(current.EquippedItems[EquipSlot.Ranged]);
-        
+        GlobalEvents.Instance.EmitInventoryStatsUpgraded(current);
     }
 
     private void Inventory_InventoryChanged(List<Item> items)
@@ -224,9 +265,7 @@ public partial class InventoryUI : Control
                 slot.SetSlotsEmpty();
             }
 
-            slot.OnSlotEntered += OnItemButtonMouseEntered;
-            slot.OnSlotExited += OnItemButtonMouseExited;
-            slot.OnSlotPressed += OnItemButtonPressed;
+            SubToBaseButtonEvents(slot);
         }
 
         for (int i = 0; i < 30; i++)
@@ -234,11 +273,9 @@ public partial class InventoryUI : Control
             var scene = SlotScene.Instantiate();
             gridContainer.AddChild(scene);
             Slot slot = scene as Slot;
-            slot.SetCustomMinimumSize(new Vector2(77, 81));
-            slot.SetSlotsEmpty();
-            slot.OnSlotEntered += OnItemButtonMouseEntered;
-            slot.OnSlotExited += OnItemButtonMouseExited;
-            slot.OnSlotPressed += OnItemButtonPressed;
+            slot?.SetCustomMinimumSize(new Vector2(77, 81));
+            slot?.SetSlotsEmpty();
+            SubToBaseButtonEvents(slot);
         }
     }
 
@@ -251,9 +288,7 @@ public partial class InventoryUI : Control
             Slot slot = child as Slot;
             if (slot != null)
             {
-                slot.OnSlotEntered -= OnItemButtonMouseEntered;
-                slot.OnSlotExited -= OnItemButtonMouseExited;
-                slot.OnSlotPressed -= OnItemButtonPressed;
+                UnSubToBaseButtonEvents(slot);
             }
 
             child.QueueFree();
@@ -317,28 +352,49 @@ public partial class InventoryUI : Control
         descriptionPanel.Visible = false;
     }
 
-    private void UnequipButtonOnPressed()
+    private void ItemInSlotUnequip(Slot slot)
+    {
+        /*var equipSlotByItem = equipSlotsArray.FirstOrDefault(x => x.equipSlot == item.ItemResource.equipSlot);
+        var backupSlotItem = equipSlotsArray.FirstOrDefault(x => x.equipSlot == item.ItemResource.equipSlot2);
+        if (equipSlotByItem is null) return;
+        Slot backupSlot = new();
+        if (item.ItemResource.equipSlot2 != EquipSlot.Empty && backupSlotItem.CurrentlyEquipped)
+        {
+            switch (equipSlotByItem.equipSlot)
+            {
+                case EquipSlot.MainHand:
+                    backupSlot.equipSlot = EquipSlot.OffHand;
+                    break;
+                case EquipSlot.TrinketOne:
+                    backupSlot.equipSlot = EquipSlot.TrinketTwo;
+                    break;
+                case EquipSlot.RingOne:
+                    backupSlot.equipSlot = EquipSlot.RingTwo;
+                    break;
+            }
+            var finalSlot = equipSlotsArray.FirstOrDefault(x => x.equipSlot == backupSlot.equipSlot);
+            if (finalSlot is null) return;
+            finalSlot.SlotUnequip();
+            return;
+        }
+        equipSlotByItem?.SlotUnequip();*/
+        slot.SlotUnequip();
+    }
+
+    private void UnequipButtonPressed()
     {
         if (selectedSlot == null || selectedSlot.currentItem == null)
             return;
 
-        if (!(selectedSlot.currentItem is EquipableItem currentlyEquipped))
-        {
-            return;
-        }
-
-        PartyManager.Instance.MainPlayer.inventory.AddItem(currentlyEquipped);
-        var equipSlotByItem = equipSlots.FirstOrDefault(x => x.equipSlot == currentlyEquipped.ItemResource.equipSlot);
-        PartyManager.Instance.MainPlayer.EquippedItems[currentlyEquipped.ItemResource.equipSlot] = null;
-        currentlyEquipped.OnUnequip(PartyManager.Instance.MainPlayer);
-        if (equipSlotByItem is null) return;
-        equipSlotByItem.SetSlotsEmpty();
-        equipSlotByItem.OnSlotEntered -= OnItemButtonMouseEntered;
-        equipSlotByItem.OnSlotExited -= OnItemButtonMouseExited;
-        equipSlotByItem.OnSlotPressed -= OnEquippedItemSlotPressed;
-        UpdateShownEquipSlots(PartyManager.Instance.MainPlayer);
-        equipSlotByItem.CurrentlyEquipped = false;
+        PartyManager.Instance.MainPlayer.inventory.UnequipItem(selectedSlot);
         equippedItemPanel.Visible = false;
+    }
+
+// refaktorolni az egészet hogy a slotok kezeljék saját magukat.
+    private void ItemInSlotEquip(EquipableItem itemToEquip)
+    {
+        if (itemToEquip is null) return;
+        SwapEquipSlot(itemToEquip);
     }
 
     private void UseButton_Pressed()
@@ -352,37 +408,15 @@ public partial class InventoryUI : Control
             return;
         }
 
-        EquipSlot slotType = itemToEquip.ItemResource.equipSlot;
-        EquipableItem currentlyEquipped = PartyManager.Instance.MainPlayer.EquippedItems[slotType];
-        PartyManager.Instance.MainPlayer.EquippedItems[slotType] = itemToEquip;
+        var itemToEquipSlot =
+            equipSlotsDict[itemToEquip.ItemResource.equipSlot];
 
-        if (currentlyEquipped != null)
+        if (itemToEquipSlot is { BackUpEquipSlot: EquipSlot.Empty, currentItem: not null } )
         {
-            PartyManager.Instance.MainPlayer.inventory.AddItem(currentlyEquipped);
-            currentlyEquipped.OnUnequip(PartyManager.Instance.MainPlayer);
-            GD.Print($"Swapped out {currentlyEquipped.ItemResource.ItemName} for {itemToEquip.ItemResource.ItemName}");
-            var SlothSlot = equipSlots.FirstOrDefault(x => x.equipSlot == currentlyEquipped.ItemResource.equipSlot);
-            SlothSlot.OnSlotEntered -= OnItemButtonMouseEntered;
-            SlothSlot.OnSlotPressed -= OnEquippedItemSlotPressed;
-            SlothSlot.OnSlotExited -= OnItemButtonMouseExited;
+            PartyManager.Instance.MainPlayer.inventory.UnequipItem(itemToEquipSlot);
         }
-        else
-        {
-            if (slotType is EquipSlot.MainHand)
-            {
-                PartyManager.Instance.MainPlayer.activeWeapon = (BaseWeapon)itemToEquip;
-            }
-
-            GD.Print($"Equipped {itemToEquip.ItemResource.ItemName} to {slotType}");
-        }
-
-        SwapEquipSlot(itemToEquip);
-
-        itemToEquip.OnEquip(PartyManager.Instance.MainPlayer);
-
-        PartyManager.Instance.MainPlayer.inventory.RemoveItem(itemToEquip);
-
-        UpdateShownEquipSlots(PartyManager.Instance.MainPlayer);
+            //maradék unequip refaktort megcsinálni, itt hagytam abba.
+        PartyManager.Instance.MainPlayer.inventory.EquipItem(itemToEquip);
         usagePanel.Visible = false;
     }
 
@@ -407,15 +441,18 @@ public partial class InventoryUI : Control
         if (droppedSlot.equipSlot != EquipSlot.Empty && slotAtPosition.equipSlot is EquipSlot.Empty)
         {
             selectedSlot = droppedSlot;
-            UnequipButtonOnPressed();
+            UnequipButtonPressed();
         }
+        //Item levétel inventoryba ^
 
-        if (droppedSlot.equipSlot is EquipSlot.Empty && slotAtPosition.equipSlot is EquipSlot.Empty && slotAtPosition.currentItem is null)
+        if (droppedSlot.equipSlot is EquipSlot.Empty && slotAtPosition.equipSlot is EquipSlot.Empty &&
+            slotAtPosition.currentItem is null)
         {
             selectedSlot = droppedSlot;
             slotAtPosition.SetItem(selectedSlot.currentItem);
             selectedSlot.SetSlotsEmpty();
         }
+        //Item pakolás inventoryn belül, üres slotra ^
 
         if (droppedSlot.equipSlot is EquipSlot.Empty && slotAtPosition.equipSlot is EquipSlot.Empty &&
             droppedSlot.currentItem != null && slotAtPosition.currentItem != null)
@@ -426,17 +463,19 @@ public partial class InventoryUI : Control
             slotAtPosition.SetItem(tempSlot.currentItem);
             tempSlot.SetSlotsEmpty();
         }
+        //Item pakolás inventoryn belül, olyan slotra ami foglalt ^
 
         if (droppedSlot.equipSlot is EquipSlot.Empty && slotAtPosition.equipSlot != EquipSlot.Empty)
         {
-            if (droppedSlot.currentItem?.ItemResource.equipSlot != slotAtPosition.equipSlot) return;
+            if (droppedSlot.currentItem?.ItemResource.equipSlot != slotAtPosition.equipSlot &&
+                droppedSlot.currentItem?.ItemResource.equipSlot2 != slotAtPosition.equipSlot) return;
+
             selectedSlot = droppedSlot;
-            UseButton_Pressed();    
-            
+            UseButton_Pressed();
         }
-        
+        //Item equip inventoryból közvetlen
     }
-    
+
     void OnInventoryStatsUpgraded(Player player)
     {
         InventoryHeader.PlayerNameText.Text = player.Stats.Name;

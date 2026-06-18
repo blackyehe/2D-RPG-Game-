@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://r56n03qyci04"]
+
+[ext_resource type="Script" uid="uid://dh86k3dxwhqar" path="res://Scripts/Items/Armor/BaseArmor.cs" id="1_1hsgf"]
+[ext_resource type="Resource" uid="uid://d3m5r46nqui64" path="res://Resources/ItemResources/ArmorResources/Helmets/BaseHelmet.tres" id="2_08070"]
+[ext_resource type="Texture2D" uid="uid://m86gaa1vj0vp" path="res://FreeAssets/64x64/fc1832.png" id="3_7vjdm"]
+
+[node name="Helmet" type="Node2D"]
+script = ExtResource("1_1hsgf")
+ItemResource = ExtResource("2_08070")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_7vjdm")

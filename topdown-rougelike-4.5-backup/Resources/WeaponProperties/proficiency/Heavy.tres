@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b4ug3knckes0k"]
+
+[ext_resource type="Texture2D" uid="uid://doouoaxyshgh6" path="res://Free Assets/64x64/fc657.png" id="1_35hvn"]
+[ext_resource type="Script" uid="uid://dnnqbsi4mcd7f" path="res://Scripts/ResourceScripts/DescriptionUIScripts/AttackProperties/AttackProperty.cs" id="2_iexom"]
+
+[resource]
+script = ExtResource("2_iexom")
+Sprite = ExtResource("1_35hvn")
+Text = "Heavy"

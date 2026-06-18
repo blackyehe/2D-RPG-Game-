@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://crwky1eotkthw"]
+
+[ext_resource type="Script" uid="uid://dh86k3dxwhqar" path="res://Scripts/Items/Armor/BaseArmor.cs" id="1_0wu4p"]
+[ext_resource type="Resource" uid="uid://bqmgk5fpox3vg" path="res://Resources/ItemResources/ArmorResources/Rings/BasicRing.tres" id="2_l0wuq"]
+[ext_resource type="Texture2D" uid="uid://k7kiplbc2t70" path="res://FreeAssets/64x64/fc2187.png" id="3_5xl5r"]
+
+[node name="BaseRing" type="Node2D"]
+script = ExtResource("1_0wu4p")
+ItemResource = ExtResource("2_l0wuq")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_5xl5r")

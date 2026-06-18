@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://gub2a4ru0j4l"]
+
+[ext_resource type="Texture2D" uid="uid://yqxa2k0c5587" path="res://Free Assets/2d ouxek dubgeib/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_w6aom"]
+
+[node name="Door" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_w6aom")
+region_enabled = true
+region_rect = Rect2(95.7539, 95.7362, 32.2461, 16.2638)

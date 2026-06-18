@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://cblv3qyf7xnb"]
+
+[ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_pw6v3"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_pw6v3"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_aakit"]
+[ext_resource type="PackedScene" uid="uid://c3db0by7sr7ep" path="res://Scenes/Projectile Scenes/fire_bolt_projectile.tscn" id="3_cjia4"]
+[ext_resource type="Texture2D" uid="uid://ckotscdqr5vu4" path="res://FreeAssets/64x64/fc763.png" id="4_cjia4"]
+[ext_resource type="Script" uid="uid://b8d125gs248p8" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/Firebolt.cs" id="5_uutba"]
+
+[resource]
+script = ExtResource("5_uutba")
+Sprite = ExtResource("4_cjia4")
+HasProjectileOrSecondaryAnimation = true
+Name = "Firebolt"
+Description = "Hurls a scorching bolt at the target."
+SkillDamage = 10.0
+SkillLevel = 1
+SkillDamageType = 3
+ActionType = 1
+Action = ExtResource("1_pw6v3")
+Range = ExtResource("3_aakit")
+ActionArea = ExtResource("2_pw6v3")
+DamageDistribution = Dictionary[int, int]({
+3: 10
+})
+ActionCosts = Dictionary[int, int]({
+0: 1,
+2: 20
+})
+ActionRange = 8.0
+ProjectileScene = ExtResource("3_cjia4")

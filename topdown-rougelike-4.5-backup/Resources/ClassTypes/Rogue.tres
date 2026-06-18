@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bk4mwjclhjhtd"]
+
+[ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_icbym"]
+
+[resource]
+script = ExtResource("1_icbym")
+BaseHP = 12.0
+BaseMP = 0.0
+BaseAttack = 7.0
+BaseDefense = 10.0
+BaseStrength = 10.0
+BaseAgility = 16.0
+BaseCharisma = 10.0
+BaseMagicPower = 0.0
+BaseLuck = 13.0
+BaseSpeed = 14.0
+ActionCount = 0
+XP = 0.0
+Level = 0
+RewardXP = 0.0
+BonusActionCount = 0
+TileMovementCount = 0
+AnimationDuration = 0.0

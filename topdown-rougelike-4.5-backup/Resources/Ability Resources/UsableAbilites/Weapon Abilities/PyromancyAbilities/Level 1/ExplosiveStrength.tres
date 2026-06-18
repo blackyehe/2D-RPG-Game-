@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://dhm8gcqxs07sj"]
+
+[ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_dtecg"]
+[ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_dtecg"]
+[ext_resource type="Resource" uid="uid://be3u7ktqfitee" path="res://Resources/AttackProperties/ActionRange/Range.tres" id="3_2txun"]
+[ext_resource type="Texture2D" uid="uid://17kbl1lemdvp" path="res://FreeAssets/64x64/fc1322.png" id="4_2txun"]
+[ext_resource type="Script" uid="uid://b3swf3yeg18n6" path="res://Scripts/ResourceScripts/Weapon Actions&Skills/Abilities/AbilityScripts/Pyromancy/Level 1/ExplosiveStrength.cs" id="5_xot4q"]
+
+[resource]
+script = ExtResource("5_xot4q")
+Sprite = ExtResource("4_2txun")
+Name = "Explosive Strength"
+Description = "Grants the target an explosive bursts of strength, increasing the targets strength and also providing extra movement speed to the target."
+SkillLevel = 1
+SkillDamageType = 3
+ActionType = 1
+Action = ExtResource("1_dtecg")
+Range = ExtResource("3_2txun")
+ActionArea = ExtResource("2_dtecg")
+DamageDistribution = null
+ActionCosts = Dictionary[int, int]({
+1: 1,
+2: 20
+})
+ActionRange = 8.0
+CoolDown = 1.0

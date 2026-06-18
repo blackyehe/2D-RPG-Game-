@@ -8,11 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="topdown rougelike"
 run/main_scene="res://Scenes/game.tscn"
-config/features=PackedStringArray("4.5", "C#", "Forward Plus")
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
@@ -24,6 +28,15 @@ window/stretch/mode="canvas_items"
 [dotnet]
 
 project/assembly_name="New Game Project"
+
+[file_customization]
+
+folder_colors={
+"res://FreeAssets/": "pink",
+"res://Resources/": "green",
+"res://Scenes/": "yellow",
+"res://Scripts/": "red"
+}
 
 [gui]
 

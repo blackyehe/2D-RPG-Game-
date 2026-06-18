@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cg6x2kqidnf8n"]
+
+[ext_resource type="Texture2D" uid="uid://brk1hu7yg2o8h" path="res://FreeAssets/64x64/fc51.png" id="1_r1hqf"]
+[ext_resource type="Script" uid="uid://btbp2scjsigef" path="res://Scripts/SkillSchools/BaseSkill.cs" id="2_mjjjb"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_mjjjb")
+SkillSchool = 11
+SkillLevel = 1
+SkillName = "Resourceful Brewing"
+Sprite = ExtResource("1_r1hqf")
+Description = "Have an increased chance by [x] to duplicate a potion during creation, and healing potions created by the user have increased effectiveness by [x]."

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d0bddlvs6mix2"]
+
+[ext_resource type="Script" uid="uid://cbjsl80flt75y" path="res://Scripts/Behaviour/RangedBehaviour.cs" id="1_5gu20"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_5gu20")

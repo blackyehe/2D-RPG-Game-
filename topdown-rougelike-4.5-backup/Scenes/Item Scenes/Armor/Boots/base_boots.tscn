@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjy6wqi7xwk3p"]
+
+[ext_resource type="Script" uid="uid://dh86k3dxwhqar" path="res://Scripts/Items/Armor/BaseArmor.cs" id="1_bwt6y"]
+[ext_resource type="Resource" uid="uid://cygxlmd71mbry" path="res://Resources/ItemResources/ArmorResources/Boots/BaseBoots.tres" id="2_1wcv3"]
+[ext_resource type="Texture2D" uid="uid://b1bksiqjxsx3u" path="res://FreeAssets/64x64/fc1856.png" id="3_4er8i"]
+
+[node name="BaseBoots" type="Node2D"]
+script = ExtResource("1_bwt6y")
+ItemResource = ExtResource("2_1wcv3")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_4er8i")

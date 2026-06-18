@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cohkhslh8rdi2"]
+
+[ext_resource type="Script" uid="uid://dh86k3dxwhqar" path="res://Scripts/Items/Armor/BaseArmor.cs" id="1_8a2sb"]
+[ext_resource type="Resource" uid="uid://dpatgx3tpf4vr" path="res://Resources/ItemResources/ArmorResources/Trinkets/BasicTrinket.tres" id="2_fuxt2"]
+[ext_resource type="Texture2D" uid="uid://bth11mnbca2ny" path="res://FreeAssets/64x64/fc2184.png" id="3_qrplm"]
+
+[node name="BasicTrinket" type="Node2D"]
+script = ExtResource("1_8a2sb")
+ItemResource = ExtResource("2_fuxt2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_qrplm")

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dpatgx3tpf4vr"]
+
+[ext_resource type="Texture2D" uid="uid://bth11mnbca2ny" path="res://FreeAssets/64x64/fc2184.png" id="1_pbw2s"]
+[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="2_olype"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_olype")
+WhatKindOfArmor = 2
+ArmorDefense = 10.0
+ItemName = "RandomTrinket"
+Texture = ExtResource("1_pbw2s")
+ItemRarity = 1
+ItemType = 1
+ItemFlavourDescription = "idk random farkas fog"
+ItemPriceText = 300.0
+ItemQuantity = 1
+equipSlot = 12
+equipSlot2 = 13

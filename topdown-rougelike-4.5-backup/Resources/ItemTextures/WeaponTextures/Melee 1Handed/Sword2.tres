@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://1lfglabsogy7"]
+
+[ext_resource type="Texture2D" uid="uid://cvp5kq77ccoji" path="res://Free Assets/SWORDTEMBER202232x32pack.png" id="1_hmikn"]
+
+[resource]
+atlas = ExtResource("1_hmikn")
+region = Rect2(16, 15, 31, 33)
