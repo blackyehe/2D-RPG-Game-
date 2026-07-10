@@ -5,19 +5,37 @@ public partial class Poison : Debuff
 {
 	public override void Apply(CombatActor target)
 	{
-		target.statusEffectList.Add(this);
+		if (!target.statusEffectList.Contains(this))
+		{
+			target.statusEffectList.Add(this);
+			target.debuffList.Add(this);
+		}
+		else
+		{
+			StackCount++;
+		}
+		CurrentDuration = Duration;
 	}
 
-	public override bool StatusEffect(CombatActor target)
+	public override bool TriggerStatusEffect(CombatActor target)
 	{
-		if (Duration <= 0)
-		{
-			target.statusEffectList.Remove(this);
-			return true;
-		}
-
-		target.TakeDamage(DebuffDamage);
-		Duration--;
+		CheckDuration(target, CurrentDuration, StackCount);
+		
+		target.TakeDamage(DebuffDamage + StackCount);
+		CurrentDuration--;
+		StackCount--;
+		
+		CheckDuration(target, CurrentDuration, StackCount);
 		return true;
+	}
+
+	public override bool IsStatusPassiveLegal(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
+	{
+		throw new NotImplementedException();
+	}
+
+	public override DamageWithType StatusPassive(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
+	{
+		throw new NotImplementedException();
 	}
 }

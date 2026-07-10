@@ -5,7 +5,7 @@ public partial class RangedShot : WeaponBaseAction
 {
 	public override void DoAction(CombatActor user, CombatActor target)
 	{
-		double damage = user.GetWeaponDMGBySlotType(EquipSlot.Ranged);
+		float damage = user.GetWeaponDMGBySlotType(EquipSlot.Ranged);
 		target.TakeDamage(damage);
 		user.RemoveCostAfterAction();
 	}

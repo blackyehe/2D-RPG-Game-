@@ -1,11 +1,11 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://byjs2r0kmu7ed"]
+[gd_resource type="Resource" format=3 uid="uid://byjs2r0kmu7ed"]
 
 [ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_bvah2"]
 
 [resource]
 script = ExtResource("1_bvah2")
 CharacterName = "Vampire"
-BaseHP = 20.0
+BaseHP = 50.0
 BaseMP = 10.0
 BaseAttack = 15.0
 BaseDefense = 7.0
@@ -20,10 +20,14 @@ remainingCost = Dictionary[int, int]({
 1: 0,
 2: 0
 })
+Resistances = Dictionary[int, bool]({
+0: false,
+3: false
+})
 ActionCount = 1
 BonusActionCount = 1
 Level = 3
 RewardXP = 200.0
 LightAttackAnimDuration = 1.8
 XPThresholds = Array[float]([])
-StartingSkills = null
+StartingSkills = Array[Resource]([])

@@ -24,7 +24,7 @@ public partial class Player : CombatActor
     public Vector2 direction;
     public PlayerState ActiveState;
     public System.Collections.Generic.Dictionary<State, PlayerState> States = new();
-    public List<BaseSkill> LearnedTalents = new();
+   
     public Array<WeaponBaseAction> selectableAbilities = new();
     public List<BaseSkill> selectableTalents = new();
     public IInteractable _interactable;

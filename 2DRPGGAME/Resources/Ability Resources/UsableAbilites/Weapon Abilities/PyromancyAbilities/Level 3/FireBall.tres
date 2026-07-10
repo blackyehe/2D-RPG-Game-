@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://b71frilbhk686"]
+[gd_resource type="Resource" format=3 uid="uid://b71frilbhk686"]
 
 [ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_irg34"]
 [ext_resource type="Resource" uid="uid://bhhtw3186atl2" path="res://Resources/AttackProperties/AreaOfEffect/AoE.tres" id="2_63a1g"]
@@ -14,16 +14,16 @@ Sprite = ExtResource("5_c1gj4")
 HasProjectileOrSecondaryAnimation = true
 Name = "Fire Ball"
 Description = "Hurls a massive ball of fire at the targeted area, dealing massive amounts of Fire damage to every target in the viscinity."
-SkillDamage = 10.0
+SkillDamage = 1.0
+DamageDistribution = Dictionary[int, int]({
+3: 10
+})
 SkillLevel = 3
 SkillDamageType = 3
 ActionType = 1
 Action = ExtResource("1_irg34")
 Range = ExtResource("4_d0nex")
 ActionArea = ExtResource("2_63a1g")
-DamageDistribution = Dictionary[int, int]({
-3: 10
-})
 ActionCosts = Dictionary[int, int]({
 0: 1,
 2: 30

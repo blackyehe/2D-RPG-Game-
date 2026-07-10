@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://b3fu3uanyww36"]
+[gd_resource type="Resource" format=3 uid="uid://b3fu3uanyww36"]
 
 [ext_resource type="Texture2D" uid="uid://1lfglabsogy7" path="res://Resources/ItemTextures/WeaponTextures/Melee 1Handed/Sword2.tres" id="1_vkegg"]
 [ext_resource type="Resource" uid="uid://c8lerd5y23j6v" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/FightingAbilities/Slash.tres" id="1_xrwtn"]
@@ -13,7 +13,6 @@ resource_local_to_scene = true
 script = ExtResource("2_c1dup")
 WeaponProperties = Array[Resource]([ExtResource("7_nd0di")])
 WhatWeapon = ExtResource("8_rxjny")
-WeaponDamage = 2.0
 DamageDistribution = Dictionary[int, int]({
 0: 7,
 3: 3

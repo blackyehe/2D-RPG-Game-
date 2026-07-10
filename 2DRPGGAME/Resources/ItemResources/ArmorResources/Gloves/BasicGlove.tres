@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://csh66si6tx7qv"]
+[gd_resource type="Resource" format=3 uid="uid://csh66si6tx7qv"]
 
 [ext_resource type="Texture2D" uid="uid://dlk2ixc1aek3l" path="res://FreeAssets/64x64/fc2170.png" id="1_4cdrp"]
+[ext_resource type="Resource" uid="uid://cxmm08ql0wduf" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/AshenGrasp.tres" id="1_rlebs"]
 [ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="2_rlebs"]
 
 [resource]
@@ -12,6 +13,7 @@ ItemName = "Random Glove"
 Texture = ExtResource("1_4cdrp")
 ItemRarity = 2
 ItemType = 1
+GainSkill = ExtResource("1_rlebs")
 ItemFlavourDescription = "Makita pakolós kesztyű"
 ItemPriceText = 300.0
 ItemQuantity = 1

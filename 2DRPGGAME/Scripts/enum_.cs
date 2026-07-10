@@ -111,7 +111,6 @@ public enum DamageTypes
     Slashing,
     Bludgeoning,
     Piercing,
-    
     Fire,
     Ice,
     Water,
@@ -121,6 +120,12 @@ public enum DamageTypes
     Wind,
 }
 
+public enum Resistances
+{
+    HasResistanceTo,
+    NoResistance,
+    WeakTo,
+}
 public enum SkillSchools
 {
     Pyromancer,
@@ -162,6 +167,8 @@ public enum buffTypes
     ElementalInfusion,
     StatBoost,
     DebuffRemoval,
+    Bless,
+    ArcaneOverflow,
     
 }
 public enum characterStats

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://c1vyip2icwo21"]
+[gd_resource type="Resource" format=3 uid="uid://c1vyip2icwo21"]
 
 [ext_resource type="Resource" uid="uid://dh0flf0hj2i3k" path="res://Resources/AttackProperties/ActionType/Melee.tres" id="1_an7uh"]
 [ext_resource type="Resource" uid="uid://2vqfh335my3q" path="res://Resources/AttackProperties/AreaOfEffect/SingleTarget.tres" id="2_an7uh"]

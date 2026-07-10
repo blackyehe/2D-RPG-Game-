@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://df3mogflham81"]
+
+[ext_resource type="Texture2D" uid="uid://c2kijnraooh5p" path="res://FreeAssets/64x64/fc948.png" id="1_63hmp"]
+[ext_resource type="Script" uid="uid://bw74mdwxhidk7" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Buffs/ArcaneOverflow.cs" id="2_ogleu"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_ogleu")
+BestowedBuff = 5
+Sprite = ExtResource("1_63hmp")
+Name = "Arcane Overflow"
+Description = "+ dmg with every magical attack."
+Duration = 3.0

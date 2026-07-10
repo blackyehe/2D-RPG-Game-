@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://5wtj7mvfp71r"]
+
+[ext_resource type="Texture2D" uid="uid://cjtrx5sgt1l0v" path="res://FreeAssets/64x64/fc1046.png" id="1_2ola2"]
+[ext_resource type="Script" uid="uid://bk857kl2teanf" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Buffs/Bless.cs" id="2_phyga"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("2_phyga")
+BestowedBuff = 4
+Sprite = ExtResource("1_2ola2")
+Name = "Bless"
+Description = "-5 dmg from any attack while on"
+Duration = 2.0

@@ -5,20 +5,31 @@ public partial class Rot : Debuff
 {
 	public override void Apply(CombatActor target)
 	{
+		CurrentDuration = Duration;
+		if (target.statusEffectList.Contains(this)) return;
 		target.statusEffectList.Add(this);
+		target.debuffList.Add(this);
 	}
 
-	public override bool StatusEffect(CombatActor target)
+	public override bool TriggerStatusEffect(CombatActor target)
 	{
-        
-		if (Duration <= 0)
-		{
-			target.statusEffectList.Remove(this);
-			return true;
-		}
+		CheckDuration(target, CurrentDuration, StackCount);
 
 		target.TakeDamage(DebuffDamage);
-		Duration--;
+		
+		CurrentDuration--;
+		
+		CheckDuration(target, CurrentDuration, StackCount);
 		return true;
+	}
+
+	public override bool IsStatusPassiveLegal(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
+	{
+		throw new NotImplementedException();
+	}
+
+	public override DamageWithType StatusPassive(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
+	{
+		throw new NotImplementedException();
 	}
 }

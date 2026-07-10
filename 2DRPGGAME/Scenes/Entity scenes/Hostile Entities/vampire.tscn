@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://byr1q18b6btcn"]
+[gd_scene format=3 uid="uid://byr1q18b6btcn"]
 
 [ext_resource type="Script" uid="uid://pcck3as51ubs" path="res://Scripts/Enemies/Enemy.cs" id="1_xf5bl"]
 [ext_resource type="Resource" uid="uid://dtjgi2d0u2d0h" path="res://Resources/Behaviours/MeleeBehav.tres" id="2_ekqqj"]
@@ -356,7 +356,7 @@ radius = 18.2483
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mkuf"]
 size = Vector2(8, 12)
 
-[node name="Vampire" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "animationPlayer", "deadArea2D")]
+[node name="Vampire" type="CharacterBody2D" unique_id=1966138952 node_paths=PackedStringArray("Sprite", "animationPlayer", "deadArea2D")]
 script = ExtResource("1_xf5bl")
 behaviour = ExtResource("2_ekqqj")
 startingInventory = ExtResource("3_ekqqj")
@@ -366,25 +366,23 @@ animationPlayer = NodePath("AnimationPlayer")
 actorStats = ExtResource("3_ltbgj")
 deadArea2D = NodePath("deadArea2D")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_x3sh3")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=95234921]
+libraries/ = SubResource("AnimationLibrary_x3sh3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1713982529]
 texture = ExtResource("4_adrl2")
 offset = Vector2(0, -8)
 flip_h = true
 hframes = 6
 region_rect = Rect2(70, 9, 15, 23)
 
-[node name="deadArea2D" type="Area2D" parent="."]
+[node name="deadArea2D" type="Area2D" parent="." unique_id=1053071470]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D" unique_id=699219477]
 visible = false
 shape = SubResource("CircleShape2D_xf5bl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=978253238]
 position = Vector2(2, -3)
 shape = SubResource("RectangleShape2D_2mkuf")

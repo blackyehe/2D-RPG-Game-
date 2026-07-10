@@ -5,7 +5,7 @@ using System;
 public partial class ArmorResources : ItemResource
 {
     [Export] public ArmorTypes WhatKindOfArmor;
-    [Export] public double ArmorDefense;
+    [Export] public float ArmorDefense;
 
 
     public override Dictionary<DescriptionPanel, BaseDescription> GetDescription()

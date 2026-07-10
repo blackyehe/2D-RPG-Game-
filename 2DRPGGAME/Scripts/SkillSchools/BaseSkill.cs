@@ -72,5 +72,15 @@ public abstract partial class BaseSkill : Resource
         return passives;
     }
 
-    public abstract void PassiveSkillEffect(CombatActor user);
+    public abstract DamageWithType PassiveSkillEffect(CombatActor user, DamageTypes damageType,float damageNumber, CombatActor enemy);
+    public abstract bool PassiveIsLegal(CombatActor user, DamageWithType dmgWithType, CombatActor enemy);
+    
+}
+
+public struct DamageWithType
+{
+    public DamageTypes dmgType;
+    public float dmgNumber;
+    
+    
 }

@@ -10,6 +10,6 @@ public interface IApplicable
 }
 public interface IStatusEffect
 {
-	public bool StatusEffect(CombatActor target);
+	public bool TriggerStatusEffect(CombatActor target);
 }
 

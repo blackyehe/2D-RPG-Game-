@@ -18,6 +18,7 @@ public partial class PlayerStats : Resource
     [Export] public double BaseSpeed;
     
     [Export] public Dictionary<actionCostType, int> remainingCost;
+    [Export] public Dictionary<DamageTypes, Resistances> Resistances;
     [Export] public int ActionCount;
     [Export] public int BonusActionCount;
     [Export] public double XP;

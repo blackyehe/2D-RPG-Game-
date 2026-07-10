@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://desvf6csg601u"]
+[gd_scene format=3 uid="uid://desvf6csg601u"]
 
 [ext_resource type="Texture2D" uid="uid://dyamjc0k66mcd" path="res://FreeAssets/sajat assetek/SlotBGType1.png" id="1_ncnge"]
 [ext_resource type="Script" uid="uid://c7jdwsdgob5qp" path="res://Scripts/Inventory/Slot.cs" id="2_a1x03"]
@@ -13,7 +13,7 @@ base_font = SubResource("SystemFont_a1x03")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0q7qi"]
 
-[node name="InventorySlot" type="TextureRect" node_paths=PackedStringArray("itemIcon", "itemButton", "itemQuantityLabel")]
+[node name="InventorySlot" type="TextureRect" unique_id=1816588102 node_paths=PackedStringArray("itemIcon", "itemButton", "itemQuantityLabel")]
 custom_minimum_size = Vector2(64, 64)
 anchors_preset = -1
 anchor_right = 0.045
@@ -27,7 +27,7 @@ itemButton = NodePath("ItemButton")
 itemQuantityLabel = NodePath("ItemQuantity")
 EquippedSlotTexture = ExtResource("3_tngci")
 
-[node name="Container" type="CenterContainer" parent="."]
+[node name="Container" type="CenterContainer" parent="." unique_id=1088486306]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -42,14 +42,14 @@ offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ItemIcon" type="TextureRect" parent="Container"]
+[node name="ItemIcon" type="TextureRect" parent="Container" unique_id=1118034920]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource("3_ncnge")
 flip_h = true
 
-[node name="ItemQuantity" type="Label" parent="."]
+[node name="ItemQuantity" type="Label" parent="." unique_id=1716914644]
 visible = false
 layout_mode = 0
 offset_left = 10.0
@@ -61,7 +61,7 @@ theme_override_fonts/font = SubResource("FontVariation_v3ifj")
 theme_override_font_sizes/font_size = 15
 text = "1"
 
-[node name="ItemButton" type="Button" parent="."]
+[node name="ItemButton" type="Button" parent="." unique_id=1038183032]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

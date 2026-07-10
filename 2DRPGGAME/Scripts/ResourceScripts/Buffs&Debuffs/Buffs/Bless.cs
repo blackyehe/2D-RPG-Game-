@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Bleed : Debuff
+public partial class Bless : Buff
 {
     public override void Apply(CombatActor target)
     {
@@ -9,29 +9,25 @@ public partial class Bleed : Debuff
         if (target.statusEffectList.Contains(this)) return;
 
         target.statusEffectList.Add(this);
-        target.debuffList.Add(this);
+        target.buffList.Add(this);
     }
 
     public override bool TriggerStatusEffect(CombatActor target)
     {
-        CheckDuration(target, CurrentDuration, StackCount);
-
-        target.TakeDamage(DebuffDamage + StackCount);
-        StackCount--;
-        CurrentDuration--;
-
-        CheckDuration(target, CurrentDuration, StackCount);
-
-        return true;
+        throw new NotImplementedException();
     }
 
     public override bool IsStatusPassiveLegal(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
     {
-        throw new NotImplementedException();
+        return !user.IsTurnActive && user.buffList.Contains(this);
     }
 
     public override DamageWithType StatusPassive(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
     {
-        throw new NotImplementedException();
+        var damage = dmgWithType;
+        damage.dmgNumber = damage.dmgNumber -= 5;
+        damage.dmgType = dmgWithType.dmgType;
+
+        return damage;
     }
 }

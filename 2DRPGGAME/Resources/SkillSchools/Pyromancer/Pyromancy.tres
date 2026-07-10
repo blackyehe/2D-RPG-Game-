@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=6 format=3 uid="uid://diucrxmhf4bjd"]
+[gd_resource type="Resource" format=3 uid="uid://diucrxmhf4bjd"]
 
 [ext_resource type="Texture2D" uid="uid://dk4ct5qq26l38" path="res://FreeAssets/64x64/fc1319.png" id="1_ukr4u"]
 [ext_resource type="Script" uid="uid://cm5djrvs2qq63" path="res://Scripts/Libraries/AbilityLibrary/AbilityArray.cs" id="1_wlk36"]

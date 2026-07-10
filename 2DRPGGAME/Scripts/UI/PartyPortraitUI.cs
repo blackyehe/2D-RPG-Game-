@@ -53,7 +53,7 @@ public partial class PartyPortraitUI : Control
         GetPartyPortraits();
     }
 
-    private void OnDamageTaken(CombatActor actor, double damage)
+    private void OnDamageTaken(CombatActor actor, float damage)
     {
         GetPartyPortraits();
     }

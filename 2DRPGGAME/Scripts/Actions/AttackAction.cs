@@ -71,7 +71,6 @@ public class AttackAction : CombatAction
             }
             case 3:
             {
-                
                 actor.currentAbility.DoAction(actor, _target);
                 (actor.currentAbility.StatusEffect as IApplicable)?.Apply(_target);
                 isActionFinished = true;
@@ -86,7 +85,7 @@ public class AttackAction : CombatAction
     public AttackAction(CombatActor user, CombatActor target, WeaponBaseAction ability)
     {
         _target = target;
-        this.actor = user;
+        actor = user;
         user.currentAbility = ability;
 
         _actionTimer = 0;

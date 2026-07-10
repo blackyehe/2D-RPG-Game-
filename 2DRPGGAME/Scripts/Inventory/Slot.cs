@@ -36,7 +36,7 @@ public partial class Slot : TextureRect
         Texture = null;
         itemQuantityLabel.Text = "";
     }
-
+    
     public void SetItem(Item newItem)
     {
         if (newItem is null) return;
@@ -52,6 +52,12 @@ public partial class Slot : TextureRect
         }
         itemIcon.Visible = true;
     }
+
+    public bool DoesItemTypeMatch(Item item)
+    {
+        return item.ItemResource.equipSlot == equipSlot || item.ItemResource.equipSlot2 == equipSlot;
+    }
+     
 
     public void SetAbility(WeaponBaseAction ability)
     {
@@ -115,7 +121,7 @@ public partial class Slot : TextureRect
         descriptionPanel.Scale = new Vector2(0.75f, 0.75f);
         GD.Print(descriptionPanel.ContainerToResize.Size);
     }
-
+    
     public void SlotUnequip()
     {
         SetSlotsEmpty();
@@ -126,37 +132,6 @@ public partial class Slot : TextureRect
     {
         SetItem(item);
         CurrentlyEquipped = true;
-    }
-
-    public Slot GetExactSlot(EquipableItem itemToEquip)
-    {
-        if (itemToEquip is null) return null;
-        Slot backupSlot = new();
-
-        if (itemToEquip.ItemResource.equipSlot2 != EquipSlot.Empty && CurrentlyEquipped)
-        {
-            switch (equipSlot)
-            {
-                case EquipSlot.MainHand:
-                    backupSlot.equipSlot = EquipSlot.OffHand;
-                    break;
-                case EquipSlot.TrinketOne:
-                    backupSlot.equipSlot = EquipSlot.TrinketTwo;
-                    break;
-                case EquipSlot.RingOne:
-                    backupSlot.equipSlot = EquipSlot.RingTwo;
-                    break;
-            }
-
-            return backupSlot;
-        }
-
-        if (itemToEquip.ItemResource.equipSlot is EquipSlot.MainHand)
-        {
-            PartyManager.Instance.MainPlayer.activeWeapon = (BaseWeapon)itemToEquip;
-        }
-
-        return this;
     }
 
     public override Variant _GetDragData(Vector2 atPosition)

@@ -1,5 +1,6 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://d3m5r46nqui64"]
+[gd_resource type="Resource" format=3 uid="uid://d3m5r46nqui64"]
 
+[ext_resource type="Resource" uid="uid://cblv3qyf7xnb" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/Firebolt.tres" id="1_3qmit"]
 [ext_resource type="Texture2D" uid="uid://tyixjsglqhup" path="res://Resources/ItemTextures/ArmourTextures/Helmets/fc1832.png" id="1_d1riv"]
 [ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="1_f7ibd"]
 
@@ -12,6 +13,7 @@ ItemName = "Köcösg Helmet"
 Texture = ExtResource("1_d1riv")
 ItemRarity = 1
 ItemType = 1
+GainSkill = ExtResource("1_3qmit")
 ItemFlavourDescription = "Nice helmet brooo"
 ItemPriceText = 300.0
 ItemQuantity = 1

@@ -5,20 +5,38 @@ public partial class Burn : Debuff
 {
 	public override void Apply(CombatActor target)
 	{
-		target.statusEffectList.Add(this);
-	}
-
-	public override bool StatusEffect(CombatActor target)
-	{
-        
-		if (Duration <= 0)
+		if (!target.statusEffectList.Contains(this))
 		{
-			target.statusEffectList.Remove(this);
-			return true;
+			target.statusEffectList.Add(this);
+			target.debuffList.Add(this);
+		}
+		else
+		{
+			StackCount++;
 		}
 
-		target.TakeDamage(DebuffDamage);
-		Duration--;
+		CurrentDuration = Duration;
+	}
+
+	public override bool TriggerStatusEffect(CombatActor target)
+	{
+		
+		CheckDuration(target, CurrentDuration, StackCount);
+
+		target.TakeDamage(DebuffDamage + StackCount);
+		CurrentDuration--;
+		
+		CheckDuration(target, CurrentDuration, StackCount);
 		return true;
+	}
+
+	public override bool IsStatusPassiveLegal(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
+	{
+		return false;
+	}
+
+	public override DamageWithType StatusPassive(CombatActor user, DamageWithType dmgWithType, CombatActor enemy)
+	{
+		throw new NotImplementedException();
 	}
 }

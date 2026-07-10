@@ -1,25 +1,52 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot.Collections;
 
 public partial class WeaponResource : ItemResource
 {
     [Export] public Array<AttackProperty> WeaponProperties;
     [Export] public AttackProperty WhatWeapon;
-    [Export] public double WeaponDamage;
-    [Export] public Dictionary<DamageTypes, int> DamageDistribution;
+    public float WeaponDamage;
+    [Export] public Godot.Collections.Dictionary<DamageTypes, int> DamageDistribution;
     [Export] public bool IsMagical;
     [Export] public WeaponType WeaponType;
     [Export] public int attackRange;
     [Export] public Array<WeaponBaseAction> Actions;
 
-    public override Dictionary<DescriptionPanel, BaseDescription> GetDescription()
+    public float GetOverallWeaponDamage()
     {
-        var description = new Dictionary<DescriptionPanel, BaseDescription>();
+        WeaponDamage = 0;
+        var values = DamageDistribution.Values.ToArray();
+        for (int i = 0; i < DamageDistribution.Values.Count; i++)
+        {
+            WeaponDamage += values[i];
+        }
+        return WeaponDamage;
+    }
+
+    public List<DamageWithType> DamageByDistribution()
+    {
+        List<DamageWithType> damageValues = [];
+        for (int i = 0; i < DamageDistribution.Values.Count; i++)
+        {
+            DamageWithType currentValue = new()
+            {
+                dmgType = DamageDistribution.ElementAt(i).Key,
+                dmgNumber = DamageDistribution.ElementAt(i).Value
+            };
+            damageValues.Add(currentValue);
+        }
+        return damageValues;
+    }
+    public override Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> GetDescription()
+    {
+        var description = new Godot.Collections.Dictionary<DescriptionPanel, BaseDescription>();
         description[DescriptionPanel.Name] = new(ItemName);
         description[DescriptionPanel.MainSprite] = new(Texture);
         description[DescriptionPanel.TypeAndRarity] = new($"{ItemRarity} {WhatWeapon.Text}");
-        description[DescriptionPanel.Damage] = new($"{WeaponDamage} Damage");
+        description[DescriptionPanel.Damage] = new($"{GetOverallWeaponDamage()} Damage");
         description[DescriptionPanel.DamageDistribution] = new(DamageDistribution);
         description[DescriptionPanel.ItemEffect] = new(EffectDescription1);
         description[DescriptionPanel.ItemEffectSprite] = new(EffectTexture1);

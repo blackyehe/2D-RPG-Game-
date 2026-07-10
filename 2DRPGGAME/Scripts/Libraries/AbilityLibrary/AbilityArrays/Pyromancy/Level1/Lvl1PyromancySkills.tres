@@ -1,11 +1,11 @@
-[gd_resource type="Resource" load_steps=7 format=3 uid="uid://tuc7qn3cvc0s"]
+[gd_resource type="Resource" format=3 uid="uid://tuc7qn3cvc0s"]
 
 [ext_resource type="Script" uid="uid://cm5djrvs2qq63" path="res://Scripts/Libraries/AbilityLibrary/AbilityArray.cs" id="1_agukp"]
 [ext_resource type="Resource" uid="uid://cblv3qyf7xnb" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/Firebolt.tres" id="2_vt0kk"]
 [ext_resource type="Resource" uid="uid://dhm8gcqxs07sj" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/ExplosiveStrength.tres" id="3_5e16q"]
-[ext_resource type="Resource" uid="uid://cxmm08ql0wduf" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/ShieldOfFlame.tres" id="4_jwp7w"]
+[ext_resource type="Resource" uid="uid://cxmm08ql0wduf" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/AshenGrasp.tres" id="4_jwp7w"]
 [ext_resource type="Resource" uid="uid://c1vyip2icwo21" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/Cauterize.tres" id="5_0dnfg"]
-[ext_resource type="Resource" uid="uid://chlk1uqj31ex7" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/AshenGrasp.tres" id="6_skcsq"]
+[ext_resource type="Resource" uid="uid://chlk1uqj31ex7" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/ShieldOfFlame.tres" id="6_skcsq"]
 
 [resource]
 script = ExtResource("1_agukp")

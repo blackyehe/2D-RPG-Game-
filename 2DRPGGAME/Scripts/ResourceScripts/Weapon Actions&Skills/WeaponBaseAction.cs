@@ -1,6 +1,7 @@
 using Godot;
 using System;
-using Godot.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Godot.NativeInterop;
 
 public abstract partial class WeaponBaseAction : Resource
@@ -11,15 +12,15 @@ public abstract partial class WeaponBaseAction : Resource
     [Export] public bool IsMelee;
     [Export] public string Name;
     [Export] public string Description;
-    [Export] public double SkillDamage;
+    [Export] public float SkillDamage;
+    [Export] public Godot.Collections.Dictionary<DamageTypes, int> DamageDistribution;
     [Export] public int SkillLevel;
     [Export] public DamageTypes SkillDamageType;
     [Export] public ActionTypes ActionType;
     [Export] public AttackProperty Action;
     [Export] public AttackProperty Range;
     [Export] public AttackProperty ActionArea;
-    [Export] public Dictionary<DamageTypes, int> DamageDistribution;
-    [Export] public Dictionary<actionCostType, int> ActionCosts;
+    [Export] public Godot.Collections.Dictionary<actionCostType, int> ActionCosts;
     [Export] public StatusEffectBase StatusEffect;
     [Export] public double ActionRange;
     [Export] public double CoolDown;
@@ -42,29 +43,53 @@ public abstract partial class WeaponBaseAction : Resource
         Projectile.LookAt(target.GlobalPosition);
         return Projectile;
     }
-
-    public Dictionary<DescriptionPanel, BaseDescription> GetDescription(CombatActor user)
+    public float GetOverallSkillDamage()
     {
-        var description = new Dictionary<DescriptionPanel, BaseDescription>();
+        SkillDamage = 0;
+        var values = DamageDistribution.Values.ToArray();
+        for (int i = 0; i < DamageDistribution.Values.Count; i++)
+        {
+            SkillDamage += values[i];
+        }
+        return SkillDamage;
+    }
+    public List<DamageWithType> SkillDamageByDistribution()
+    {
+        List<DamageWithType> damageValues = [];
+        for (int i = 0; i < DamageDistribution.Values.Count; i++)
+        {
+            DamageWithType currentValue = new()
+            {
+                dmgType = DamageDistribution.ElementAt(i).Key,
+                dmgNumber = DamageDistribution.ElementAt(i).Value
+            };
+            damageValues.Add(currentValue);
+        }
+        return damageValues;
+    }
+
+    public Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> GetDescription(CombatActor user)
+    {
+        var description = new Godot.Collections.Dictionary<DescriptionPanel, BaseDescription>();
         description[DescriptionPanel.Name] = new(Name);
         description[DescriptionPanel.MainSprite] = new(Sprite);
         if (IsWeaponAction && IsMelee)
         {
             description[DescriptionPanel.TypeAndRarity] = new($"Weapon Action");
             description[DescriptionPanel.Damage] =
-                new($"{SkillDamage + user.GetWeaponDMGBySlotType(EquipSlot.MainHand)} Damage");
+                new($"{GetOverallSkillDamage() + user.GetWeaponDMGBySlotType(EquipSlot.MainHand)} Damage");
         }
         else if (IsWeaponAction && !IsMelee)
         {
             description[DescriptionPanel.TypeAndRarity] = new($"Weapon Action");
             description[DescriptionPanel.Damage] =
-                new($"{SkillDamage + user.GetWeaponDMGBySlotType(EquipSlot.Ranged)} Damage");
+                new($"{GetOverallSkillDamage() + user.GetWeaponDMGBySlotType(EquipSlot.Ranged)} Damage");
         }
         else if(!IsWeaponAction)
         {
             description[DescriptionPanel.TypeAndRarity] =
                 new($"Level {SkillLevel} {SkillDamageType} {ActionType}");
-            description[DescriptionPanel.Damage] = new($"{SkillDamage.ToString()} Damage");
+            description[DescriptionPanel.Damage] = new($"{GetOverallSkillDamage()} Damage");
         }
         description[DescriptionPanel.DamageDistribution] = new(DamageDistribution);
         description[DescriptionPanel.SkillDescription] = new(Description);
