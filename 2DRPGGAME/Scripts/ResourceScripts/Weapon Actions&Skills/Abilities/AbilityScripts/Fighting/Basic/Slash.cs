@@ -1,11 +1,12 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class Slash : WeaponBaseAction
 {
 	public override void DoAction(CombatActor user, CombatActor target)
 	{
-		var damageValues = user.GetActiveWeaponBySlotType(EquipSlot.MainHand).weaponResource.DamageByDistribution();
+		var damageValues = WeaponAndSkillDistributionForDmgCalc(user, EquipSlot.MainHand);
 
 		user.DamageToDealAfterCalc(damageValues, user, target);
 

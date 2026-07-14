@@ -1,7 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://iscy64bn44gb"]
+[gd_resource type="Resource" format=3 uid="uid://iscy64bn44gb"]
 
 [ext_resource type="Texture2D" uid="uid://nctdch0ypj10" path="res://FreeAssets/64x64/fc2032.png" id="1_kpxs5"]
-[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="2_ij15s"]
+[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/Item Resources/ArmorResources.cs" id="2_ij15s"]
 
 [resource]
 resource_local_to_scene = true

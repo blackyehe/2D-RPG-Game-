@@ -2,11 +2,9 @@ using Godot;
 using System;
 using NewGameProject.Scripts;
 
-public abstract partial class Buff : StatusEffectBase, IApplicable, IStatusEffect
+public abstract partial class Buff : StatusEffectBase, IStatusEffect
 {
     [Export] public buffTypes BestowedBuff;
-    public int StackCount = 1;
-    public abstract void Apply(CombatActor target);
     public abstract bool TriggerStatusEffect(CombatActor target);
     public abstract bool IsStatusPassiveLegal(CombatActor user, DamageWithType dmgWithType, CombatActor enemy);
     public abstract DamageWithType StatusPassive(CombatActor user, DamageWithType dmgWithType, CombatActor enemy);

@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dlk2ixc1aek3l" path="res://FreeAssets/64x64/fc2170.png" id="1_4cdrp"]
 [ext_resource type="Resource" uid="uid://cxmm08ql0wduf" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/AshenGrasp.tres" id="1_rlebs"]
-[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="2_rlebs"]
+[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/Item Resources/ArmorResources.cs" id="2_rlebs"]
 
 [resource]
 resource_local_to_scene = true

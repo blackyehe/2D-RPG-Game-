@@ -2,18 +2,20 @@
 
 [ext_resource type="Resource" uid="uid://cblv3qyf7xnb" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 1/Firebolt.tres" id="1_3qmit"]
 [ext_resource type="Texture2D" uid="uid://tyixjsglqhup" path="res://Resources/ItemTextures/ArmourTextures/Helmets/fc1832.png" id="1_d1riv"]
-[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="1_f7ibd"]
+[ext_resource type="Resource" uid="uid://dhmlypmf45uhn" path="res://Resources/StatusEffects/Passive Features/Item Features/FlameMastery.tres" id="2_yxe3x"]
+[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/Item Resources/ArmorResources.cs" id="3_3qmit"]
 
 [resource]
 resource_local_to_scene = true
-script = ExtResource("1_f7ibd")
+script = ExtResource("3_3qmit")
 WhatKindOfArmor = 1
 ArmorDefense = 10.0
+GainSkill = ExtResource("1_3qmit")
+PassiveFeature1 = ExtResource("2_yxe3x")
 ItemName = "Köcösg Helmet"
 Texture = ExtResource("1_d1riv")
 ItemRarity = 1
 ItemType = 1
-GainSkill = ExtResource("1_3qmit")
 ItemFlavourDescription = "Nice helmet brooo"
 ItemPriceText = 300.0
 ItemQuantity = 1

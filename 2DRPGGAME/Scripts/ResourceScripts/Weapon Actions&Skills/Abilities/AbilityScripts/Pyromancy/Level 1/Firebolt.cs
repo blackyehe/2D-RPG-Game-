@@ -6,7 +6,7 @@ public partial class Firebolt : WeaponBaseAction
 {
     public override void DoAction(CombatActor user, CombatActor target)
     {
-        var damageValues = SkillDamageByDistribution();
+        var damageValues = SkillDamageByDistributionForDmgCalc();
 
         user.DamageToDealAfterCalc(damageValues, user, target);
 

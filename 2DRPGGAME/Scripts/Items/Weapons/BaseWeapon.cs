@@ -13,6 +13,7 @@ public abstract partial class BaseWeapon : EquipableItem
     public override void _Ready()
     {
         area2D.BodyEntered += Area2D_BodyEntered;
+        ItemResource = (EquipableItemResource)ItemResource;
         weaponResource = (WeaponResource)ItemResource;
     }
 
@@ -24,10 +25,12 @@ public abstract partial class BaseWeapon : EquipableItem
             GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
         }
 
-        if (weaponResource.GainSkill != null)
-            weaponResource.Actions.Add(weaponResource.GainSkill);
-
-        itemUser.EquippedItems[ItemResource.equipSlot] = this;
+        if (weaponResource.GainSkill != null) weaponResource.Actions.Add(weaponResource.GainSkill);
+        
+        weaponResource.PassiveFeature1?.GetPassiveFeature(itemUser);
+        weaponResource.PassiveFeature2?.GetPassiveFeature(itemUser);
+        
+        itemUser.EquippedItems[weaponResource.equipSlot] = this;
         itemUser.runtimeAbilities.AddRange(weaponResource.Actions);
         GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities, itemUser as Player);
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
@@ -46,7 +49,10 @@ public abstract partial class BaseWeapon : EquipableItem
             itemUser.runtimeAbilities.Remove(weaponResource.Actions[i]);
             if(weaponResource.Actions[i] == weaponResource.GainSkill) weaponResource.Actions.RemoveAt(i);
         }
-        itemUser.EquippedItems[ItemResource.equipSlot] = null;
+        if(weaponResource.PassiveFeature1 != null) weaponResource.PassiveFeature1.RemovePassiveFeature(itemUser);
+        if(weaponResource.PassiveFeature2 != null) weaponResource.PassiveFeature2.RemovePassiveFeature(itemUser);
+        
+        itemUser.EquippedItems[weaponResource.equipSlot] = null;
         GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
         GlobalEvents.Instance.EmitOnSkillBarChanged(itemUser.runtimeAbilities, itemUser as Player);
     }

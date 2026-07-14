@@ -3,20 +3,6 @@ using System;
 
 public partial class Poison : Debuff
 {
-	public override void Apply(CombatActor target)
-	{
-		if (!target.statusEffectList.Contains(this))
-		{
-			target.statusEffectList.Add(this);
-			target.debuffList.Add(this);
-		}
-		else
-		{
-			StackCount++;
-		}
-		CurrentDuration = Duration;
-	}
-
 	public override bool TriggerStatusEffect(CombatActor target)
 	{
 		CheckDuration(target, CurrentDuration, StackCount);

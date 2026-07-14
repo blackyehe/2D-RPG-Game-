@@ -20,7 +20,7 @@ public partial class FireBall : WeaponBaseAction
 
 		foreach (var enemy in enemyList)
 		{
-			var damageValues = SkillDamageByDistribution();
+			var damageValues = SkillDamageByDistributionForDmgCalc();
 
 			user.DamageToDealAfterCalc(damageValues, user, target);
 

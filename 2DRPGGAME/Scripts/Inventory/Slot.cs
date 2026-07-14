@@ -97,7 +97,7 @@ public partial class Slot : TextureRect
     public void GetDescription(DescriptionPanelUI descriptionPanel, Slot slot, Resource descType, Vector2 globPos,
         float x, float y)
     {
-        Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> currentDescription;
+        Dictionary<DescriptionPanel, BaseDescription> currentDescription;
         switch (descType)
         {
             case BaseSkill:

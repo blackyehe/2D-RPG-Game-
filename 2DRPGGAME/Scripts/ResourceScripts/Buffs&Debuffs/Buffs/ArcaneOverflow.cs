@@ -3,14 +3,6 @@ using System;
 
 public partial class ArcaneOverflow : Buff
 {
-	public override void Apply(CombatActor target)
-	{
-		CurrentDuration = Duration;
-		if (target.statusEffectList.Contains(this)) return;
-
-		target.statusEffectList.Add(this);
-		target.buffList.Add(this);
-	}
 	public override bool TriggerStatusEffect(CombatActor target)
 	{
 		throw new NotImplementedException();

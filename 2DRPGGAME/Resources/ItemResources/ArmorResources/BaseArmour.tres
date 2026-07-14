@@ -1,6 +1,6 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://byeddj51xb02t"]
+[gd_resource type="Resource" format=3 uid="uid://byeddj51xb02t"]
 
-[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/ArmorResources.cs" id="1_j258g"]
+[ext_resource type="Script" uid="uid://c6a7hkqwcq0k5" path="res://Scripts/ResourceScripts/Item Resources/ArmorResources.cs" id="1_j258g"]
 
 [resource]
 resource_local_to_scene = true

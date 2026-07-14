@@ -2,12 +2,10 @@ using Godot;
 using System;
 using NewGameProject.Scripts;
 
-public abstract partial class Debuff : StatusEffectBase, IApplicable, IStatusEffect
+public abstract partial class Debuff : StatusEffectBase, IStatusEffect
 {
     [Export] public debuffTypes InflictedDebuff;
     [Export] public float DebuffDamage;
-    public int StackCount = 1;
-    public abstract void Apply(CombatActor target);
     public abstract bool TriggerStatusEffect(CombatActor target);
     public abstract bool IsStatusPassiveLegal(CombatActor user, DamageWithType dmgWithType, CombatActor enemy);
     public abstract DamageWithType StatusPassive(CombatActor user, DamageWithType dmgWithType, CombatActor enemy);

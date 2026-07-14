@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Godot.Collections;
 using Array = Godot.Collections.Array;
@@ -32,6 +33,7 @@ public abstract partial class CombatActor : CharacterBody2D
     public List<BaseSkill> LearnedTalents = new();
     public List<Debuff> debuffList = new();
     public List<Buff> buffList = new();
+    public List<PassiveFeature> PassiveFeatures = new();
     public event EventHandler OnActionFinished;
     public event EventHandler OnActorDeath;
     public event EventHandler OnProjectileNeeded;
@@ -104,7 +106,7 @@ public abstract partial class CombatActor : CharacterBody2D
     public bool IsEntityInRange(CombatActor enemy)
     {
         if (enemy is null) return false;
-        
+
         var thisPos = TurnManager.Instance.GetTilePosition(GlobalPosition);
         var actorPos = TurnManager.Instance.GetTilePosition(enemy.GlobalPosition);
         if (activeWeapon == null)
@@ -163,6 +165,20 @@ public abstract partial class CombatActor : CharacterBody2D
         return damageInstanceList.Count > 0 ? damageInstanceList : returnList;
     }
 
+    public void CheckItemPassiveFeatures(CombatActor user, DamageWithType dmgWithType,
+        CombatActor target)
+    {
+        if (user.PassiveFeatures.Count <= 0) return;
+
+        foreach (var feature in user.PassiveFeatures)
+        {
+            if (feature.IsFeatureEffectLegal(user, dmgWithType, target))
+            {
+                feature.PassiveFeatureEffect(user, dmgWithType, target);
+            }
+        }
+    }
+
     public List<DamageWithType> CheckStatusEffectPassives(CombatActor user, DamageWithType dmgWithType,
         CombatActor target)
     {
@@ -211,7 +227,8 @@ public abstract partial class CombatActor : CharacterBody2D
         CombatActor target)
     {
         List<DamageWithType> userPassiveDmg = CheckUserPassives(user, dmgWithType, target);
-        GD.Print(userPassiveDmg.ToString(), "damage after user passive check");
+        GD.Print(string.Join(userPassiveDmg.ToString()), "damage after user passive check");
+
         List<DamageWithType> userStatusEffectDmg = [];
         List<DamageWithType> enemyResistDmg = [];
         List<DamageWithType> enemyPassiveDmg = [];
@@ -219,32 +236,56 @@ public abstract partial class CombatActor : CharacterBody2D
 
         for (int i = 0; i < userPassiveDmg.Count; i++)
         {
+            for (int j = 0; j < user.PassiveFeatures.Count; j++)
+            {
+                if (user.PassiveFeatures[j].IsFeatureEffectLegal(user, userPassiveDmg[i], target))
+                {
+                    user.PassiveFeatures[j].PassiveFeatureEffect(user, userPassiveDmg[i], target);
+                    GD.Print(user.Name," Gained the following buffs after attacking: ", user.PassiveFeatures[j].AppliedStatusEffect.Name);
+                }
+            }
+        }
+
+        for (int i = 0; i < userPassiveDmg.Count; i++)
+        {
             var list = CheckStatusEffectPassives(user, userPassiveDmg[i], target);
             userStatusEffectDmg.Add(list[i]);
-            GD.Print(userStatusEffectDmg[i].dmgNumber , userStatusEffectDmg[i].dmgType,
-                "Dmg after user status effect check");
+            GD.Print(userStatusEffectDmg[i].dmgNumber, userStatusEffectDmg[i].dmgType,
+                " Dmg after user status effect check");
+        }
+
+        for (int i = 0; i < userPassiveDmg.Count; i++)
+        {
+            for (int j = 0; j < target.PassiveFeatures.Count; j++)
+            {
+                if (user.PassiveFeatures[j].IsFeatureEffectLegal(target, userPassiveDmg[i], user))
+                {
+                    user.PassiveFeatures[j].PassiveFeatureEffect(target, userPassiveDmg[i], user);
+                    GD.Print( target.Name ," Gained the following buffs after attacking: ", target.PassiveFeatures[j].AppliedStatusEffect.Name);
+                }
+            }
         }
 
         for (int i = 0; i < userStatusEffectDmg.Count; i++)
         {
             var list = CheckEnemyResistance(user, userStatusEffectDmg[i], target);
             enemyResistDmg.Add(list);
-            GD.Print(enemyResistDmg[i].dmgNumber , enemyResistDmg[i].dmgType, "Damage after enemy resistance check");
+            GD.Print(enemyResistDmg[i].dmgNumber, enemyResistDmg[i].dmgType, " Damage after enemy resistance check");
         }
 
         for (int i = 0; i < enemyResistDmg.Count; i++)
         {
             var list = CheckUserPassives(target, enemyResistDmg[i], user);
             enemyPassiveDmg.Add(list[i]);
-            GD.Print(enemyPassiveDmg[i].dmgNumber , enemyPassiveDmg[i].dmgType, "Damage after enemy passive check");
+            GD.Print(enemyPassiveDmg[i].dmgNumber, enemyPassiveDmg[i].dmgType, " Damage after enemy passive check");
         }
 
         for (int i = 0; i < enemyPassiveDmg.Count; i++)
         {
             var list = CheckStatusEffectPassives(target, enemyPassiveDmg[i], user);
             enemyStatusEffectDmg.Add(list[i]);
-            GD.Print(enemyStatusEffectDmg[i].dmgNumber , enemyStatusEffectDmg[i].dmgType,
-                "damage after enemy status effect check");
+            GD.Print(enemyStatusEffectDmg[i].dmgNumber, enemyStatusEffectDmg[i].dmgType,
+                " damage after enemy status effect check");
         }
 
         return enemyStatusEffectDmg;
@@ -252,15 +293,22 @@ public abstract partial class CombatActor : CharacterBody2D
 
     public void DamageToDealAfterCalc(List<DamageWithType> damageValues, CombatActor user, CombatActor target)
     {
-        List<DamageWithType> dmgToDeal = [];
+        
+        List<DamageWithType> damageToDeal = [];
+        
+        List<DamageWithType> overallDmgDealt = [];
 
         for (int i = 0; i < damageValues.Count; i++)
         {
-            var damageToDeal = user.ComprehensiveDamageCalc(user, damageValues[i], target);
-            dmgToDeal.Add(damageToDeal[i]);
+            damageToDeal = user.ComprehensiveDamageCalc(user, damageValues[i], target);
+            overallDmgDealt.Add(damageToDeal[0]);
+            
+            //Hülye fasz vagyok, és annak ellenére hogy több dmg source van a lista sose lesz 1-nél nagyobb, tehát már 
+            //1-es int-nél jön az error, valszeg a methodot kéne újradolgozni, mert lehet felesleges a listát returnolni.
+            // Csak annak a damageToDeal[0] margójára ^
         }
 
-        foreach (var instance in dmgToDeal)
+        foreach (var instance in overallDmgDealt)
         {
             if (instance.dmgNumber >= 1)
             {

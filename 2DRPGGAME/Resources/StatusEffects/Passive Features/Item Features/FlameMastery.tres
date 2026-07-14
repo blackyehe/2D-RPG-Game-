@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://dhmlypmf45uhn"]
+
+[ext_resource type="Resource" uid="uid://df3mogflham81" path="res://Resources/StatusEffects/Buffs/ArcaneOverflow.tres" id="1_7agf4"]
+[ext_resource type="Texture2D" uid="uid://bs7dlyo0vrqay" path="res://FreeAssets/64x64/fc1324.png" id="2_ns550"]
+[ext_resource type="Script" uid="uid://dtjuahk60wuj6" path="res://Scripts/ResourceScripts/Buffs&Debuffs/Passive Features/Item Passives/FlameMastery.cs" id="3_7s1bd"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("3_7s1bd")
+FeatureName = "Flame Mastery"
+PassiveFeatureSprite = ExtResource("2_ns550")
+FeatureDescription = "Improves elemental damage after dealing Fire damage."
+AppliedStatusEffect = ExtResource("1_7agf4")

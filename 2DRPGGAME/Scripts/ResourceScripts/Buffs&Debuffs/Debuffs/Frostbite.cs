@@ -3,14 +3,6 @@ using System;
 
 public partial class Frostbite : Debuff
 {
-	public override void Apply(CombatActor target)
-	{
-		CurrentDuration = Duration;
-		if (target.statusEffectList.Contains(this)) return;
-		target.statusEffectList.Add(this);
-		target.debuffList.Add(this);
-	}
-
 	public override bool TriggerStatusEffect(CombatActor target)
 	{
 		CheckDuration(target, CurrentDuration, StackCount);

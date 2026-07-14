@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot.Collections;
 
-public partial class WeaponResource : ItemResource
+public partial class WeaponResource : EquipableItemResource
 {
     [Export] public Array<AttackProperty> WeaponProperties;
     [Export] public AttackProperty WhatWeapon;
@@ -48,10 +48,10 @@ public partial class WeaponResource : ItemResource
         description[DescriptionPanel.TypeAndRarity] = new($"{ItemRarity} {WhatWeapon.Text}");
         description[DescriptionPanel.Damage] = new($"{GetOverallWeaponDamage()} Damage");
         description[DescriptionPanel.DamageDistribution] = new(DamageDistribution);
-        description[DescriptionPanel.ItemEffect] = new(EffectDescription1);
-        description[DescriptionPanel.ItemEffectSprite] = new(EffectTexture1);
-        description[DescriptionPanel.ItemEffect2] = new(EffectDescription2);
-        description[DescriptionPanel.ItemEffectSprite2] = new(EffectTexture2);
+        description[DescriptionPanel.ItemEffect] = new(PassiveFeature1?.FeatureDescription);
+        description[DescriptionPanel.ItemEffectSprite] = new(PassiveFeature1?.PassiveFeatureSprite);
+        description[DescriptionPanel.ItemEffect2] = new(PassiveFeature2?.FeatureDescription);
+        description[DescriptionPanel.ItemEffectSprite2] = new(PassiveFeature2?.PassiveFeatureSprite);
         if (GainSkill != null && GainSkill.IsWeaponAction)
         {
             description[DescriptionPanel.GainableSkillDescription] = new($"{GainSkill.Name}\nWeapon Action");
