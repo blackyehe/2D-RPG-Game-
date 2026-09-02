@@ -1,0 +1,10 @@
+[gd_resource type="Theme" format=3 uid="uid://cqujgu84mo1wq"]
+
+[ext_resource type="FontFile" uid="uid://cmlcxvyacsj32" path="res://FreeAssets/BoldPixels.otf" id="1_wpgof"]
+
+[resource]
+default_font = ExtResource("1_wpgof")
+default_font_size = 30
+RichTextLabel/colors/default_color = Color(0.62442964, 0.34388652, 0.1031635, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/outline_size = 4

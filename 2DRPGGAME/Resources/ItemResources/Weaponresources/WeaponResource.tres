@@ -22,6 +22,7 @@ Actions = Array[Resource]([ExtResource("1_xrwtn")])
 GainSkill = ExtResource("3_a7eun")
 ItemName = "Baszógép"
 Texture = ExtResource("1_vkegg")
+ItemRarity = 4
 ItemFlavourDescription = "\"Mélyen vagyunk a hegyekbe\" Népszínház angle"
 ItemPriceText = 300.0
 ItemQuantity = 1

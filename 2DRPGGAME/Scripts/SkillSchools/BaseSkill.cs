@@ -16,22 +16,28 @@ public abstract partial class BaseSkill : Resource
     [Export] public Texture2D Sprite;
     [Export] public string Description;
     [Export] public Godot.Collections.Dictionary<int, AbilityArray> Abilities = new();
+    
 
     public Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> GetDescription(CombatActor user)
     {
         var description = new Godot.Collections.Dictionary<DescriptionPanel, BaseDescription>();
-        description[DescriptionPanel.Name] = new(SkillName);
+       
+        description[DescriptionPanel.Name] = new(ColorLibrary.GetStringColor(SkillName,SkillSchool));
         description[DescriptionPanel.MainSprite] = new(Sprite);
         if (IsMain)
         {
             description[DescriptionPanel.TypeAndRarity] =
-                new($"Level {SkillLevel} {SkillSchool} Primary Talent");
+                new($"Level {SkillLevel} " +
+                    $"{ColorLibrary.GetStringColor(SkillSchool.ToString(),SkillSchool)} " +
+                    $"Primary Talent");
         }
         else
         {
-            description[DescriptionPanel.TypeAndRarity] = new($"{SkillSchool} Passive Talent");
+            description[DescriptionPanel.TypeAndRarity] =
+                new($"{ColorLibrary.GetStringColor(SkillSchool.ToString(),SkillSchool)} " +
+                    $"Passive Talent");
         }
-
+        
         description[DescriptionPanel.SkillDescription] = new(Description);
 
         return description;
@@ -81,6 +87,5 @@ public struct DamageWithType
 {
     public DamageTypes dmgType;
     public float dmgNumber;
-    
     
 }

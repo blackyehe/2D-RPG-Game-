@@ -14,6 +14,7 @@ public partial class WeaponResource : EquipableItemResource
     [Export] public WeaponType WeaponType;
     [Export] public int attackRange;
     [Export] public Array<WeaponBaseAction> Actions;
+    public StringWithColor ColoredItemName;
 
     public float GetOverallWeaponDamage()
     {
@@ -43,7 +44,14 @@ public partial class WeaponResource : EquipableItemResource
     public override Godot.Collections.Dictionary<DescriptionPanel, BaseDescription> GetDescription()
     {
         var description = new Godot.Collections.Dictionary<DescriptionPanel, BaseDescription>();
-        description[DescriptionPanel.Name] = new(ItemName);
+
+        var items = new List<(StringsThatNeedColor color, string text)>
+        {
+            new(ColorLibrary.GetColorByRarity(ItemRarity), ItemName),
+        };
+        
+        description[DescriptionPanel.Name] = new(items);
+        
         description[DescriptionPanel.MainSprite] = new(Texture);
         description[DescriptionPanel.TypeAndRarity] = new($"{ItemRarity} {WhatWeapon.Text}");
         description[DescriptionPanel.Damage] = new($"{GetOverallWeaponDamage()} Damage");
@@ -54,14 +62,20 @@ public partial class WeaponResource : EquipableItemResource
         description[DescriptionPanel.ItemEffectSprite2] = new(PassiveFeature2?.PassiveFeatureSprite);
         if (GainSkill != null && GainSkill.IsWeaponAction)
         {
-            description[DescriptionPanel.GainableSkillDescription] = new($"{GainSkill.Name}\nWeapon Action");
+            description[DescriptionPanel.GainableSkillDescription] =
+                new($"{ColorLibrary.GetStringColor(GainSkill.Name,GainSkill.SkillDamageType)}\n" +
+                    $"Weapon Action");
             description[DescriptionPanel.GainableSkillSprite] = new(GainSkill.Sprite);
             
         }
         else if (GainSkill != null && GainSkill.IsWeaponAction == false)
         {
+            
             description[DescriptionPanel.GainableSkillDescription] = 
-                new($"{GainSkill.Name}\nLevel {GainSkill.SkillLevel} {GainSkill.SkillDamageType} {GainSkill.ActionType}");
+                new($"{ColorLibrary.GetStringColor(GainSkill.Name,GainSkill.SkillDamageType)}\n" + 
+                    $"Level {GainSkill.SkillLevel} " +
+                    $"{ColorLibrary.GetStringColor(GainSkill.SkillDamageType.ToString(), GainSkill.SkillDamageType)} " +
+                    $"{GainSkill.ActionType}");
             description[DescriptionPanel.GainableSkillSprite] = new(GainSkill.Sprite);
             
         }

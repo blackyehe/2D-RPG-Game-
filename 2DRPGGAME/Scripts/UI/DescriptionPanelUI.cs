@@ -46,7 +46,7 @@ public partial class DescriptionPanelUI : VBoxContainer
 
         foreach (var valuePair in descriptions)
         {
-            if (valuePair.Value.textureData is null && string.IsNullOrEmpty(valuePair.Value.stringData))
+            if (valuePair.Value.textureData is null && string.IsNullOrEmpty(valuePair.Value.stringData)&& valuePair.Value.stringsWithColor.Count is 0)
                 continue;
 
             var currentControl = DescriptionPanel[valuePair.Key];
@@ -55,15 +55,28 @@ public partial class DescriptionPanelUI : VBoxContainer
 
             if (parent == null) continue;
 
-            if (currentControl is RichTextLabel label)
+            switch (currentControl)
             {
-                label.Text = valuePair.Value.stringData;
-                parent.Visible = true;
-            }
-            else if (currentControl is TextureRect texture)
-            {
-                texture.Texture = valuePair.Value.textureData;
-                parent.Visible = true;
+                case RichTextLabel label:
+                    if (valuePair.Value.stringsWithColor.Count > 0)
+                    {
+                        var colorText = valuePair.Value.stringsWithColor.Select(x =>
+                            ColorRichText(ColorLibrary.colorDict[x.ColorData], x.TextData)
+                        );
+                        label.Text = string.Join("\n", colorText);
+                    }
+                    else
+                    {
+                        label.Text = ColorRichText(Colors.White, valuePair.Value.stringData);
+                    }
+
+                    parent.Visible = true;
+                    break;
+
+                case TextureRect texture:
+                    texture.Texture = valuePair.Value.textureData;
+                    parent.Visible = true;
+                    break;
             }
 
             currentControl.Visible = true;
@@ -76,12 +89,17 @@ public partial class DescriptionPanelUI : VBoxContainer
         }
     }
 
+    public static string ColorRichText(Color color, string text)
+    {
+        return string.Format($"[color=#{color.ToHtml()}]{text}[/color]");
+    }
+
     public void ToggleContainerVisibility(CanvasItem container)
     {
         var containerGetChildren = container.GetChildren().ToList();
-        
+
         List<Container> containerChildren = new();
-        
+
         for (int i = 0; i < containerGetChildren.Count; i++)
         {
             if (!containerChildren.Contains(containerGetChildren[i]))

@@ -118,8 +118,8 @@ public partial class Slot : TextureRect
 
         descriptionPanel.GlobalPosition = globPos + new Vector2(x, y);
         descriptionPanel.AnimationPlayer.Play("Appear");
-        descriptionPanel.Scale = new Vector2(0.75f, 0.75f);
-        GD.Print(descriptionPanel.ContainerToResize.Size);
+        descriptionPanel.Scale = new Vector2(0.9f, 0.9f);
+        //GD.Print(descriptionPanel.ContainerToResize.Size);
     }
     
     public void SlotUnequip()

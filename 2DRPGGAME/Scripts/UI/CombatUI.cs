@@ -90,7 +90,7 @@ public partial class CombatUI : Control
     }
     private void OnDescriptionAppeared(object sender, EventArgs e)
     {
-        GD.Print("After appeared Event" + descriptionPanel.ContainerToResize.Size);
+        //GD.Print("After appeared Event" + descriptionPanel.ContainerToResize.Size);
         var descPanelHeight = descriptionPanel.ContainerToResize.Size.Y;
         var scaledPanelHeight = 0.75*descriptionPanel.ContainerToResize.Size.Y; //A scale miatt kell
         float panelHeight = (float)scaledPanelHeight;

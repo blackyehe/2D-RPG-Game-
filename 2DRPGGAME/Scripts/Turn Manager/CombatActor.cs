@@ -206,20 +206,19 @@ public abstract partial class CombatActor : CharacterBody2D
         debuffDamageInstanceList.Add(dmgWithType);
 
         if (user.buffList.Count < 1) return buffDamageInstanceList.Count > 0 ? buffDamageInstanceList : returnList;
+        
+        for (int i = 0; i < debuffDamageInstanceList.Count; i++)
         {
-            for (int i = 0; i < debuffDamageInstanceList.Count; i++)
+            var debuffDamageInstance = debuffDamageInstanceList[i];
+            for (int j = 0; j < user.buffList.Count; j++)
             {
-                var debuffDamageInstance = debuffDamageInstanceList[i];
-                for (int j = 0; j < user.buffList.Count; j++)
+                if (user.buffList[j].IsStatusPassiveLegal(user, debuffDamageInstance, target))
                 {
-                    if (user.buffList[j].IsStatusPassiveLegal(user, debuffDamageInstance, target))
-                    {
-                        buffDamageInstanceList.Add(user.buffList[j].StatusPassive(user, debuffDamageInstance, target));
-                    }
+                    buffDamageInstanceList.Add(user.buffList[j].StatusPassive(user, debuffDamageInstance, target));
                 }
             }
         }
-
+        
         return buffDamageInstanceList.Count > 0 ? buffDamageInstanceList : returnList;
     }
 
@@ -241,7 +240,8 @@ public abstract partial class CombatActor : CharacterBody2D
                 if (user.PassiveFeatures[j].IsFeatureEffectLegal(user, userPassiveDmg[i], target))
                 {
                     user.PassiveFeatures[j].PassiveFeatureEffect(user, userPassiveDmg[i], target);
-                    GD.Print(user.Name," Gained the following buffs after attacking: ", user.PassiveFeatures[j].AppliedStatusEffect.Name);
+                    GD.Print(user.Name, " Gained the following buffs after attacking: ",
+                        user.PassiveFeatures[j].AppliedStatusEffect.Name);
                 }
             }
         }
@@ -261,7 +261,8 @@ public abstract partial class CombatActor : CharacterBody2D
                 if (user.PassiveFeatures[j].IsFeatureEffectLegal(target, userPassiveDmg[i], user))
                 {
                     user.PassiveFeatures[j].PassiveFeatureEffect(target, userPassiveDmg[i], user);
-                    GD.Print( target.Name ," Gained the following buffs after attacking: ", target.PassiveFeatures[j].AppliedStatusEffect.Name);
+                    GD.Print(target.Name, " Gained the following buffs after attacking: ",
+                        target.PassiveFeatures[j].AppliedStatusEffect.Name);
                 }
             }
         }
@@ -293,16 +294,15 @@ public abstract partial class CombatActor : CharacterBody2D
 
     public void DamageToDealAfterCalc(List<DamageWithType> damageValues, CombatActor user, CombatActor target)
     {
-        
         List<DamageWithType> damageToDeal = [];
-        
+
         List<DamageWithType> overallDmgDealt = [];
 
         for (int i = 0; i < damageValues.Count; i++)
         {
             damageToDeal = user.ComprehensiveDamageCalc(user, damageValues[i], target);
             overallDmgDealt.Add(damageToDeal[0]);
-            
+
             //Hülye fasz vagyok, és annak ellenére hogy több dmg source van a lista sose lesz 1-nél nagyobb, tehát már 
             //1-es int-nél jön az error, valszeg a methodot kéne újradolgozni, mert lehet felesleges a listát returnolni.
             // Csak annak a damageToDeal[0] margójára ^
