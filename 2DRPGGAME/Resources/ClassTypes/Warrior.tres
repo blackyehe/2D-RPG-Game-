@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://phas7pmtbjxw"]
+[gd_resource type="Resource" format=3 uid="uid://phas7pmtbjxw"]
 
 [ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_c8ia0"]
 [ext_resource type="Resource" uid="uid://diucrxmhf4bjd" path="res://Resources/SkillSchools/Pyromancer/Pyromancy.tres" id="1_kksud"]
@@ -20,6 +20,7 @@ remainingCost = Dictionary[int, float]({
 1: 0.0,
 2: 0.0
 })
+Resistances = Dictionary[int, int]({})
 ActionCount = 8
 BonusActionCount = 1
 Level = 1

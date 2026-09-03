@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dknh1cinsquet"]
+[gd_scene format=3 uid="uid://dknh1cinsquet"]
 
 [ext_resource type="Texture2D" uid="uid://cb1n3jjdev51e" path="res://FreeAssets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Soldier/Soldier/Soldier-Attack03.png" id="1_3smsa"]
 [ext_resource type="Script" uid="uid://bqakr7oiso4ao" path="res://Scripts/Player.cs" id="1_8erm5"]
@@ -578,7 +578,7 @@ size = Vector2(25, 20)
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1ek2"]
 radius = 17.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("swingArea2D", "CharacterEffectPlayer", "LevelUp2D", "Sprite", "animationPlayer", "deadArea2D", "collisionShape2D")]
+[node name="Player" type="CharacterBody2D" unique_id=817649847 node_paths=PackedStringArray("swingArea2D", "CharacterEffectPlayer", "LevelUp2D", "Sprite", "animationPlayer", "deadArea2D", "collisionShape2D")]
 position = Vector2(0, -1)
 script = ExtResource("1_8erm5")
 swingArea2D = NodePath("SwingArea")
@@ -592,17 +592,13 @@ actorStats = ExtResource("2_f1ek2")
 deadArea2D = NodePath("deadArea2D")
 collisionShape2D = NodePath("CharacterCollisionShape")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_7dp3o")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1429316821]
+libraries/ = SubResource("AnimationLibrary_7dp3o")
 
-[node name="CharacterEffect" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_igrcy")
-}
+[node name="CharacterEffect" type="AnimationPlayer" parent="." unique_id=903434527]
+libraries/ = SubResource("AnimationLibrary_igrcy")
 
-[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="Sprite2D" parent="." unique_id=152725287]
 position = Vector2(1, -1)
 scale = Vector2(1, 0.952)
 texture = ExtResource("6_pu2lt")
@@ -610,29 +606,29 @@ flip_h = true
 hframes = 8
 region_rect = Rect2(0, 0, 1100, 102)
 
-[node name="LevelUp2D" type="Sprite2D" parent="."]
+[node name="LevelUp2D" type="Sprite2D" parent="." unique_id=1615945468]
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("11_gymyn")
 hframes = 17
 
-[node name="CharacterCollisionShape" type="CollisionShape2D" parent="."]
+[node name="CharacterCollisionShape" type="CollisionShape2D" parent="." unique_id=1472202729]
 position = Vector2(0.25, 2)
 shape = SubResource("RectangleShape2D_6b312")
 
-[node name="SwingArea" type="Area2D" parent="."]
+[node name="SwingArea" type="Area2D" parent="." unique_id=549335749]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwingArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwingArea" unique_id=341115256]
 position = Vector2(8.5, -1)
 shape = SubResource("RectangleShape2D_f1ek2")
 
-[node name="deadArea2D" type="Area2D" parent="."]
+[node name="deadArea2D" type="Area2D" parent="." unique_id=503369998]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D" unique_id=622501768]
 shape = SubResource("CircleShape2D_f1ek2")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=759102856]
 visible = false
 offset_right = 40.0
 offset_bottom = 40.0

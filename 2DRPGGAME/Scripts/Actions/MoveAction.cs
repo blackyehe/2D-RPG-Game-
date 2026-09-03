@@ -76,6 +76,6 @@ public partial class MoveAction : CombatAction
 
         findPath = pathArray;
 
-        GD.Print("findPath array: ", findPath[0]);
+       if (!findPath.IsEmpty()) GD.Print("findPath array: ", findPath[0]);
     }
 }

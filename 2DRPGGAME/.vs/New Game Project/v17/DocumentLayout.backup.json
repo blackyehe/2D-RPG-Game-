@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\PC\\Documents\\GitHub\\2D-RPG-Game-\\2DRPGGAME\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7392396D-199F-4ABA-8187-4C1B07E6719F}|New Game Project.csproj|c:\\users\\pc\\documents\\github\\2d-rpg-game-\\2drpggame\\new game project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7392396D-199F-4ABA-8187-4C1B07E6719F}|New Game Project.csproj|solutionrelative:new game project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "New Game Project",
+              "DocumentMoniker": "C:\\Users\\PC\\Documents\\GitHub\\2D-RPG-Game-\\2DRPGGAME\\New Game Project.csproj",
+              "RelativeDocumentMoniker": "New Game Project.csproj",
+              "ToolTip": "C:\\Users\\PC\\Documents\\GitHub\\2D-RPG-Game-\\2DRPGGAME\\New Game Project.csproj",
+              "RelativeToolTip": "New Game Project.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-05T14:11:35.658Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

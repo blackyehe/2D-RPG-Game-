@@ -22,9 +22,10 @@ public partial class FireBall : WeaponBaseAction
 		{
 			var damageValues = SkillDamageByDistributionForDmgCalc();
 
-			user.DamageToDealAfterCalc(damageValues, user, target);
-
+			user.DamageToDealAfterCalc(damageValues, user, enemy);
+			
 			user.RemoveCostAfterAction();
+			
 		}
 	}
 	

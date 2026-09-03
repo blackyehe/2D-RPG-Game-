@@ -129,7 +129,10 @@ public abstract partial class CombatActor : CharacterBody2D
 
     public DamageWithType CheckEnemyResistance(CombatActor user, DamageWithType dmgWithType, CombatActor target)
     {
-        if (target.actorStats.Resistances[dmgWithType.dmgType] is Resistances.HasResistanceTo)
+        if (target.actorStats.Resistances is null 
+             || !target.actorStats.Resistances.TryGetValue(dmgWithType.dmgType, out var resistance)) return dmgWithType;
+            
+        if (resistance is Resistances.HasResistanceTo)
         {
             dmgWithType.dmgNumber /= 2;
             dmgWithType.dmgNumber = (float)Math.Round(dmgWithType.dmgNumber);
@@ -258,7 +261,7 @@ public abstract partial class CombatActor : CharacterBody2D
         {
             for (int j = 0; j < target.PassiveFeatures.Count; j++)
             {
-                if (user.PassiveFeatures[j].IsFeatureEffectLegal(target, userPassiveDmg[i], user))
+                if ( user.PassiveFeatures.Count > 0 && user.PassiveFeatures[j].IsFeatureEffectLegal(target, userPassiveDmg[i], user))
                 {
                     user.PassiveFeatures[j].PassiveFeatureEffect(target, userPassiveDmg[i], user);
                     GD.Print(target.Name, " Gained the following buffs after attacking: ",
