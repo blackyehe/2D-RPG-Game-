@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c4a5u0daljk3"]
+[gd_scene format=3 uid="uid://c4a5u0daljk3"]
 
 [ext_resource type="Script" uid="uid://pcck3as51ubs" path="res://Scripts/Enemies/Enemy.cs" id="1_2xggu"]
 [ext_resource type="Resource" uid="uid://d0bddlvs6mix2" path="res://Resources/Behaviours/RangedBehav.tres" id="2_mj1c8"]
@@ -380,7 +380,7 @@ radius = 18.2483
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_an82x"]
 size = Vector2(6, 10)
 
-[node name="SkeletonArcher" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "animationPlayer", "deadArea2D")]
+[node name="SkeletonArcher" type="CharacterBody2D" unique_id=1956808070 node_paths=PackedStringArray("Sprite", "animationPlayer", "deadArea2D")]
 script = ExtResource("1_2xggu")
 behaviour = ExtResource("2_mj1c8")
 startingInventory = ExtResource("3_an82x")
@@ -390,26 +390,24 @@ animationPlayer = NodePath("AnimationPlayer")
 actorStats = ExtResource("4_plgaq")
 deadArea2D = NodePath("deadArea2D")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_rop1w")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=871488723]
+libraries/ = SubResource("AnimationLibrary_rop1w")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1724224949]
 texture = ExtResource("5_4kjr3")
 offset = Vector2(4, -8)
 flip_h = true
 hframes = 6
 region_rect = Rect2(70, 9, 15, 23)
 
-[node name="deadArea2D" type="Area2D" parent="."]
+[node name="deadArea2D" type="Area2D" parent="." unique_id=649105285]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D" unique_id=1882988400]
 visible = false
 shape = SubResource("CircleShape2D_bb3no")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=595908207]
 visible = false
 position = Vector2(3, -3)
 shape = SubResource("RectangleShape2D_an82x")

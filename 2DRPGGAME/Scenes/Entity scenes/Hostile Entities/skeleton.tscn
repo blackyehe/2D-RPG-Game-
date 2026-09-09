@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dbjmmmlrgbacb"]
+[gd_scene format=3 uid="uid://dbjmmmlrgbacb"]
 
 [ext_resource type="Script" uid="uid://pcck3as51ubs" path="res://Scripts/Enemies/Enemy.cs" id="1_v8sxu"]
 [ext_resource type="Texture2D" uid="uid://h1lt2c4rd3uj" path="res://FreeAssets/2d ouxek dubgeib/Enemy_Animations_Set/enemies-skeleton1_attack.png" id="2_ks230"]
@@ -370,7 +370,7 @@ radius = 19.2354
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t3lw1"]
 size = Vector2(8, 11)
 
-[node name="Skeleton" type="CharacterBody2D" node_paths=PackedStringArray("swingArea2D", "Sprite", "animationPlayer", "deadArea2D")]
+[node name="Skeleton" type="CharacterBody2D" unique_id=1004875784 node_paths=PackedStringArray("swingArea2D", "Sprite", "animationPlayer", "deadArea2D")]
 script = ExtResource("1_v8sxu")
 swingArea2D = NodePath("SwingArea2D")
 behaviour = ExtResource("2_xbfmp")
@@ -381,35 +381,33 @@ animationPlayer = NodePath("AnimationPlayer")
 actorStats = ExtResource("2_shq1q")
 deadArea2D = NodePath("deadArea2D")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_k4moy")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=998666136]
+libraries/ = SubResource("AnimationLibrary_k4moy")
 
-[node name="AnimatedSprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="Sprite2D" parent="." unique_id=515186479]
 position = Vector2(0, -7)
 texture = ExtResource("2_ks230")
 offset = Vector2(-3, 0)
 flip_h = true
 hframes = 9
 
-[node name="SwingArea2D" type="Area2D" parent="."]
+[node name="SwingArea2D" type="Area2D" parent="." unique_id=29126062]
 visible = false
 position = Vector2(4, -0.5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwingArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwingArea2D" unique_id=904830286]
 visible = false
 position = Vector2(-3, 0)
 shape = SubResource("RectangleShape2D_ks230")
 
-[node name="deadArea2D" type="Area2D" parent="."]
+[node name="deadArea2D" type="Area2D" parent="." unique_id=94341114]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deadArea2D" unique_id=180922236]
 shape = SubResource("CircleShape2D_xbfmp")
 
-[node name="StartingInventory" type="Node" parent="."]
+[node name="StartingInventory" type="Node" parent="." unique_id=1053384993]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2040861431]
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_t3lw1")

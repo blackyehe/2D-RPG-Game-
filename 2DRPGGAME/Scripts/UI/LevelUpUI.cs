@@ -65,7 +65,7 @@ public partial class LevelUpUI : Control
             GainedStatsLabel.Text = current.Stats.GetLvlUpStats();
         }
         SortLearnableTalents(current.selectableTalents,current);
-        SelectedTalentSlot.SetSlotsEmpty();
+        SelectedTalentSlot.SetSlotEmptyWithSlotTexture();
     }
     private void OnPlayerTalentLearned(BaseSkill talent)
     {

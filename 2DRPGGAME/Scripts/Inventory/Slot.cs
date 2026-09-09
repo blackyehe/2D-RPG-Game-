@@ -36,6 +36,15 @@ public partial class Slot : TextureRect
         Texture = null;
         itemQuantityLabel.Text = "";
     }
+
+    public void SetSlotEmptyWithSlotTexture()
+    {
+        itemIcon.Texture = null;
+        currentItem = null;
+        currentTalent = null;
+        currentAbilityAction = null;
+        itemQuantityLabel.Text = "";
+    }
     
     public void SetItem(Item newItem)
     {

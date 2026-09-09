@@ -15,7 +15,7 @@ public partial class WeaponResource : EquipableItemResource
     [Export] public int attackRange;
     [Export] public Array<WeaponBaseAction> Actions;
     public StringWithColor ColoredItemName;
-
+    
     public float GetOverallWeaponDamage()
     {
         WeaponDamage = 0;

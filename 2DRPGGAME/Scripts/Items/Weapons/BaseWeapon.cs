@@ -21,7 +21,7 @@ public abstract partial class BaseWeapon : EquipableItem
     {
         if (weaponResource.WeaponType is WeaponType.Melee)
         {
-            itemUser.Stats.MaxAttack += weaponResource.WeaponDamage;
+            itemUser.Stats.MaxAttack += weaponResource.GetOverallWeaponDamage();
             GlobalEvents.Instance.EmitInventoryStatsUpgraded(itemUser as Player);
         }
 

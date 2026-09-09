@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bknawqnou0rm7"]
+[gd_resource type="Resource" format=3 uid="uid://bknawqnou0rm7"]
 
 [ext_resource type="Script" uid="uid://cm5djrvs2qq63" path="res://Scripts/Libraries/AbilityLibrary/AbilityArray.cs" id="1_stgeb"]
 [ext_resource type="Resource" uid="uid://b71frilbhk686" path="res://Resources/Ability Resources/UsableAbilites/Weapon Abilities/PyromancyAbilities/Level 3/FireBall.tres" id="2_4i8dr"]

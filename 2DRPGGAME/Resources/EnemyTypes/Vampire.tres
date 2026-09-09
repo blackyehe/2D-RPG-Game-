@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_bvah2")
 CharacterName = "Vampire"
-BaseHP = 50.0
+BaseHP = 14.0
 BaseMP = 10.0
 BaseAttack = 15.0
 BaseDefense = 7.0

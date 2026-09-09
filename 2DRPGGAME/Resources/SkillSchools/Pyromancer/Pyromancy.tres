@@ -1,7 +1,6 @@
 [gd_resource type="Resource" format=3 uid="uid://diucrxmhf4bjd"]
 
 [ext_resource type="Texture2D" uid="uid://dk4ct5qq26l38" path="res://FreeAssets/64x64/fc1319.png" id="1_ukr4u"]
-[ext_resource type="Script" uid="uid://cm5djrvs2qq63" path="res://Scripts/Libraries/AbilityLibrary/AbilityArray.cs" id="1_wlk36"]
 [ext_resource type="Resource" uid="uid://tuc7qn3cvc0s" path="res://Scripts/Libraries/AbilityLibrary/AbilityArrays/Pyromancy/Level1/Lvl1PyromancySkills.tres" id="2_3gidu"]
 [ext_resource type="Script" uid="uid://fhc5r85l5vnj" path="res://Scripts/SkillSchools/PyromancyMainSkill/Pyromancy.cs" id="2_ukr4u"]
 [ext_resource type="Resource" uid="uid://bknawqnou0rm7" path="res://Scripts/Libraries/AbilityLibrary/AbilityArrays/Pyromancy/Level2/Lvl2PyromancySkills.tres" id="3_pnl07"]
@@ -12,8 +11,8 @@ IsMain = true
 SkillLevel = 1
 SkillName = "Spark of Pyromancy"
 Sprite = ExtResource("1_ukr4u")
-Description = "{Level} Pyromancy. Gives the hero the ability to cast and choose from the pyromancy school's abilities. "
-Abilities = Dictionary[int, ExtResource("1_wlk36")]({
+Description = "Pyromancy. Gives the hero the ability to cast and choose from the pyromancy school's abilities. "
+Abilities = Dictionary[int, Variant]({
 1: ExtResource("2_3gidu"),
 2: ExtResource("3_pnl07")
 })
