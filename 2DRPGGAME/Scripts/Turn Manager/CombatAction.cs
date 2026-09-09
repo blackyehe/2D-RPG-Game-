@@ -9,5 +9,4 @@ public abstract class CombatAction
 
 	public abstract bool DoAction(double delta);
 	
-	
 }

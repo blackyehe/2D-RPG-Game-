@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgf1qxakie1og"]
+[gd_scene format=3 uid="uid://bgf1qxakie1og"]
 
 [ext_resource type="Texture2D" uid="uid://b1pksbbt83grb" path="res://FreeAssets/tinyRPG_manaSoulGUI_v_1_0/20250425compass-Sheet.png" id="1_2dvei"]
 [ext_resource type="Script" uid="uid://b3yr58o82odfp" path="res://Scripts/UI/CombatUI.cs" id="1_4s1nj"]
@@ -8,7 +8,7 @@
 [sub_resource type="Theme" id="Theme_oemdt"]
 default_font = ExtResource("4_q8na3")
 
-[node name="Combat UI" type="Control" node_paths=PackedStringArray("endTurnButton", "canvasLayer", "spellContainer", "fakeContainer")]
+[node name="Combat UI" type="Control" unique_id=42159709 node_paths=PackedStringArray("endTurnButton", "canvasLayer", "spellContainer", "fakeContainer", "actionText", "bonusActionText", "manaText")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,10 +21,13 @@ canvasLayer = NodePath("CanvasLayer")
 spellContainer = NodePath("CanvasLayer/Panel/SpellBar/GridContainer")
 SlotScene = ExtResource("2_sovtu")
 fakeContainer = NodePath("CanvasLayer/Container")
+actionText = NodePath("CanvasLayer/ActionsPanel/ActionsVBox/Action")
+bonusActionText = NodePath("CanvasLayer/ActionsPanel/ActionsVBox/BonusAction")
+manaText = NodePath("CanvasLayer/ActionsPanel/ActionsVBox/Mana")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=789381491]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1438697780]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -38,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
 
-[node name="SpellBar" type="ScrollContainer" parent="CanvasLayer/Panel"]
+[node name="SpellBar" type="ScrollContainer" parent="CanvasLayer/Panel" unique_id=2083395455]
 custom_minimum_size = Vector2(1207, 169)
 layout_mode = 0
 offset_left = 11.0
@@ -46,14 +49,14 @@ offset_top = 10.0
 offset_right = 1218.0
 offset_bottom = 179.0
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel/SpellBar"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel/SpellBar" unique_id=1493677869]
 custom_minimum_size = Vector2(1207, 169)
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 19
 
-[node name="PassButtonCircle" type="TextureRect" parent="CanvasLayer/Panel"]
+[node name="PassButtonCircle" type="TextureRect" parent="CanvasLayer/Panel" unique_id=1529272675]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.88000005
@@ -63,7 +66,7 @@ offset_left = -0.5201416
 offset_bottom = -0.070007324
 texture = ExtResource("1_2dvei")
 
-[node name="EndTurn" type="Button" parent="CanvasLayer/Panel/PassButtonCircle"]
+[node name="EndTurn" type="Button" parent="CanvasLayer/Panel/PassButtonCircle" unique_id=1883558744]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -79,9 +82,34 @@ grow_vertical = 2
 theme = SubResource("Theme_oemdt")
 text = "End turn, ty"
 
-[node name="Container" type="Container" parent="CanvasLayer"]
+[node name="Container" type="Container" parent="CanvasLayer" unique_id=1834206556]
 offset_left = 198.0
 offset_top = 787.0
 offset_right = 730.47
 offset_bottom = 818.52997
 rotation = -6.2831855
+
+[node name="ActionsPanel" type="Panel" parent="CanvasLayer" unique_id=206908595]
+offset_left = 442.0
+offset_top = 779.0
+offset_right = 1464.0
+offset_bottom = 840.0
+
+[node name="ActionsVBox" type="HBoxContainer" parent="CanvasLayer/ActionsPanel" unique_id=693562578]
+custom_minimum_size = Vector2(1022, 65)
+layout_mode = 0
+offset_right = 1022.0
+offset_bottom = 65.0
+alignment = 1
+
+[node name="Action" type="RichTextLabel" parent="CanvasLayer/ActionsPanel/ActionsVBox" unique_id=463621415]
+custom_minimum_size = Vector2(156, 65)
+layout_mode = 2
+
+[node name="BonusAction" type="RichTextLabel" parent="CanvasLayer/ActionsPanel/ActionsVBox" unique_id=1338545655]
+custom_minimum_size = Vector2(156, 65)
+layout_mode = 2
+
+[node name="Mana" type="RichTextLabel" parent="CanvasLayer/ActionsPanel/ActionsVBox" unique_id=43825716]
+custom_minimum_size = Vector2(156, 65)
+layout_mode = 2

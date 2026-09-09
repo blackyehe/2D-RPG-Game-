@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b3q0n468mole7"]
+[gd_resource type="Resource" format=3 uid="uid://b3q0n468mole7"]
 
 [ext_resource type="Script" uid="uid://d36rhtcy0ofp0" path="res://Scripts/Inventory/StartingInventory.cs" id="1_5kvqu"]
 [ext_resource type="PackedScene" uid="uid://c1bvbyb2yvpdj" path="res://Scenes/Item Scenes/Weapons/Melee/sword_2.tscn" id="1_st62f"]

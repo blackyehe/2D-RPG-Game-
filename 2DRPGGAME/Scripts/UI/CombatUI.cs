@@ -10,6 +10,9 @@ public partial class CombatUI : Control
     [Export] public PackedScene SlotScene;
     [Export] public DescriptionPanelUI descriptionPanel;
     [Export] public Container fakeContainer;
+    [Export] public RichTextLabel actionText;
+    [Export] public RichTextLabel bonusActionText;
+    [Export] public RichTextLabel manaText;
     public override void _Ready()
     {
         canvasLayer.Visible = false;
@@ -18,11 +21,19 @@ public partial class CombatUI : Control
         GlobalEvents.Instance.OnSkillBarChanged += OnSkillBarChanged;
         PartyManager.Instance.OnMainPlayerChanged += OnMainPlayerChanged;
         descriptionPanel.OnDescriptionAppeared += OnDescriptionAppeared;
+        GlobalEvents.Instance.OnActionCountChanged += OnActionCountChanged;
     }
     
     private void OnMainPlayerChanged(Player previous, Player current)
     {
         GlobalEvents.Instance.EmitOnSkillBarChanged(current.runtimeAbilities, current);
+    }
+    
+    private void OnActionCountChanged(int actionCount, int bonusActionCount, int mana)
+    {
+        actionText.Text =  actionCount.ToString();
+        bonusActionText.Text = bonusActionCount.ToString();
+        manaText.Text = mana.ToString();
     }
 
     public void ClearGridContainer()
@@ -63,6 +74,10 @@ public partial class CombatUI : Control
             slot.OnSlotEntered += OnSkillButtonMouseEntered;
             slot.OnSlotExited += OnSkillButtonMouseExited;
             slot.OnSlotPressed += OnSkillButtonPressed;
+
+            actionText.Text = current.actorStats.ActionCount.ToString();
+            bonusActionText.Text = current.actorStats.BonusActionCount.ToString();
+            manaText.Text = "Nincs megcsinálva hülyegyerek";
         }
     }
 

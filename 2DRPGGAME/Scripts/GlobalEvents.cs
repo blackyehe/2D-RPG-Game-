@@ -50,6 +50,11 @@ public partial class GlobalEvents : Node
 	public event SlotDropped OnSlotDropped;
 	public void EmitOnSlotDropped(Slot droppedSlot, Slot slotAtPosition) => OnSlotDropped?.Invoke(droppedSlot, slotAtPosition);
 	
+	public delegate void ActionCountChangedDelegate(int actionCount, int bonusActionCount, int mana);
+	public event ActionCountChangedDelegate OnActionCountChanged;
+	public void EmitOnActionCountChanged(int actionCount, int bonusActionCount, int mana) => OnActionCountChanged?.Invoke(actionCount,bonusActionCount,mana);
+	
+	
 	public override void _Ready()
 	{
 		Instance = this;

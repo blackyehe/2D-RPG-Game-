@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=3 uid="uid://t4ymjo7uq5xd"]
+[gd_resource type="Resource" format=3 uid="uid://t4ymjo7uq5xd"]
 
 [ext_resource type="Resource" uid="uid://dn0834qdy6au8" path="res://Resources/AttackProperties/ActionType/Ranged.tres" id="1_euq3e"]
 [ext_resource type="Texture2D" uid="uid://ryum032h3v2n" path="res://FreeAssets/64x64/fc1257.png" id="1_u1tdo"]
@@ -15,14 +15,13 @@ HasProjectileOrSecondaryAnimation = true
 IsWeaponAction = true
 Name = "Ranged Shot"
 Description = "Performs a basic shot with a ranged weapon"
-SkillDamage = 10.0
+DamageDistribution = Dictionary[int, int]({
+2: 5
+})
 SkillDamageType = 2
 Action = ExtResource("1_euq3e")
 Range = ExtResource("3_37sny")
 ActionArea = ExtResource("2_euq3e")
-DamageDistribution = Dictionary[int, int]({
-2: 0
-})
 ActionCosts = Dictionary[int, int]({
 0: 1
 })

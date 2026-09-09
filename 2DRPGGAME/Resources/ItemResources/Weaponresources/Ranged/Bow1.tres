@@ -11,7 +11,6 @@ resource_local_to_scene = true
 script = ExtResource("2_nbt0d")
 WeaponProperties = Array[Resource]([ExtResource("3_di8gd")])
 WhatWeapon = ExtResource("3_1af16")
-WeaponDamage = 10.0
 DamageDistribution = Dictionary[int, int]({})
 IsMagical = true
 WeaponType = 1

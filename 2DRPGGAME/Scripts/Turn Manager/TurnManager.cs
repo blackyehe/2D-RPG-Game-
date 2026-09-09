@@ -174,6 +174,7 @@ public partial class TurnManager : Node
         enemyCombatants.Remove(actor);
         deadActors.Add(actor);
         actor.ActorDie();
+        actor.AfterDeath();
 
         if (enemyCombatants.Count == 0)
         {

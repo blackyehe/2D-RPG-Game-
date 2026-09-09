@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://de1m76pyke7d2"]
+[gd_resource type="Resource" format=3 uid="uid://de1m76pyke7d2"]
 
 [ext_resource type="Script" uid="uid://b5yotk6a3qkfl" path="res://Scripts/Stats/PlayerStats.cs" id="1_jr3el"]
 
@@ -20,6 +20,7 @@ remainingCost = Dictionary[int, int]({
 1: 0,
 2: 0
 })
+Resistances = null
 ActionCount = 1
 BonusActionCount = 1
 Level = 1

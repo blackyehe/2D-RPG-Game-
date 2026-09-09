@@ -58,7 +58,7 @@ public abstract partial class CombatActor : CharacterBody2D
     public abstract void EnterCombat();
     public abstract void StartTurn();
     public abstract void ExitCombat();
-
+    
     public void SnapToClosestTile(CombatActor actor)
     {
         actor = this;
@@ -96,6 +96,9 @@ public abstract partial class CombatActor : CharacterBody2D
         {
             Stats.remainingCost[actionCost.Key] -= actionCost.Value;
         }
+        GlobalEvents.Instance.EmitOnActionCountChanged(Stats.remainingCost[actionCostType.Action],
+                Stats.remainingCost[actionCostType.BonusAction],
+                Stats.remainingCost[actionCostType.Mana]);
     }
 
     public float GetWeaponDMGBySlotType(EquipSlot slotType)
@@ -353,6 +356,7 @@ public abstract partial class CombatActor : CharacterBody2D
 
         animationPlayer?.AnimationSetNext(AnimTags.Hurt, AnimTags.Idle);
         animationPlayer?.Play(AnimTags.Hurt);
+       
     }
 
     public void ResetActionPoints()
@@ -362,6 +366,11 @@ public abstract partial class CombatActor : CharacterBody2D
         Stats.remainingCost[actionCostType.BonusAction] = Stats.MaxBonusActionCount;
     }
 
+    public void TriggerAnimation()
+    {
+        animationPlayer?.Play(AnimTags.Idle);
+    }
+    
     public void ActorDie()
     {
         switch (this)

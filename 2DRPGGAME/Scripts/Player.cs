@@ -173,6 +173,7 @@ public partial class Player : CombatActor
         SnapToClosestTile(this);
         ResetActionPoints();
         SetActiveWeapon();
+        animationPlayer.Play(AnimTags.Idle);
     }
 
     public override void StartTurn()
