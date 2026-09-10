@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Godot.Collections;
+using RogueSharp;
 using Array = Godot.Collections.Array;
 using Timer = Godot.Timer;
 

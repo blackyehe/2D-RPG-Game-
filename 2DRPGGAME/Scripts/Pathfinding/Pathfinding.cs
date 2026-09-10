@@ -1,5 +1,6 @@
 using Godot;
 using System.Linq;
+using RogueSharp;
 
 public partial class Pathfinding : Node
 {
